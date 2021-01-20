@@ -7,7 +7,7 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin: 2rem;
+  margin: 1rem;
 }
 .gmItem {
   /* background-color: gray; */
@@ -57,7 +57,7 @@ body {
   overflow: auto; /* Enable scroll if needed */
   background-color: rgb(0, 0, 0); /* Fallback color */
   background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
-  backdrop-filter: blur(.3rem);
+  backdrop-filter: blur(0.3rem);
 }
 .close {
   color: #aaa;
@@ -66,9 +66,20 @@ body {
   font-weight: bold;
 }
 .rulesContent {
-    background-color: #fefefe;
-    margin: 15% auto; /* 15% from the top and centered */
-    padding: 20px;
-    border: 1px solid #888;
-    width: 80%; /* Could be more or less, depending on screen size */
-  }
+  background-color: #fefefe;
+  margin: 15% auto; /* 15% from the top and centered */
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%; /* Could be more or less, depending on screen size */
+}
+
+.inputWrapper {
+    display: flex;
+    background-color: khaki;
+    width: 100%;
+    height: 2rem;
+    justify-content: center;
+}
+.inputWrapper > input {
+    width: 15rem;
+}

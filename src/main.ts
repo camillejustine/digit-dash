@@ -1,12 +1,12 @@
 const mainText: string[] = ['', 'Leaderboards', 'How to play', 'Play',];
-const bubbleID: string[] = ['textTL', 'textTR', 'textBL', 'textBR'];
-// let gameState: string[] = ['main',]
+
+// let gameState: string = 'main', 'nameChoice', 'lobby', 'gamePlay', 'highScore'
 
 
 function loadMain(): void {
-
+    // gameState = 'main';
     for (let index = 0; index < mainText.length; index++) {
-        setElementContent(bubbleID[index], mainText[index]);
+        setElementContent(bubbleTextID[index], mainText[index]);
 
         // move to own function??? 
         if (mainText[index] === 'How to play') {
@@ -16,7 +16,7 @@ function loadMain(): void {
                 const modal: HTMLElement | null = document.getElementById("ruleModal");
                 modal.style.display = "block";
 
-                const close: HTMLElement | null = document.getElementsByClassName('close')[0];
+                const close: HTMLElement | null = document.getElementById('close');
                 console.log(close);
 
                 close.onclick = () => {
@@ -30,11 +30,17 @@ function loadMain(): void {
                 }
             }
         }
+        if (mainText[index] === 'Play') {
+            const playBubble: HTMLElement = document.getElementById('bubbleBR');
+            playBubble.onclick = () => {
+                console.log('nameChoice');
+                removeBubbles();
+                nameChoice();
+                //gameState = 'nameChoice';
+            }
+        }
     }
-    const bubbleTL: HTMLElement | null = document.getElementById('bubbleTL');
-    bubbleTL.style.visibility = 'hidden';
-
-
+    document.getElementById(bubbleID[0]).style.visibility = 'hidden';
 }
 
 
