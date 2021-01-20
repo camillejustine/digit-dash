@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Digit Dash</title>
+    <script defer src="./dist/index.js"></script>
+ 
+    <link rel="stylesheet" href="./styles/main.css" />
+
+  </head>
+  <body>
+    <div id="quizzWrapper">
+      <!-- CODE INJECTED BY JS -->
+      <div id="gameMasterWrapper" class="gameMasterWrapper">
+        <div class="speechBubbleWrapper">
+          <div class="gmItem bubble" id="bubbleTL">
+            <img class="bubbleImage" src="./assets/imgs/bubbleTL.png" alt="" />
+            <p id="textTL"></p>
+            <!-- put bubble img here -->
+          </div>
+          <div class="gmItem bubble" id="bubbleTR">
+            <img class="bubbleImage" src="./assets/imgs/bubbleTR.png" alt="" />
+            <p id="textTR"></p>
+            <!-- put bubble img here -->
+          </div>
+        </div>
+
+        <div class="gmItem gameMaster"><!-- put gm img here --></div>
+
+        <div class="speechBubbleWrapper">
+          <div class="gmItem bubble" id="bubbleBL">
+            <img class="bubbleImage" src="./assets/imgs/bubbleBL.png" alt="" />
+            <p id="textBL"></p>
+            <!-- put bubble img here -->
+          </div>
+          <div class="gmItem bubble" id="bubbleBR">
+            <img class="bubbleImage" src="./assets/imgs/bubbleBR.png" alt="" />
+            <p id="textBR"></p>
+            <!-- put bubble img here -->
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="inputField" class="inputWrapper"></div>
+
+    <div id="ruleModal" class="rules">
+      <div class="rulesContent">
+        <span class="close" id="close">&times;</span>
+        <p>THE RULES</p>
+      </div>
+    </div>
+  </body>
+</html>
