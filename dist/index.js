@@ -16,11 +16,9 @@ function removeBubbles() {
         text.innerHTML = '';
     }
 }
-
 function setlocalStorage(name) {
 }
-var mainText = ['', 'Leaderboards', 'How to play', 'Play',];
-
+var mainText = ["", "Leaderboards", "How to play", "Play"];
 // let gameState: string = 'main', 'nameChoice', 'lobby', 'gamePlay', 'highScore'
 function loadMain() {
     // gameState = 'main';
