@@ -61,11 +61,12 @@ function loadMain() {
                     modal.style.opacity = "0";
                     modal.style.visibility = "hidden";
                 };
-                window.onclick = function (event) {
-                    if (event.target === modal) {
-                        modal.style.display = "none";
-                    }
-                };
+                // TO DO: make background close modal on click
+                // window.onclick = (event: Event) => {
+                //   if (event.target === modal) {
+                //     modal.style.visibility = "hidden";
+                //   }
+                // };
             };
         }
         if (mainText[index] === "Play") {
