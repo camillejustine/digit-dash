@@ -28,7 +28,7 @@ body {
 }
 .gameMaster {
   align-self: center;
-  /* background-image: url("../assets/imgs/gamemaster.png"); */
+  background-image: url("../assets/imgs/gamemaster.png");
   background-position: center;
   background-size: contain;
   background-repeat: no-repeat;
@@ -54,40 +54,62 @@ body {
   max-height: 110%;
 }
 
-/* Modal for rules */
+.botContainer {
+  display: flex;
+  justify-content: space-evenly;
 
-#ruleModal {
-  opacity: 0;
-  transition: all 0.35s;
+  background-color: aqua;
+  width: 100%;
+  height: 10rem;
 }
 
+#playerBolt, #playerClank, #playerGadget {
+  height: 10rem;
+  width: 10rem;
+  background-color: blue;
+}
+
+.buttonContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background-color: red;
+  width: 100%;
+  height: 10rem;
+}
+
+#startGame {
+  width: 5rem;
+  height: 3rem;
+  background-color: blue;
+}
+
+/* Modal for rules */
 .rules {
-  visibility: hidden; /* Hidden by default */
+  display: none; /* Hidden by default */
   position: fixed; /* Stay in place */
-  z-index: 10; /* Sit on top */
+  z-index: 1; /* Sit on top */
   left: 10%;
   top: 1rem;
   width: 80%; /* Full width */
   overflow: auto; /* Enable scroll if needed */
   background: linear-gradient(
     180deg,
-    rgba(212, 206, 220, 0.6) 0%,
-    rgba(23, 38, 77, 0.6) 100%
+    rgba(212, 206, 220, 0.95) 0%,
+    rgba(23, 38, 77, 0.95) 100%
   );
-  backdrop-filter: blur(1rem);
-  transition: block 4s;
+  backdrop-filter: blur(2rem);
 
   position: absolute;
   border-radius: 4rem;
 }
-
 .close {
   color: rgb(61, 60, 60);
   float: right;
   font-size: 28px; /* CHANGE VALUES*/
   font-weight: bold;
   cursor: pointer;
-  opacity: 1;
 }
 .rulesContent {
   margin: 15% auto; /* 15% from the top and centered */

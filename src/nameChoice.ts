@@ -17,6 +17,12 @@ function nameChoice(){
                 players.push(player);
                 localStorage.setItem(player.name, JSON.stringify(players));
                 // render new frame
+
+                removeBubbles();
+                nameInput.remove();
+                console.log('HALLÅ');
+                lobby();
+
             }
         })
 }
