@@ -18,6 +18,33 @@ function removeBubbles() {
 }
 function setlocalStorage(name) {
 }
+
+function lobby() {
+    // creates start button
+    var button = document.createElement('button');
+    button.id = 'startGame';
+    document.getElementById('buttonWrapper').appendChild(button);
+    console.log('lobby');
+    // creates bot players
+    var playerBolt = document.createElement('div');
+    playerBolt.id = 'playerBolt';
+    document.getElementById('botWrapper').appendChild(playerBolt);
+    var playerClank = document.createElement('div');
+    playerClank.id = 'playerClank';
+    document.getElementById('botWrapper').appendChild(playerClank);
+    var playerGadget = document.createElement('div');
+    playerGadget.id = 'playerGadget';
+    document.getElementById('botWrapper').appendChild(playerGadget);
+    // start new screen for game start
+    button.onclick = function () {
+        console.log('knapp');
+        button.remove();
+        playerBolt.remove();
+        playerClank.remove();
+        playerGadget.remove();
+    };
+}
+
 var mainText = ["", "Leaderboards", "How to play", "Play"];
 // let gameState: string = 'main', 'nameChoice', 'lobby', 'gamePlay', 'highScore'
 function loadMain() {
@@ -73,6 +100,10 @@ function nameChoice() {
             players.push(player);
             localStorage.setItem(player.name, JSON.stringify(players));
             // render new frame
+            removeBubbles();
+            nameInput.remove();
+            console.log('HALLÅ');
+            lobby();
         }
     });
 }
