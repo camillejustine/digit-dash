@@ -42,6 +42,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+  cursor: pointer;
 }
 .bubble > p {
   text-align: center;
@@ -67,8 +68,7 @@ body {
     rgba(212, 206, 220, 0.95) 0%,
     rgba(23, 38, 77, 0.95) 100%
   );
-  backdrop-filter: blur(0.5rem);
-  opacity: 0.9;
+  backdrop-filter: blur(2rem);
 
   position: absolute;
   border-radius: 4rem;
@@ -78,6 +78,7 @@ body {
   float: right;
   font-size: 28px; /* CHANGE VALUES*/
   font-weight: bold;
+  cursor: pointer;
 }
 .rulesContent {
   margin: 15% auto; /* 15% from the top and centered */
