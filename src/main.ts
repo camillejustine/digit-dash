@@ -24,7 +24,7 @@ function loadMain(): void {
         };
         window.onclick = (event: Event) => {
           if (event.target === modal) {
-            modal.style.display = "none";
+            modal.style.visibility = "hidden";
           }
         };
       };
