@@ -1,3 +1,11 @@
+* {
+  font-family: "Montserrat", sans-serif;
+}
+
+html {
+  height: 100%;
+}
+
 body {
   margin: 0;
   box-sizing: border-box;
@@ -50,36 +58,56 @@ body {
   display: none; /* Hidden by default */
   position: fixed; /* Stay in place */
   z-index: 1; /* Sit on top */
-  left: 0;
-  top: 0;
-  width: 100%; /* Full width */
-  height: 100%; /* Full height */
+  left: 10%;
+  top: 1rem;
+  width: 80%; /* Full width */
   overflow: auto; /* Enable scroll if needed */
-  background-color: rgb(0, 0, 0); /* Fallback color */
-  background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
-  backdrop-filter: blur(0.3rem);
+  background: linear-gradient(
+    180deg,
+    rgba(212, 206, 220, 0.95) 0%,
+    rgba(23, 38, 77, 0.95) 100%
+  );
+  backdrop-filter: blur(0.5rem);
+  opacity: 0.9;
+
+  position: absolute;
+  border-radius: 4rem;
 }
 .close {
-  color: #aaa;
+  color: rgb(61, 60, 60);
   float: right;
   font-size: 28px; /* CHANGE VALUES*/
   font-weight: bold;
 }
 .rulesContent {
-  background-color: #fefefe;
   margin: 15% auto; /* 15% from the top and centered */
   padding: 20px;
-  border: 1px solid #888;
   width: 80%; /* Could be more or less, depending on screen size */
+  color: white;
+}
+
+.ruleTitle {
+  font-size: 1.1rem;
 }
 
 .inputWrapper {
-    display: flex;
-    background-color: khaki;
-    width: 100%;
-    height: 2rem;
-    justify-content: center;
+  display: flex;
+  background-color: khaki;
+  width: 100%;
+  height: 2rem;
+  justify-content: center;
 }
 .inputWrapper > input {
-    width: 15rem;
+  width: 15rem;
+}
+
+/* REUSABLE CLASSES */
+
+.flex {
+  display: flex;
+}
+
+.center {
+  justify-content: center;
+  align-items: center;
 }
