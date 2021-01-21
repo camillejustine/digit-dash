@@ -18,6 +18,7 @@ function removeBubbles() {
 }
 function setlocalStorage(name) {
 }
+
 function lobby() {
     // creates start button
     var button = document.createElement('button');
@@ -43,6 +44,7 @@ function lobby() {
         playerGadget.remove();
     };
 }
+
 var mainText = ["", "Leaderboards", "How to play", "Play"];
 // let gameState: string = 'main', 'nameChoice', 'lobby', 'gamePlay', 'highScore'
 function loadMain() {

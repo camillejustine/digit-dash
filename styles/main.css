@@ -25,15 +25,12 @@ body {
 }
 .speechBubbleWrapper {
   display: flex;
+  height: 5rem;
 }
 .gameMaster {
   align-self: center;
-  background-image: url("../assets/imgs/gamemaster.png");
-  background-position: center;
-  background-size: contain;
-  background-repeat: no-repeat;
-  width: 40vw;
-  height: 20vh;
+  width: 12rem;
+  height: 10rem;
 }
 .bubble {
   background-position: center;
@@ -43,11 +40,13 @@ body {
   justify-content: center;
   align-items: center;
   cursor: pointer;
+  width: 6rem;
 }
 .bubble > p {
   text-align: center;
   vertical-align: middle;
   position: absolute;
+  font-size: 1rem;
 }
 .bubbleImage {
   max-width: 110%;
