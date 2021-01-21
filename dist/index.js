@@ -18,7 +18,6 @@ function removeBubbles() {
 }
 function setlocalStorage(name) {
 }
-
 function lobby() {
     // creates start button
     var button = document.createElement('button');
@@ -44,7 +43,6 @@ function lobby() {
         playerGadget.remove();
     };
 }
-
 var mainText = ["", "Leaderboards", "How to play", "Play"];
 // let gameState: string = 'main', 'nameChoice', 'lobby', 'gamePlay', 'highScore'
 function loadMain() {
@@ -63,11 +61,12 @@ function loadMain() {
                     modal.style.opacity = "0";
                     modal.style.visibility = "hidden";
                 };
-                window.onclick = function (event) {
-                    if (event.target === modal) {
-                        modal.style.display = "none";
-                    }
-                };
+                // TO DO: make background close modal on click
+                // window.onclick = (event: Event) => {
+                //   if (event.target === modal) {
+                //     modal.style.visibility = "hidden";
+                //   }
+                // };
             };
         }
         if (mainText[index] === "Play") {

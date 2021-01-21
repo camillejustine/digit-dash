@@ -22,11 +22,13 @@ function loadMain(): void {
           modal.style.opacity = "0";
           modal.style.visibility = "hidden";
         };
-        window.onclick = (event: Event) => {
-          if (event.target === modal) {
-            modal.style.visibility = "hidden";
-          }
-        };
+
+        // TO DO: make background close modal on click
+        // window.onclick = (event: Event) => {
+        //   if (event.target === modal) {
+        //     modal.style.visibility = "hidden";
+        //   }
+        // };
       };
     }
     if (mainText[index] === "Play") {
