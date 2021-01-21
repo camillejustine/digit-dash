@@ -16,25 +16,27 @@ function removeBubbles() {
         text.innerHTML = '';
     }
 }
+
 function setlocalStorage(name) {
 }
 var mainText = ['', 'Leaderboards', 'How to play', 'Play',];
+
 // let gameState: string = 'main', 'nameChoice', 'lobby', 'gamePlay', 'highScore'
 function loadMain() {
     // gameState = 'main';
     for (var index = 0; index < mainText.length; index++) {
         setElementContent(bubbleTextID[index], mainText[index]);
-        // move to own function??? 
-        if (mainText[index] === 'How to play') {
-            var ruleBubble = document.getElementById('bubbleBL');
+        // move to own function???
+        if (mainText[index] === "How to play") {
+            var ruleBubble = document.getElementById("bubbleBL");
             ruleBubble.onclick = function () {
                 var modal = document.getElementById("ruleModal");
-                modal.style.display = "block";
-                var close = document.getElementById('close');
-                console.log(close);
+                modal.style.opacity = "1";
+                modal.style.visibility = "visible";
+                var close = document.getElementById("close");
                 close.onclick = function () {
-                    console.log('sadasd');
-                    modal.style.display = "none";
+                    modal.style.opacity = "0";
+                    modal.style.visibility = "hidden";
                 };
                 window.onclick = function (event) {
                     if (event.target === modal) {
@@ -43,17 +45,17 @@ function loadMain() {
                 };
             };
         }
-        if (mainText[index] === 'Play') {
-            var playBubble = document.getElementById('bubbleBR');
+        if (mainText[index] === "Play") {
+            var playBubble = document.getElementById("bubbleBR");
             playBubble.onclick = function () {
-                console.log('nameChoice');
+                console.log("nameChoice");
                 removeBubbles();
                 nameChoice();
                 //gameState = 'nameChoice';
             };
         }
     }
-    document.getElementById(bubbleID[0]).style.visibility = 'hidden';
+    document.getElementById(bubbleID[0]).style.visibility = "hidden";
 }
 // Function showTot() { SHOW TEXT /VIDEO  }
 var nameInput = document.createElement('input');
