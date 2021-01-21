@@ -1,4 +1,23 @@
 "use strict";
+window.addEventListener('load', loadMain);
+var players = [];
+var bubbleTextID = ['textTL', 'textTR', 'textBL', 'textBR'];
+var bubbleID = ['bubbleTL', 'bubbleTR', 'bubbleBL', 'bubbleBR'];
+var inputWrapper = document.getElementById('inputField');
+function setElementContent(id, mainText) {
+    var element = document.getElementById(id);
+    element.innerHTML = mainText;
+}
+function removeBubbles() {
+    for (var index = 0; index < bubbleID.length; index++) {
+        var bubbles = document.getElementById(bubbleID[index]);
+        var text = document.getElementById(bubbleTextID[index]);
+        bubbles.style.visibility = 'hidden';
+        text.innerHTML = '';
+    }
+}
+function setlocalStorage(name) {
+}
 function lobby() {
     // creates start button
     var button = document.createElement('button');
@@ -23,25 +42,6 @@ function lobby() {
         playerClank.remove();
         playerGadget.remove();
     };
-}
-window.addEventListener('load', loadMain);
-var players = [];
-var bubbleTextID = ['textTL', 'textTR', 'textBL', 'textBR'];
-var bubbleID = ['bubbleTL', 'bubbleTR', 'bubbleBL', 'bubbleBR'];
-var inputWrapper = document.getElementById('inputField');
-function setElementContent(id, mainText) {
-    var element = document.getElementById(id);
-    element.innerHTML = mainText;
-}
-function removeBubbles() {
-    for (var index = 0; index < bubbleID.length; index++) {
-        var bubbles = document.getElementById(bubbleID[index]);
-        var text = document.getElementById(bubbleTextID[index]);
-        bubbles.style.visibility = 'hidden';
-        text.innerHTML = '';
-    }
-}
-function setlocalStorage(name) {
 }
 var mainText = ["", "Leaderboards", "How to play", "Play"];
 // let gameState: string = 'main', 'nameChoice', 'lobby', 'gamePlay', 'highScore'
