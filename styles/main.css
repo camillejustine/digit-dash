@@ -16,6 +16,7 @@ body {
   justify-content: center;
   align-items: center;
   margin: 1rem;
+  opacity: 0; /* to make it fade in at welcomescreen*/
 }
 .gmItem {
   /* background-color: gray; */
@@ -149,4 +150,9 @@ body {
 .center {
   justify-content: center;
   align-items: center;
+}
+
+.fadeIn {
+  opacity: 1;
+  transition: opacity 3000ms;
 }

@@ -1,4 +1,4 @@
-window.addEventListener('load', loadMain);
+window.addEventListener('load', welcomeScreen);
 
 const players: Array<{name: string, highScore: number, games: number}> = [];
 
@@ -26,4 +26,10 @@ function removeBubbles(){
 
 function setlocalStorage(name: string){
     
+}
+
+function fadeIn(id: string){
+    let element: HTMLElement = document.getElementById(id);
+    element.style.opacity = "0"
+    element.classList.add('fadeIn')
 }

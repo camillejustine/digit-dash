@@ -1,5 +1,5 @@
 "use strict";
-window.addEventListener('load', loadMain);
+window.addEventListener('load', welcomeScreen);
 var players = [];
 var bubbleTextID = ['textTL', 'textTR', 'textBL', 'textBR'];
 var bubbleID = ['bubbleTL', 'bubbleTR', 'bubbleBL', 'bubbleBR'];
@@ -17,6 +17,11 @@ function removeBubbles() {
     }
 }
 function setlocalStorage(name) {
+}
+function fadeIn(id) {
+    var element = document.getElementById(id);
+    element.style.opacity = "0";
+    element.classList.add('fadeIn');
 }
 function lobby() {
     // creates start button
@@ -45,10 +50,25 @@ function lobby() {
 }
 var mainText = ["", "Leaderboards", "How to play", "Play"];
 // let gameState: string = 'main', 'nameChoice', 'lobby', 'gamePlay', 'highScore'
+/**
+ * First edition of the welcomeScreen, feel free to change it as you like!
+ */
+function welcomeScreen() {
+    removeBubbles();
+    document.body.style.background = "linear-gradient(180deg, #FFFFFF 0%, #9B85AD 100%)";
+    document.getElementById("gameMasterWrapper").classList.add('fadeIn');
+    document.getElementById(bubbleID[0]).style.visibility = 'visible';
+    setElementContent(bubbleTextID[0], "Welcome");
+    setTimeout(loadMain, 5000);
+    //TO BE ADDED:
+    //LINEAR GRADIENT BACKGROUND
+    //"DIGIT DASH" TEXT
+}
 function loadMain() {
     // gameState = 'main';
     for (var index = 0; index < mainText.length; index++) {
         setElementContent(bubbleTextID[index], mainText[index]);
+        document.getElementById(bubbleID[index]).style.visibility = 'visible';
         // move to own function???
         if (mainText[index] === "How to play") {
             var ruleBubble = document.getElementById("bubbleBL");
