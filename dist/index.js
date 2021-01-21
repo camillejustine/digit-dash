@@ -1,5 +1,6 @@
 "use strict";
 window.addEventListener('load', loadMain);
+var players = [];
 var bubbleTextID = ['textTL', 'textTR', 'textBL', 'textBR'];
 var bubbleID = ['bubbleTL', 'bubbleTR', 'bubbleBL', 'bubbleBR'];
 var inputWrapper = document.getElementById('inputField');
@@ -15,7 +16,11 @@ function removeBubbles() {
         text.innerHTML = '';
     }
 }
-var mainText = ["", "Leaderboards", "How to play", "Play"];
+
+function setlocalStorage(name) {
+}
+var mainText = ['', 'Leaderboards', 'How to play', 'Play',];
+
 // let gameState: string = 'main', 'nameChoice', 'lobby', 'gamePlay', 'highScore'
 function loadMain() {
     // gameState = 'main';
@@ -53,9 +58,25 @@ function loadMain() {
     document.getElementById(bubbleID[0]).style.visibility = "hidden";
 }
 // Function showTot() { SHOW TEXT /VIDEO  }
+var nameInput = document.createElement('input');
 function nameChoice() {
     showGreeting();
     showNameInput();
+    // init onclick event
+    document.getElementById("userInput")
+        .addEventListener("keydown", function (event) {
+        if (event.key === 'Enter') {
+            var name_1 = nameInput.value;
+            var player = {
+                name: name_1,
+                highScore: 0,
+                games: 0
+            };
+            players.push(player);
+            localStorage.setItem(player.name, JSON.stringify(players));
+            // render new frame
+        }
+    });
 }
 var greeting = 'Hi! What is you name?';
 function showGreeting() {
@@ -63,8 +84,8 @@ function showGreeting() {
     setElementContent(bubbleTextID[0], greeting);
 }
 function showNameInput() {
-    var nameInput = document.createElement('input');
     nameInput.type = 'text';
+    nameInput.id = 'userInput';
     inputWrapper.appendChild(nameInput);
     nameInput.focus();
 }

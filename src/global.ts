@@ -1,5 +1,7 @@
 window.addEventListener('load', loadMain);
 
+const players: Array<{name: string, highScore: number, games: number}> = [];
+
 const bubbleTextID: string[] = ['textTL', 'textTR', 'textBL', 'textBR'];
 const bubbleID: string[] = ['bubbleTL', 'bubbleTR', 'bubbleBL', 'bubbleBR'];
 
@@ -20,4 +22,8 @@ function removeBubbles(){
         text.innerHTML = '';
         
     }
+}
+
+function setlocalStorage(name: string){
+    
 }
