@@ -26,6 +26,7 @@ function lobby() {
         playerBolt.remove();
         playerClank.remove();
         playerGadget.remove();
-    }
+        drawGame();
 
+    }
 }

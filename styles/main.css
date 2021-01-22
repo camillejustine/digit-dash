@@ -11,6 +11,7 @@ body {
   box-sizing: border-box;
   /* background: linear-gradient(180deg, #FFFFFF 0%, #9B85AD 100%) */
 }
+
 .welcomeScreenBG {
   background-color: #ffffff;
   transition: all 3000ms;
@@ -28,6 +29,9 @@ body {
   height: 15vh;
   width: 25vw;
   margin: 0 0.3rem;
+  border-style: none !important;
+  outline: none !important;
+  -webkit-tap-highlight-color: transparent;
 }
 .speechBubbleWrapper {
   display: flex;
@@ -55,6 +59,8 @@ body {
   font-size: 0.6rem;
   font-weight: 600;
   max-width: 4rem;
+  color: #ffffff;
+  letter-spacing: 0.5px;
 }
 
 #textTL {
@@ -88,21 +94,21 @@ body {
 #playerBolt,
 #playerClank,
 #playerGadget {
-  height: 10rem;
-  width: 10rem;
+  height: 7rem;
+  width: 7rem;
   /* background-color: blue; */
   object-fit: cover;
 }
 #playerBolt {
-  background-image: url('../assets/imgs/playerBolt.png');
+  background-image: url("../assets/imgs/playerBolt.png");
   background-size: cover;
 }
 #playerClank {
-  background-image: url('../assets/imgs/playerClank.png');
+  background-image: url("../assets/imgs/playerClank.png");
   background-size: cover;
 }
 #playerGadget {
-  background-image: url('../assets/imgs/playerGadget.png');
+  background-image: url("../assets/imgs/playerGadget.png");
   background-size: cover;
 }
 .buttonContainer {
@@ -174,6 +180,7 @@ body {
   width: 15rem;
 }
 
+
 /* highscore module */
 
 #highScoresModal {
@@ -237,6 +244,21 @@ body {
   width: 30rem;
   border-bottom: .1rem solid grey;
 }
+#userInput {
+  border: 3px solid #dcd6e4;
+  box-sizing: border-box;
+  border-radius: 270px;
+  color: #8d809e;
+  text-align: center;
+}
+
+#userInput:focus {
+  border: 3px solid #dcd6e4;
+  box-sizing: border-box;
+  border-radius: 270px;
+  outline: none;
+
+}
 
 /* REUSABLE CLASSES */
 
@@ -250,7 +272,7 @@ body {
 }
 
 /* Possibly reusable */
-.fadeIn { 
+.fadeIn {
   opacity: 1;
   transition: opacity 3000ms;
 }
