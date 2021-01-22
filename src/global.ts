@@ -20,7 +20,6 @@ function removeBubbles(){
 
         bubbles.style.visibility = 'hidden';
         text.innerHTML = '';
-        
     }
 }
 
@@ -33,3 +32,5 @@ function fadeIn(id: string){
     element.style.opacity = "0"
     element.classList.add('fadeIn')
 }
+
+//Global function to show bubbles? 

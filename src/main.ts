@@ -7,18 +7,19 @@ const mainText: string[] = ["", "Leaderboards", "How to play", "Play"];
  */
 function welcomeScreen(){
   removeBubbles();
-  document.body.style.background = "linear-gradient(180deg, #FFFFFF 0%, #9B85AD 100%)"
+  document.body.style.background = "linear-gradient(180deg, #FFFFFF 0%, #9B85AD 100%)" //This needs some adjustment
   document.getElementById("gameMasterWrapper").classList.add('fadeIn')
   document.getElementById(bubbleID[0]).style.visibility = 'visible';
   setElementContent(bubbleTextID[0], "Welcome");
-  setTimeout(loadMain, 5000)
-
-  //TO BE ADDED:
-  //LINEAR GRADIENT BACKGROUND
-  //"DIGIT DASH" TEXT
+  setTimeout(loadMain, 4000)
+  
+  //To be added:
+  //"DIGIT DASH" text
+  // More smooth transition to next screen(?)s
 }
 
 function loadMain(): void {
+  document.body.style.background = "white";
   // gameState = 'main';
   for (let index = 0; index < mainText.length; index++) {
     setElementContent(bubbleTextID[index], mainText[index]);

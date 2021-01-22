@@ -23,10 +23,12 @@ function fadeIn(id) {
     element.style.opacity = "0";
     element.classList.add('fadeIn');
 }
+//Global function to show bubbles? 
 function lobby() {
     // creates start button
     var button = document.createElement('button');
     button.id = 'startGame';
+    button.textContent = 'Play';
     document.getElementById('buttonWrapper').appendChild(button);
     console.log('lobby');
     // creates bot players
@@ -55,16 +57,17 @@ var mainText = ["", "Leaderboards", "How to play", "Play"];
  */
 function welcomeScreen() {
     removeBubbles();
-    document.body.style.background = "linear-gradient(180deg, #FFFFFF 0%, #9B85AD 100%)";
+    document.body.style.background = "linear-gradient(180deg, #FFFFFF 0%, #9B85AD 100%)"; //This needs some adjustment
     document.getElementById("gameMasterWrapper").classList.add('fadeIn');
     document.getElementById(bubbleID[0]).style.visibility = 'visible';
     setElementContent(bubbleTextID[0], "Welcome");
-    setTimeout(loadMain, 5000);
-    //TO BE ADDED:
-    //LINEAR GRADIENT BACKGROUND
-    //"DIGIT DASH" TEXT
+    setTimeout(loadMain, 4000);
+    //To be added:
+    //"DIGIT DASH" text
+    // More smooth transition to next screen(?)s
 }
 function loadMain() {
+    document.body.style.background = "white";
     // gameState = 'main';
     for (var index = 0; index < mainText.length; index++) {
         setElementContent(bubbleTextID[index], mainText[index]);

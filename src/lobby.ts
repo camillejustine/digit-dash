@@ -2,6 +2,7 @@ function lobby() {
     // creates start button
        let button = document.createElement('button');
        button.id = 'startGame';
+       button.textContent = 'Play';
       document.getElementById('buttonWrapper').appendChild(button);
         console.log('lobby');
     
