@@ -94,8 +94,8 @@ body {
 #playerBolt,
 #playerClank,
 #playerGadget {
-  height: 10rem;
-  width: 10rem;
+  height: 7rem;
+  width: 7rem;
   /* background-color: blue; */
   object-fit: cover;
 }
