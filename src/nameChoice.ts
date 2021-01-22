@@ -36,6 +36,7 @@ function showNameInput() {
   nameInput.autocomplete = "off";
   inputWrapper.appendChild(nameInput);
   nameInput.focus();
+  
 }
 
 // Test

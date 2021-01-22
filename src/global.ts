@@ -33,4 +33,3 @@ function fadeIn(id: string){
     element.classList.add('fadeIn')
 }
 
-//Global function to show bubbles? 
