@@ -23,7 +23,7 @@ function removeBubbles(){
     }
 }
 
-function setlocalStorage(name: string){
+function setlocalStorage(name: string) {
     
 }
 

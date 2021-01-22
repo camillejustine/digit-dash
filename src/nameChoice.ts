@@ -30,9 +30,11 @@ function showGreeting() {
   document.getElementById(bubbleID[0]).style.visibility = "visible";
   setElementContent(bubbleTextID[0], greeting);
 }
+
 function showNameInput() {
   nameInput.type = "text";
   nameInput.id = "userInput";
   inputWrapper.appendChild(nameInput);
   nameInput.focus();
+  
 }

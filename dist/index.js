@@ -50,7 +50,7 @@ function lobby() {
         playerGadget.remove();
     };
 }
-var mainText = ["", "Leaderboards", "How to play", "Play"];
+var mainText = ["", "High Scores", "How to play", "Play"];
 // let gameState: string = 'main', 'nameChoice', 'lobby', 'gamePlay', 'highScore'
 /**
  * First edition of the welcomeScreen, feel free to change it as you like!
@@ -101,42 +101,61 @@ function loadMain() {
                 //gameState = 'nameChoice';
             };
         }
+        // high score module 
+        if (mainText[index] === "High Scores") {
+            var highScoresBubble = document.getElementById("bubbleTR");
+            highScoresBubble.onclick = function () {
+                var modal = document.getElementById("highScoresModal");
+                modal.style.opacity = "1";
+                modal.style.visibility = "visible";
+                console.log('High score');
+                var playerHighScores1 = document.createElement('div');
+                playerHighScores1.id = 'playerHighScores1';
+                document.getElementById('playerHighScores').appendChild(playerHighScores1);
+                var closeHighScores = document.getElementById("closeHighScores");
+                closeHighScores.onclick = function () {
+                    modal.style.opacity = "0";
+                    modal.style.visibility = "hidden";
+                    console.log('close High Score');
+                };
+            };
+        }
+        document.getElementById(bubbleID[0]).style.visibility = "hidden";
     }
-    document.getElementById(bubbleID[0]).style.visibility = "hidden";
+    // Function showTot() { SHOW TEXT /VIDEO  }
 }
 // Function showTot() { SHOW TEXT /VIDEO  }
-var nameInput = document.createElement('input');
+var nameInput = document.createElement("input");
 function nameChoice() {
     showGreeting();
     showNameInput();
     // init onclick event
-    document.getElementById("userInput")
-        .addEventListener("keydown", function (event) {
-        if (event.key === 'Enter') {
+    document.getElementById("userInput").addEventListener("keydown", function (event) {
+        if (event.key === "Enter") {
             var name_1 = nameInput.value;
             var player = {
                 name: name_1,
                 highScore: 0,
-                games: 0
+                games: 0,
             };
             players.push(player);
             localStorage.setItem(player.name, JSON.stringify(players));
             // render new frame
             removeBubbles();
             nameInput.remove();
-            console.log('HALLÅ');
+            console.log("HALLÅ");
             lobby();
         }
     });
 }
-var greeting = 'Hi! What is you name?';
+var greeting = "Hi! What's your name?";
 function showGreeting() {
-    document.getElementById(bubbleID[0]).style.visibility = 'visible';
+    document.getElementById(bubbleID[0]).style.visibility = "visible";
     setElementContent(bubbleTextID[0], greeting);
 }
 function showNameInput() {
-    nameInput.type = 'text';
-    nameInput.id = 'userInput';
+    nameInput.type = "text";
+    nameInput.id = "userInput";
     inputWrapper.appendChild(nameInput);
     nameInput.focus();
 }
