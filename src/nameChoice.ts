@@ -33,6 +33,7 @@ function showGreeting() {
 function showNameInput() {
   nameInput.type = "text";
   nameInput.id = "userInput";
+  nameInput.autocomplete = "off";
   inputWrapper.appendChild(nameInput);
   nameInput.focus();
 }
