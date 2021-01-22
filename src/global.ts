@@ -34,3 +34,8 @@ function fadeIn(id: string){
 }
 
 //Global function to show bubbles? 
+
+function showBubble(bubbleID: string, bubbleTextID: string, bubbleText: string){
+    document.getElementById(bubbleID).style.visibility = "visible";
+    setElementContent(bubbleTextID, bubbleText);
+}

@@ -24,13 +24,42 @@ function fadeIn(id) {
     element.classList.add('fadeIn');
 }
 //Global function to show bubbles? 
+function showBubble(bubbleID, bubbleTextID, bubbleText) {
+    document.getElementById(bubbleID).style.visibility = "visible";
+    setElementContent(bubbleTextID, bubbleText);
+}
+var bubbleText = ['Choose your opponents!', 'You can pick up to 2.', 'Bot info'];
+var botInfo = [
+    {
+        name: 'Bolt',
+        text: 'Bolt is a friendly, but slow, machine.',
+        winRate: '8%',
+        img: '../assets/imgs/playerBolt.png'
+    },
+    {
+        name: 'Clank',
+        text: 'Clank is a happy and pretty fast machine.',
+        winRate: '4%',
+        img: '../assets/imgs/playerClank.png'
+    },
+    {
+        name: 'Gadget',
+        text: 'Gadget is a cranky, although very fast, machine.',
+        winRate: '22%',
+        img: '../assets/imgs/playerGadget.png'
+    }
+];
 function lobby() {
+    // display bubbles
+    showBubble(bubbleID[0], bubbleTextID[0], bubbleText[0]);
+    showBubble(bubbleID[3], bubbleTextID[3], bubbleText[1]);
+    showBubble(bubbleID[2], bubbleTextID[2], bubbleText[2]);
     // creates start button
     var button = document.createElement('button');
     button.id = 'startGame';
     button.textContent = 'Play';
     document.getElementById('buttonWrapper').appendChild(button);
-    console.log('lobby');
+    // Bot info
     // creates bot players
     var playerBolt = document.createElement('div');
     playerBolt.id = 'playerBolt';
@@ -41,6 +70,20 @@ function lobby() {
     var playerGadget = document.createElement('div');
     playerGadget.id = 'playerGadget';
     document.getElementById('botWrapper').appendChild(playerGadget);
+    // bot info click event
+    var botInfoButton = document.getElementById(bubbleID[2]);
+    botInfoButton.onclick = function () {
+        console.log("BOT INFO CLICK!");
+        var botModal = document.getElementById("botModal");
+        console.log(botModal);
+        botModal.style.opacity = "1";
+        botModal.style.visibility = "visible";
+        var botClose = document.getElementById("botClose");
+        botClose.onclick = function () {
+            botModal.style.opacity = "0";
+            botModal.style.visibility = "hidden";
+        };
+    };
     // start new screen for game start
     button.onclick = function () {
         console.log('knapp');
@@ -105,39 +148,40 @@ function loadMain() {
     document.getElementById(bubbleID[0]).style.visibility = "hidden";
 }
 // Function showTot() { SHOW TEXT /VIDEO  }
-var nameInput = document.createElement('input');
+var nameInput = document.createElement("input");
 function nameChoice() {
     showGreeting();
     showNameInput();
     // init onclick event
-    document.getElementById("userInput")
-        .addEventListener("keydown", function (event) {
-        if (event.key === 'Enter') {
+    document.getElementById("userInput").addEventListener("keydown", function (event) {
+        if (event.key === "Enter") {
             var name_1 = nameInput.value;
             var player = {
                 name: name_1,
                 highScore: 0,
-                games: 0
+                games: 0,
             };
             players.push(player);
             localStorage.setItem(player.name, JSON.stringify(players));
             // render new frame
             removeBubbles();
             nameInput.remove();
-            console.log('HALLÅ');
+            console.log("HALLÅ");
             lobby();
         }
     });
 }
-var greeting = 'Hi! What is you name?';
+var greeting = "Hi! What's your name?";
 function showGreeting() {
-    document.getElementById(bubbleID[0]).style.visibility = 'visible';
+    document.getElementById(bubbleID[0]).style.visibility = "visible";
     setElementContent(bubbleTextID[0], greeting);
 }
 function showNameInput() {
-    nameInput.type = 'text';
-    nameInput.id = 'userInput';
+    nameInput.type = "text";
+    nameInput.id = "userInput";
+    nameInput.autocomplete = "off";
     inputWrapper.appendChild(nameInput);
     nameInput.focus();
 }
+// Test
 //# sourceMappingURL=index.js.map
