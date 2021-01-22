@@ -35,4 +35,5 @@ function showNameInput() {
   nameInput.id = "userInput";
   inputWrapper.appendChild(nameInput);
   nameInput.focus();
+  
 }
