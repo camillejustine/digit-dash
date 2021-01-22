@@ -178,6 +178,22 @@ body {
   width: 15rem;
 }
 
+#userInput {
+  border: 3px solid #dcd6e4;
+  box-sizing: border-box;
+  border-radius: 270px;
+  color: #8d809e;
+
+  text-align: center;
+}
+
+#userInput:focus {
+  border: 3px solid #dcd6e4;
+  box-sizing: border-box;
+  border-radius: 270px;
+  outline: none;
+}
+
 /* REUSABLE CLASSES */
 
 .flex {
