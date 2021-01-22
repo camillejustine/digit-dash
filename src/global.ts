@@ -33,3 +33,9 @@ function fadeIn(id: string){
     element.classList.add('fadeIn')
 }
 
+
+function showBubble(bubbleID: string, bubbleTextID: string, bubbleText: string){
+    document.getElementById(bubbleID).style.visibility = "visible";
+    setElementContent(bubbleTextID, bubbleText);
+}
+

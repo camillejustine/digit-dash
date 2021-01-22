@@ -8,6 +8,7 @@
     <script defer src="./dist/index.js"></script>
 
     <link rel="stylesheet" href="./styles/main.css" />
+    <link rel="stylesheet" href="./styles/lobby.css" />
     <link rel="preconnect" href="https://fonts.gstatic.com" />
     <link
       href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap"
@@ -80,6 +81,37 @@
         </p>
       </div>
     </div>
+    <div id="botModal" class="botModal">
+      <div class="botModalContent">
+        <span class="botClose" id="botClose">&times;</span>
+        <div class="botListWrapper">
+          <div class="botWrapper">
+            <img src="./assets/imgs/playerGadget.png" />
+            <div class="botTextWrapper">
+              <h2>Gadget</h2>
+              <p>Do ou think you can beat an AI?</p>
+              <p>Gadget has a win rate of 60%.</p>
+            </div>
+          </div>
+          <div class="botWrapper">
+            <img src="./assets/imgs/playerClank.png" />
+            <div class="botTextWrapper">
+              <h2>Clank</h2>
+              <p>Clank is old-school and his A.I was used in the moon landing.</p>
+              <p>Clank has a win rate of 50%.</p>
+            </div>
+          </div>
+          <div class="botWrapper">
+            <img src="./assets/imgs/playerBolt.png" />
+            <div class="botTextWrapper">
+              <h2>Bolt</h2>
+              <p>Bolt is all looks and no brains.</p>
+              <p>Bolt has a win rate of 8%.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
 
     <div id="highScoresModal" class="highScores">
       <div class="highScoresContent">
@@ -91,6 +123,7 @@
         <!-- javascript -->
       </div>
     </div>
+
 
   </body>
 </html>
