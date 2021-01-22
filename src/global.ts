@@ -23,7 +23,7 @@ function removeBubbles(){
     }
 }
 
-function setlocalStorage(name: string){
+function setlocalStorage(name: string) {
     
 }
 
@@ -33,9 +33,9 @@ function fadeIn(id: string){
     element.classList.add('fadeIn')
 }
 
-//Global function to show bubbles? 
 
 function showBubble(bubbleID: string, bubbleTextID: string, bubbleText: string){
     document.getElementById(bubbleID).style.visibility = "visible";
     setElementContent(bubbleTextID, bubbleText);
 }
+

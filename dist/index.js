@@ -93,7 +93,7 @@ function lobby() {
         playerGadget.remove();
     };
 }
-var mainText = ["", "Leaderboards", "How to play", "Play"];
+var mainText = ["", "High Scores", "How to play", "Play"];
 // let gameState: string = 'main', 'nameChoice', 'lobby', 'gamePlay', 'highScore'
 /**
  * First edition of the welcomeScreen, feel free to change it as you like!
@@ -144,8 +144,28 @@ function loadMain() {
                 //gameState = 'nameChoice';
             };
         }
+        // high score module 
+        if (mainText[index] === "High Scores") {
+            var highScoresBubble = document.getElementById("bubbleTR");
+            highScoresBubble.onclick = function () {
+                var modal = document.getElementById("highScoresModal");
+                modal.style.opacity = "1";
+                modal.style.visibility = "visible";
+                console.log('High score');
+                var playerHighScores1 = document.createElement('div');
+                playerHighScores1.id = 'playerHighScores1';
+                document.getElementById('playerHighScores').appendChild(playerHighScores1);
+                var closeHighScores = document.getElementById("closeHighScores");
+                closeHighScores.onclick = function () {
+                    modal.style.opacity = "0";
+                    modal.style.visibility = "hidden";
+                    console.log('close High Score');
+                };
+            };
+        }
+        document.getElementById(bubbleID[0]).style.visibility = "hidden";
     }
-    document.getElementById(bubbleID[0]).style.visibility = "hidden";
+    // Function showTot() { SHOW TEXT /VIDEO  }
 }
 // Function showTot() { SHOW TEXT /VIDEO  }
 var nameInput = document.createElement("input");
@@ -180,6 +200,7 @@ function showNameInput() {
     nameInput.type = "text";
     nameInput.id = "userInput";
     nameInput.autocomplete = "off";
+
     inputWrapper.appendChild(nameInput);
     nameInput.focus();
 }
