@@ -37,3 +37,5 @@ function showNameInput() {
   inputWrapper.appendChild(nameInput);
   nameInput.focus();
 }
+
+// Test
