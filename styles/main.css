@@ -46,8 +46,27 @@ body {
   text-align: center;
   vertical-align: middle;
   position: absolute;
-  font-size: 1rem;
+  font-size: 0.6rem;
+  font-weight: 600;
+  max-width: 4rem;
 }
+
+#textTL {
+  padding-bottom: 0.3rem;
+}
+
+#textTR {
+  padding-bottom: 0.3rem;
+}
+
+#textBL {
+  padding-top: 0.3rem;
+}
+
+#textBR {
+  padding-top: 0.3rem;
+}
+
 .bubbleImage {
   max-width: 110%;
   max-height: 110%;
