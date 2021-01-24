@@ -1,24 +1,23 @@
 const nameInput: HTMLInputElement = document.createElement("input");
+let lastPlayer: string;
 
 function nameChoice() {
+  getLastPlayersName();
   showGreeting();
   showNameInput();
   // init onclick event
   document.getElementById("userInput").addEventListener("keydown", (event) => {
     if (event.key === "Enter") {
       let name: string = nameInput.value;
-      const player = {
+      let player = {
         name: name,
         highScore: 0,
         games: 0,
       };
-      players.push(player);
-      localStorage.setItem(player.name, JSON.stringify(players));
+      addToLS(player);
       // render new frame
-
       removeBubbles();
       nameInput.remove();
-      console.log("HALLÅ");
       lobby();
     }
   });
@@ -37,7 +36,29 @@ function showNameInput() {
   nameInput.autocomplete = "off";
   inputWrapper.appendChild(nameInput);
   nameInput.focus();
-  
+  nameInput.value = getLastPlayersName(); //Autofills the inputfield with the latest players name
 }
 
-// Test
+/**
+ * Adds objects to an array in LS
+ */
+function addToLS(player: Object) {
+  if (localStorage.getItem("players")) {
+    players = JSON.parse(localStorage.getItem("players"));
+  }
+  players.push(player);
+  localStorage.setItem("players", JSON.stringify(players));
+}
+
+/**
+ * Gets the latest players name
+ */
+function getLastPlayersName() {
+  if (localStorage.getItem("players") === null) {
+    return "";
+  } else {
+    const players: Array<Object> = JSON.parse(localStorage.getItem("players"));
+    const number = players.length - 1; //-1 to get the right indexnumber
+    return players[number].name; //Looks like an error but works fine
+  }
+}
