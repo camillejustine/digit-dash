@@ -85,32 +85,49 @@ body {
 }
 .botContainer {
   display: flex;
-  justify-content: center;
+  justify-content: space-evenly;
 
-  /* background-color: aqua; */
+  background-color: aqua;
   width: 100%;
   height: 10rem;
 }
-#playerBolt,
+
+/* #playerBolt,
 #playerClank,
 #playerGadget {
   height: 7rem;
   width: 7rem;
   /* background-color: blue; */
-  object-fit: cover;
-}
-#playerBolt {
+  /* object-fit: cover;
+} */
+#playerBolt, #Bolt {
+  height: 7rem;
+  width: 7rem;
   background-image: url("../assets/imgs/playerBolt-grey.png");
   background-size: cover;
+  object-fit: cover;
 }
-#playerClank {
+#playerClank, #Clank {
+  height: 7rem;
+  width: 7rem;
   background-image: url("../assets/imgs/playerClank-grey.png");
   background-size: cover;
+  object-fit: cover;
 }
-#playerGadget {
+#playerGadget, #Gadget {
+  height: 7rem;
+  width: 7rem;
   background-image: url("../assets/imgs/playerGadget-grey.png");
   background-size: cover;
+  object-fit: cover;
 }
+
+#Player {
+  height: 7rem;
+  width: 7rem;
+  background-color: black;
+}
+
 .buttonContainer {
   display: flex;
   justify-content: center;
@@ -259,6 +276,23 @@ body {
   outline: none;
 
 }
+
+.answerContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  
+  width: 100%;
+  background-color: khaki;
+}
+
+#botAnswer1, #botAnswer2, #playerAnswer {
+  width: 5rem;
+  height: 5rem;
+
+  background-color: hotpink;
+}
+
 
 /* REUSABLE CLASSES */
 
