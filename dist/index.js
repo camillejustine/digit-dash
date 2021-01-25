@@ -118,26 +118,26 @@ function showBubble(bubbleID, bubbleTextID, bubbleText) {
     setElementContent(bubbleTextID, bubbleText);
 }
 var bubbleText = ['Choose your opponents!', 'You can pick up to 2.', 'Bot info'];
-var botInfo = [
-    {
-        name: 'Bolt',
-        text: 'Bolt is a friendly, but slow, machine.',
-        winRate: '8%',
-        img: '../assets/imgs/playerBolt.png'
-    },
-    {
-        name: 'Clank',
-        text: 'Clank is a happy and pretty fast machine.',
-        winRate: '4%',
-        img: '../assets/imgs/playerClank.png'
-    },
-    {
-        name: 'Gadget',
-        text: 'Gadget is a cranky, although very fast, machine.',
-        winRate: '22%',
-        img: '../assets/imgs/playerGadget.png'
-    }
-];
+// const botInfo = [
+//     {
+//         name: 'Bolt',
+//         text: 'Bolt is a friendly, but slow, machine.',
+//         winRate: '8%',
+//         img: '../assets/imgs/playerBolt-grey.png'
+//     },
+//     {
+//         name: 'Clank',
+//         text: 'Clank is a happy and pretty fast machine.',
+//         winRate: '4%',
+//         img: '../assets/imgs/playerClank-grey.png'
+//     },
+//     {
+//         name: 'Gadget',
+//         text: 'Gadget is a cranky, although very fast, machine.',
+//         winRate: '22%',
+//         img: '../assets/imgs/playerGadget-grey.png'
+//     }
+// ]
 var chosenBots = [];
 function lobby() {
     // display bubbles
@@ -153,22 +153,22 @@ function lobby() {
     var playerBolt = document.createElement('div');
     playerBolt.id = 'playerBolt';
     playerBolt.onclick = function () {
-        // add bot to array
-        checkBotArray('Bolt');
+        // add or remove bot to array and set img (grey or color)
+        checkBotArray('Bolt', playerBolt);
     };
     document.getElementById('botWrapper').appendChild(playerBolt);
     var playerClank = document.createElement('div');
     playerClank.id = 'playerClank';
     playerClank.onclick = function () {
-        // add bot to array
-        checkBotArray('Clank');
+        // add or remove bot to array and set img (grey or color)
+        checkBotArray('Clank', playerClank);
     };
     document.getElementById('botWrapper').appendChild(playerClank);
     var playerGadget = document.createElement('div');
     playerGadget.id = 'playerGadget';
     playerGadget.onclick = function () {
-        // add bot to array
-        checkBotArray('Gadget');
+        // add or remove bot to array and set img (grey or color)
+        checkBotArray('Gadget', playerGadget);
     };
     document.getElementById('botWrapper').appendChild(playerGadget);
     // bot info click event (show modal)
@@ -202,15 +202,21 @@ function lobby() {
         drawGame();
     };
 }
-function checkBotArray(bot) {
+function checkBotArray(bot, botElement) {
     if (chosenBots.indexOf(bot) > -1 || chosenBots.length === 2) {
         // remove bot if same bot is clicked again
+        console.log("if");
         chosenBots = chosenBots.filter(function (b) { return b !== bot; });
+        botElement.style.backgroundImage = "url(\"../assets/imgs/player" + bot + "-grey.png\")";
     }
     else {
         // first bot clicked (bot array length is below 2)
+        console.log("else");
         chosenBots.push(bot);
+        botElement.style.backgroundImage = "url(\"../assets/imgs/player" + bot + ".png\")";
     }
+}
+function checkBotArrayOrder() {
 }
 var mainText = ["", "High Scores", "How to play", "Play"];
 // let gameState: string = 'main', 'nameChoice', 'lobby', 'gamePlay', 'highScore'

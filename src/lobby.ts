@@ -1,25 +1,25 @@
 const bubbleText = ['Choose your opponents!', 'You can pick up to 2.', 'Bot info'];
 
-const botInfo = [
-    {
-        name: 'Bolt',
-        text: 'Bolt is a friendly, but slow, machine.',
-        winRate: '8%',
-        img: '../assets/imgs/playerBolt.png'
-    },
-    {
-        name: 'Clank',
-        text: 'Clank is a happy and pretty fast machine.',
-        winRate: '4%',
-        img: '../assets/imgs/playerClank.png'
-    },
-    {
-        name: 'Gadget',
-        text: 'Gadget is a cranky, although very fast, machine.',
-        winRate: '22%',
-        img: '../assets/imgs/playerGadget.png'
-    }
-]
+// const botInfo = [
+//     {
+//         name: 'Bolt',
+//         text: 'Bolt is a friendly, but slow, machine.',
+//         winRate: '8%',
+//         img: '../assets/imgs/playerBolt-grey.png'
+//     },
+//     {
+//         name: 'Clank',
+//         text: 'Clank is a happy and pretty fast machine.',
+//         winRate: '4%',
+//         img: '../assets/imgs/playerClank-grey.png'
+//     },
+//     {
+//         name: 'Gadget',
+//         text: 'Gadget is a cranky, although very fast, machine.',
+//         winRate: '22%',
+//         img: '../assets/imgs/playerGadget-grey.png'
+//     }
+// ]
 
 let chosenBots: Array<string> = [];
 
@@ -39,8 +39,8 @@ function lobby() {
     let playerBolt = document.createElement('div');
     playerBolt.id = 'playerBolt';
     playerBolt.onclick = () => {
-        // add bot to array
-        checkBotArray('Bolt')
+        // add or remove bot to array and set img (grey or color)
+        checkBotArray('Bolt', playerBolt)
     }
     document.getElementById('botWrapper').appendChild(playerBolt);
 
@@ -48,16 +48,16 @@ function lobby() {
     let playerClank = document.createElement('div');
     playerClank.id = 'playerClank';
     playerClank.onclick = () => {
-        // add bot to array
-        checkBotArray('Clank')
+        // add or remove bot to array and set img (grey or color)
+        checkBotArray('Clank', playerClank)
     }
     document.getElementById('botWrapper').appendChild(playerClank);
 
     let playerGadget = document.createElement('div');
     playerGadget.id = 'playerGadget';
     playerGadget.onclick = () => {
-        // add bot to array
-        checkBotArray('Gadget')
+        // add or remove bot to array and set img (grey or color)
+        checkBotArray('Gadget', playerGadget)
     }
     document.getElementById('botWrapper').appendChild(playerGadget);
 
@@ -102,13 +102,18 @@ function lobby() {
 
 }
 
-function checkBotArray(bot: string){
+function checkBotArray(bot: string, botElement: HTMLElement){
     if (chosenBots.indexOf(bot) > -1 || chosenBots.length === 2){
         // remove bot if same bot is clicked again
         chosenBots = chosenBots.filter(b => b !== bot);
-
+        botElement.style.backgroundImage = `url("../assets/imgs/player${bot}-grey.png")`
     }else {
         // first bot clicked (bot array length is below 2)
         chosenBots.push(bot);
+        botElement.style.backgroundImage = `url("../assets/imgs/player${bot}.png")`
     }
+}
+
+function checkBotArrayOrder(){
+
 }
