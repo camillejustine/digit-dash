@@ -102,11 +102,16 @@ function removeBubbles() {
     for (var index = 0; index < bubbleID.length; index++) {
         var bubbles = document.getElementById(bubbleID[index]);
         var text = document.getElementById(bubbleTextID[index]);
+        bubbles.onclick = function () {
+            // reset onclick 
+        };
         bubbles.style.visibility = 'hidden';
         text.innerHTML = '';
     }
 }
-function setlocalStorage(name) {
+function removeBubble(bubbleID, textID) {
+    document.getElementById(textID).innerHTML = '';
+    document.getElementById(bubbleID).style.visibility = 'hidden';
 }
 function fadeIn(id) {
     var element = document.getElementById(id);
@@ -117,38 +122,13 @@ function showBubble(bubbleID, bubbleTextID, bubbleText) {
     document.getElementById(bubbleID).style.visibility = "visible";
     setElementContent(bubbleTextID, bubbleText);
 }
-var bubbleText = ['Choose your opponents!', 'You can pick up to 2.', 'Bot info'];
-// const botInfo = [
-//     {
-//         name: 'Bolt',
-//         text: 'Bolt is a friendly, but slow, machine.',
-//         winRate: '8%',
-//         img: '../assets/imgs/playerBolt-grey.png'
-//     },
-//     {
-//         name: 'Clank',
-//         text: 'Clank is a happy and pretty fast machine.',
-//         winRate: '4%',
-//         img: '../assets/imgs/playerClank-grey.png'
-//     },
-//     {
-//         name: 'Gadget',
-//         text: 'Gadget is a cranky, although very fast, machine.',
-//         winRate: '22%',
-//         img: '../assets/imgs/playerGadget-grey.png'
-//     }
-// ]
+var bubbleText = ['Choose your opponents!', 'You can pick up to 2.', 'Bot info', 'Play'];
 var chosenBots = [];
 function lobby() {
     // display bubbles
     showBubble(bubbleID[0], bubbleTextID[0], bubbleText[0]);
     showBubble(bubbleID[3], bubbleTextID[3], bubbleText[1]);
     showBubble(bubbleID[2], bubbleTextID[2], bubbleText[2]);
-    // creates start button
-    var button = document.createElement('button');
-    button.id = 'startGame';
-    button.textContent = 'Play';
-    document.getElementById('buttonWrapper').appendChild(button);
     // creates bot players
     var playerBolt = document.createElement('div');
     playerBolt.id = 'playerBolt';
@@ -185,20 +165,11 @@ function lobby() {
         };
     };
     // start new screen for game start
-    button.onclick = function () {
-        console.log('knapp');
-        button.remove();
+    document.getElementById(bubbleID[1]).onclick = function () {
         playerBolt.remove();
         playerClank.remove();
         playerGadget.remove();
-    };
-    // start new screen for game start
-    button.onclick = function () {
-        console.log('knapp');
-        button.remove();
-        playerBolt.remove();
-        playerClank.remove();
-        playerGadget.remove();
+        removeBubbles();
         drawGame();
     };
 }
@@ -207,7 +178,13 @@ function checkBotArray(bot, botElement) {
         // remove bot if same bot is clicked again
         chosenBots = chosenBots.filter(function (b) { return b !== bot; });
         botElement.style.backgroundImage = "url(\"../assets/imgs/player" + bot + "-grey.png\")";
-        document.getElementById("player" + chosenBots[0]).style.backgroundImage = "url(\"../assets/imgs/player" + chosenBots[0] + "-chosen1.png\")";
+        // removes bubble if no bot chosen
+        if (chosenBots.length === 0) {
+            removeBubble(bubbleID[1], bubbleTextID[1]);
+        }
+        else {
+            document.getElementById("player" + chosenBots[0]).style.backgroundImage = "url(\"../assets/imgs/player" + chosenBots[0] + "-chosen1.png\")";
+        }
     }
     else if (chosenBots.length > 0) {
         // first bot clicked (bot array length is below 2)
@@ -215,10 +192,10 @@ function checkBotArray(bot, botElement) {
         botElement.style.backgroundImage = "url(\"../assets/imgs/player" + bot + "-chosen2.png\")";
     }
     else if (chosenBots.length > -1 && botElement.style.backgroundImage === "url(\"../assets/imgs/player" + bot + "-chosen2.png\")") {
-        // 
         botElement.style.backgroundImage = "url(\"../assets/imgs/player" + bot + "-chosen1.png\")";
     }
     else {
+        showBubble(bubbleID[1], bubbleTextID[1], bubbleText[3]);
         chosenBots.push(bot);
         botElement.style.backgroundImage = "url(\"../assets/imgs/player" + bot + "-chosen1.png\")";
     }

@@ -18,14 +18,17 @@ function removeBubbles(){
     for (let index = 0; index < bubbleID.length; index++) {
         let bubbles: HTMLElement = document.getElementById(bubbleID[index]);
         let text: HTMLElement = document.getElementById(bubbleTextID[index]);
-
+        bubbles.onclick = () => {
+            // reset onclick 
+        }
         bubbles.style.visibility = 'hidden';
         text.innerHTML = '';
     }
 }
 
-function setlocalStorage(name: string) {
-    
+function removeBubble(bubbleID: string, textID: string){
+    document.getElementById(textID).innerHTML = '';
+    document.getElementById(bubbleID).style.visibility = 'hidden'
 }
 
 function fadeIn(id: string){
