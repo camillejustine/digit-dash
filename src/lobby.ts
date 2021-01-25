@@ -104,16 +104,27 @@ function lobby() {
 
 function checkBotArray(bot: string, botElement: HTMLElement){
     if (chosenBots.indexOf(bot) > -1 || chosenBots.length === 2){
+
         // remove bot if same bot is clicked again
         chosenBots = chosenBots.filter(b => b !== bot);
         botElement.style.backgroundImage = `url("../assets/imgs/player${bot}-grey.png")`
-    }else {
+        document.getElementById(`player${chosenBots[0]}`).style.backgroundImage = `url("../assets/imgs/player${chosenBots[0]}-chosen1.png")`
+
+    }else if (chosenBots.length > 0) {
+
         // first bot clicked (bot array length is below 2)
         chosenBots.push(bot);
-        botElement.style.backgroundImage = `url("../assets/imgs/player${bot}.png")`
+        botElement.style.backgroundImage = `url("../assets/imgs/player${bot}-chosen2.png")`
+
+    } else if (chosenBots.length > -1 && botElement.style.backgroundImage === `url("../assets/imgs/player${bot}-chosen2.png")`){
+
+        // 
+        botElement.style.backgroundImage = `url("../assets/imgs/player${bot}-chosen1.png")`
+
+    } else {
+
+        chosenBots.push(bot);
+        botElement.style.backgroundImage = `url("../assets/imgs/player${bot}-chosen1.png")`
+
     }
-}
-
-function checkBotArrayOrder(){
-
 }

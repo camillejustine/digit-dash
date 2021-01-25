@@ -205,18 +205,23 @@ function lobby() {
 function checkBotArray(bot, botElement) {
     if (chosenBots.indexOf(bot) > -1 || chosenBots.length === 2) {
         // remove bot if same bot is clicked again
-        console.log("if");
         chosenBots = chosenBots.filter(function (b) { return b !== bot; });
         botElement.style.backgroundImage = "url(\"../assets/imgs/player" + bot + "-grey.png\")";
+        document.getElementById("player" + chosenBots[0]).style.backgroundImage = "url(\"../assets/imgs/player" + chosenBots[0] + "-chosen1.png\")";
+    }
+    else if (chosenBots.length > 0) {
+        // first bot clicked (bot array length is below 2)
+        chosenBots.push(bot);
+        botElement.style.backgroundImage = "url(\"../assets/imgs/player" + bot + "-chosen2.png\")";
+    }
+    else if (chosenBots.length > -1 && botElement.style.backgroundImage === "url(\"../assets/imgs/player" + bot + "-chosen2.png\")") {
+        // 
+        botElement.style.backgroundImage = "url(\"../assets/imgs/player" + bot + "-chosen1.png\")";
     }
     else {
-        // first bot clicked (bot array length is below 2)
-        console.log("else");
         chosenBots.push(bot);
-        botElement.style.backgroundImage = "url(\"../assets/imgs/player" + bot + ".png\")";
+        botElement.style.backgroundImage = "url(\"../assets/imgs/player" + bot + "-chosen1.png\")";
     }
-}
-function checkBotArrayOrder() {
 }
 var mainText = ["", "High Scores", "How to play", "Play"];
 // let gameState: string = 'main', 'nameChoice', 'lobby', 'gamePlay', 'highScore'
