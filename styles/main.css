@@ -100,15 +100,15 @@ body {
   object-fit: cover;
 }
 #playerBolt {
-  background-image: url("../assets/imgs/playerBolt.png");
+  background-image: url("../assets/imgs/playerBolt-grey.png");
   background-size: cover;
 }
 #playerClank {
-  background-image: url("../assets/imgs/playerClank.png");
+  background-image: url("../assets/imgs/playerClank-grey.png");
   background-size: cover;
 }
 #playerGadget {
-  background-image: url("../assets/imgs/playerGadget.png");
+  background-image: url("../assets/imgs/playerGadget-grey.png");
   background-size: cover;
 }
 .buttonContainer {

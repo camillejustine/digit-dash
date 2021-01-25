@@ -1,25 +1,27 @@
 const bubbleText = ['Choose your opponents!', 'You can pick up to 2.', 'Bot info'];
 
-const botInfo = [
-    {
-        name: 'Bolt',
-        text: 'Bolt is a friendly, but slow, machine.',
-        winRate: '8%',
-        img: '../assets/imgs/playerBolt.png'
-    },
-    {
-        name: 'Clank',
-        text: 'Clank is a happy and pretty fast machine.',
-        winRate: '4%',
-        img: '../assets/imgs/playerClank.png'
-    },
-    {
-        name: 'Gadget',
-        text: 'Gadget is a cranky, although very fast, machine.',
-        winRate: '22%',
-        img: '../assets/imgs/playerGadget.png'
-    }
-]
+// const botInfo = [
+//     {
+//         name: 'Bolt',
+//         text: 'Bolt is a friendly, but slow, machine.',
+//         winRate: '8%',
+//         img: '../assets/imgs/playerBolt-grey.png'
+//     },
+//     {
+//         name: 'Clank',
+//         text: 'Clank is a happy and pretty fast machine.',
+//         winRate: '4%',
+//         img: '../assets/imgs/playerClank-grey.png'
+//     },
+//     {
+//         name: 'Gadget',
+//         text: 'Gadget is a cranky, although very fast, machine.',
+//         winRate: '22%',
+//         img: '../assets/imgs/playerGadget-grey.png'
+//     }
+// ]
+
+let chosenBots: Array<string> = [];
 
 function lobby() {
     // display bubbles
@@ -36,22 +38,33 @@ function lobby() {
     // creates bot players
     let playerBolt = document.createElement('div');
     playerBolt.id = 'playerBolt';
+    playerBolt.onclick = () => {
+        // add or remove bot to array and set img (grey or color)
+        checkBotArray('Bolt', playerBolt)
+    }
     document.getElementById('botWrapper').appendChild(playerBolt);
 
 
     let playerClank = document.createElement('div');
     playerClank.id = 'playerClank';
+    playerClank.onclick = () => {
+        // add or remove bot to array and set img (grey or color)
+        checkBotArray('Clank', playerClank)
+    }
     document.getElementById('botWrapper').appendChild(playerClank);
 
     let playerGadget = document.createElement('div');
     playerGadget.id = 'playerGadget';
+    playerGadget.onclick = () => {
+        // add or remove bot to array and set img (grey or color)
+        checkBotArray('Gadget', playerGadget)
+    }
     document.getElementById('botWrapper').appendChild(playerGadget);
 
 
-    // bot info click event
+    // bot info click event (show modal)
     let botInfoButton = document.getElementById(bubbleID[2]);
     botInfoButton.onclick = () => {
-        console.log("BOT INFO CLICK!");
         const botModal: HTMLElement | null = document.getElementById("botModal");
         console.log(botModal);
         botModal.style.opacity = "1";
@@ -87,4 +100,31 @@ function lobby() {
 
     }
 
+}
+
+function checkBotArray(bot: string, botElement: HTMLElement){
+    if (chosenBots.indexOf(bot) > -1 || chosenBots.length === 2){
+
+        // remove bot if same bot is clicked again
+        chosenBots = chosenBots.filter(b => b !== bot);
+        botElement.style.backgroundImage = `url("../assets/imgs/player${bot}-grey.png")`
+        document.getElementById(`player${chosenBots[0]}`).style.backgroundImage = `url("../assets/imgs/player${chosenBots[0]}-chosen1.png")`
+
+    }else if (chosenBots.length > 0) {
+
+        // first bot clicked (bot array length is below 2)
+        chosenBots.push(bot);
+        botElement.style.backgroundImage = `url("../assets/imgs/player${bot}-chosen2.png")`
+
+    } else if (chosenBots.length > -1 && botElement.style.backgroundImage === `url("../assets/imgs/player${bot}-chosen2.png")`){
+
+        // 
+        botElement.style.backgroundImage = `url("../assets/imgs/player${bot}-chosen1.png")`
+
+    } else {
+
+        chosenBots.push(bot);
+        botElement.style.backgroundImage = `url("../assets/imgs/player${bot}-chosen1.png")`
+
+    }
 }
