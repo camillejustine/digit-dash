@@ -21,6 +21,8 @@ const botInfo = [
     }
 ]
 
+let chosenBots: Array<string> = [];
+
 function lobby() {
     // display bubbles
     showBubble(bubbleID[0], bubbleTextID[0], bubbleText[0]);
@@ -36,22 +38,33 @@ function lobby() {
     // creates bot players
     let playerBolt = document.createElement('div');
     playerBolt.id = 'playerBolt';
+    playerBolt.onclick = () => {
+        // add bot to array
+        checkBotArray('Bolt')
+    }
     document.getElementById('botWrapper').appendChild(playerBolt);
 
 
     let playerClank = document.createElement('div');
     playerClank.id = 'playerClank';
+    playerClank.onclick = () => {
+        // add bot to array
+        checkBotArray('Clank')
+    }
     document.getElementById('botWrapper').appendChild(playerClank);
 
     let playerGadget = document.createElement('div');
     playerGadget.id = 'playerGadget';
+    playerGadget.onclick = () => {
+        // add bot to array
+        checkBotArray('Gadget')
+    }
     document.getElementById('botWrapper').appendChild(playerGadget);
 
 
-    // bot info click event
+    // bot info click event (show modal)
     let botInfoButton = document.getElementById(bubbleID[2]);
     botInfoButton.onclick = () => {
-        console.log("BOT INFO CLICK!");
         const botModal: HTMLElement | null = document.getElementById("botModal");
         console.log(botModal);
         botModal.style.opacity = "1";
@@ -87,4 +100,15 @@ function lobby() {
 
     }
 
+}
+
+function checkBotArray(bot: string){
+    if (chosenBots.indexOf(bot) > -1 || chosenBots.length === 2){
+        // remove bot if same bot is clicked again
+        chosenBots = chosenBots.filter(b => b !== bot);
+
+    }else {
+        // first bot clicked (bot array length is below 2)
+        chosenBots.push(bot);
+    }
 }

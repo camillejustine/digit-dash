@@ -1,6 +1,96 @@
 "use strict";
+//Variables
+//The number you have to guess
+var randomNumber;
+//Gamemaster pharases
+var gpPhrases = ['Lets make a guess!', 'Thats correct!', 'Thats too high!', 'Thats too low!'];
+// the slider and its value
+var slider = document.createElement('input');
+var sliderValue = document.createElement('p');
+//submit button
+var submitBtn = document.createElement('button');
+//number of guesses the players has made 
+var amountOfGuesses = 0;
+function drawGame() {
+    drawSlider();
+    setRandomNumber();
+    drawBubbles();
+    gameLogic();
+}
+function drawSlider() {
+    // Slider
+    slider.type = 'range';
+    slider.min = '0';
+    slider.max = '25';
+    //submit btn 
+    submitBtn.textContent = 'Guess';
+    //Value from slider
+    sliderValue.innerText = slider.value;
+    sliderValue.id = 'sliderValue';
+    // Adds the elements to the wrapper
+    inputWrapper.appendChild(slider);
+    inputWrapper.appendChild(sliderValue);
+    inputWrapper.appendChild(submitBtn);
+    //updates the value when you move the slider
+    slider.oninput = function () {
+        sliderValue.innerText = slider.value;
+    };
+}
+function drawActiveBots() {
+}
+function drawBubbles() {
+    document.getElementById(bubbleID[0]).style.visibility = "visible";
+    setElementContent(bubbleTextID[0], gpPhrases[0]);
+}
+function setRandomNumber() {
+    randomNumber = Math.floor(Math.random() * (0 + 25) + 0);
+    console.log('number:' + randomNumber);
+}
+function gameLogic() {
+    var guessValue;
+    // if randomNumber = inputValue, then correct! if randomNumber >/< inputValue, give corresponding respons
+    submitBtn.onclick = function () {
+        guessValue = parseInt(slider.value);
+        console.log('Guess: ' + guessValue);
+        console.log('number: ' + randomNumber);
+        if (guessValue === randomNumber) {
+            // IF GUESS IS CORRECT 
+            document.getElementById(bubbleID[0]).style.visibility = "hidden";
+            document.getElementById(bubbleID[2]).style.visibility = "hidden";
+            document.getElementById(bubbleID[3]).style.visibility = "hidden";
+            document.getElementById(bubbleID[1]).style.visibility = "visible";
+            setElementContent(bubbleTextID[1], gpPhrases[1]);
+            amountOfGuesses++;
+            console.log('Correct');
+        }
+        else if (guessValue > randomNumber) {
+            //IF GUESST IS HIGHER THAN RANDOMNUMB
+            document.getElementById(bubbleID[0]).style.visibility = "hidden";
+            document.getElementById(bubbleID[1]).style.visibility = "hidden";
+            document.getElementById(bubbleID[3]).style.visibility = "hidden";
+            document.getElementById(bubbleID[2]).style.visibility = "visible";
+            setElementContent(bubbleTextID[2], gpPhrases[2]);
+            amountOfGuesses++;
+            console.log('Lower!');
+        }
+        else if (guessValue < randomNumber) {
+            // IF GUESS IS LOWER THAN RANDOMNUMB
+            document.getElementById(bubbleID[0]).style.visibility = "hidden";
+            document.getElementById(bubbleID[1]).style.visibility = "hidden";
+            document.getElementById(bubbleID[2]).style.visibility = "hidden";
+            document.getElementById(bubbleID[3]).style.visibility = "visible";
+            setElementContent(bubbleTextID[3], gpPhrases[3]);
+            amountOfGuesses++;
+            console.log('Higher!');
+        }
+    };
+}
+function botGuess() {
+    // different if statments depending on what bot thats been picked in the lobby
+}
 window.addEventListener('load', welcomeScreen);
 var players = [];
+//let player: {name: string, highscore: number, games: number}
 var bubbleTextID = ['textTL', 'textTR', 'textBL', 'textBR'];
 var bubbleID = ['bubbleTL', 'bubbleTR', 'bubbleBL', 'bubbleBR'];
 var inputWrapper = document.getElementById('inputField');
@@ -23,7 +113,6 @@ function fadeIn(id) {
     element.style.opacity = "0";
     element.classList.add('fadeIn');
 }
-//Global function to show bubbles? 
 function showBubble(bubbleID, bubbleTextID, bubbleText) {
     document.getElementById(bubbleID).style.visibility = "visible";
     setElementContent(bubbleTextID, bubbleText);
@@ -49,6 +138,7 @@ var botInfo = [
         img: '../assets/imgs/playerGadget.png'
     }
 ];
+var chosenBots = [];
 function lobby() {
     // display bubbles
     showBubble(bubbleID[0], bubbleTextID[0], bubbleText[0]);
@@ -59,21 +149,31 @@ function lobby() {
     button.id = 'startGame';
     button.textContent = 'Play';
     document.getElementById('buttonWrapper').appendChild(button);
-    // Bot info
     // creates bot players
     var playerBolt = document.createElement('div');
     playerBolt.id = 'playerBolt';
+    playerBolt.onclick = function () {
+        // add bot to array
+        checkBotArray('Bolt');
+    };
     document.getElementById('botWrapper').appendChild(playerBolt);
     var playerClank = document.createElement('div');
     playerClank.id = 'playerClank';
+    playerClank.onclick = function () {
+        // add bot to array
+        checkBotArray('Clank');
+    };
     document.getElementById('botWrapper').appendChild(playerClank);
     var playerGadget = document.createElement('div');
     playerGadget.id = 'playerGadget';
+    playerGadget.onclick = function () {
+        // add bot to array
+        checkBotArray('Gadget');
+    };
     document.getElementById('botWrapper').appendChild(playerGadget);
-    // bot info click event
+    // bot info click event (show modal)
     var botInfoButton = document.getElementById(bubbleID[2]);
     botInfoButton.onclick = function () {
-        console.log("BOT INFO CLICK!");
         var botModal = document.getElementById("botModal");
         console.log(botModal);
         botModal.style.opacity = "1";
@@ -92,6 +192,25 @@ function lobby() {
         playerClank.remove();
         playerGadget.remove();
     };
+    // start new screen for game start
+    button.onclick = function () {
+        console.log('knapp');
+        button.remove();
+        playerBolt.remove();
+        playerClank.remove();
+        playerGadget.remove();
+        drawGame();
+    };
+}
+function checkBotArray(bot) {
+    if (chosenBots.indexOf(bot) > -1 || chosenBots.length === 2) {
+        // remove bot if same bot is clicked again
+        chosenBots = chosenBots.filter(function (b) { return b !== bot; });
+    }
+    else {
+        // first bot clicked (bot array length is below 2)
+        chosenBots.push(bot);
+    }
 }
 var mainText = ["", "High Scores", "How to play", "Play"];
 // let gameState: string = 'main', 'nameChoice', 'lobby', 'gamePlay', 'highScore'
@@ -165,11 +284,12 @@ function loadMain() {
         }
         document.getElementById(bubbleID[0]).style.visibility = "hidden";
     }
-    // Function showTot() { SHOW TEXT /VIDEO  }
 }
-// Function showTot() { SHOW TEXT /VIDEO  }
+// Function showTot() { SHOW TEXT /VIDEO  
 var nameInput = document.createElement("input");
+var lastPlayer;
 function nameChoice() {
+    getLastPlayersName();
     showGreeting();
     showNameInput();
     // init onclick event
@@ -181,12 +301,10 @@ function nameChoice() {
                 highScore: 0,
                 games: 0,
             };
-            players.push(player);
-            localStorage.setItem(player.name, JSON.stringify(players));
+            addToLS(player);
             // render new frame
             removeBubbles();
             nameInput.remove();
-            console.log("HALLÅ");
             lobby();
         }
     });
@@ -200,9 +318,31 @@ function showNameInput() {
     nameInput.type = "text";
     nameInput.id = "userInput";
     nameInput.autocomplete = "off";
-
     inputWrapper.appendChild(nameInput);
     nameInput.focus();
+    nameInput.value = getLastPlayersName(); //Autofills the inputfield with the latest players name
 }
-// Test
+/**
+ * Adds objects to an array in LS
+ */
+function addToLS(player) {
+    if (localStorage.getItem("players")) {
+        players = JSON.parse(localStorage.getItem("players"));
+    }
+    players.push(player);
+    localStorage.setItem("players", JSON.stringify(players));
+}
+/**
+ * Gets the latest players name
+ */
+function getLastPlayersName() {
+    if (localStorage.getItem("players") === null) {
+        return "";
+    }
+    else {
+        var players_1 = JSON.parse(localStorage.getItem("players"));
+        var number = players_1.length - 1; //-1 to get the right indexnumber
+        return players_1[number].name; //Looks like an error but works fine
+    }
+}
 //# sourceMappingURL=index.js.map
