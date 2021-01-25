@@ -88,6 +88,6 @@ function loadMain(): void {
     document.getElementById(bubbleID[0]).style.visibility = "hidden";
 
   }
+}
 
-
-    // Function showTot() { SHOW TEXT /VIDEO  }
+    // Function showTot() { SHOW TEXT /VIDEO  

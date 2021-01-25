@@ -1,6 +1,7 @@
 window.addEventListener('load', welcomeScreen);
 
-const players: Array<{name: string, highScore: number, games: number}> = [];
+let players: Array<Object> = [];
+//let player: {name: string, highscore: number, games: number}
 
 const bubbleTextID: string[] = ['textTL', 'textTR', 'textBL', 'textBR'];
 const bubbleID: string[] = ['bubbleTL', 'bubbleTR', 'bubbleBL', 'bubbleBR'];
