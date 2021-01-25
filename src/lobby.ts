@@ -1,26 +1,5 @@
 const bubbleText = ['Choose your opponents!', 'You can pick up to 2.', 'Bot info', 'Play'];
 
-// const botInfo = [
-//     {
-//         name: 'Bolt',
-//         text: 'Bolt is a friendly, but slow, machine.',
-//         winRate: '8%',
-//         img: '../assets/imgs/playerBolt-grey.png'
-//     },
-//     {
-//         name: 'Clank',
-//         text: 'Clank is a happy and pretty fast machine.',
-//         winRate: '4%',
-//         img: '../assets/imgs/playerClank-grey.png'
-//     },
-//     {
-//         name: 'Gadget',
-//         text: 'Gadget is a cranky, although very fast, machine.',
-//         winRate: '22%',
-//         img: '../assets/imgs/playerGadget-grey.png'
-//     }
-// ]
-
 let chosenBots: Array<string> = [];
 
 function lobby() {
@@ -28,13 +7,6 @@ function lobby() {
     showBubble(bubbleID[0], bubbleTextID[0], bubbleText[0]);
     showBubble(bubbleID[3], bubbleTextID[3], bubbleText[1]);
     showBubble(bubbleID[2], bubbleTextID[2], bubbleText[2]);
-    
-
-    // creates start button
-    let button = document.createElement('button');
-    button.id = 'startGame';
-    button.textContent = 'Play';
-    document.getElementById('buttonWrapper').appendChild(button);
 
     // creates bot players
     let playerBolt = document.createElement('div');
@@ -77,25 +49,14 @@ function lobby() {
             botModal.style.opacity = "0";
             botModal.style.visibility = "hidden";
         };
-    }
-
-
-    // // start new screen for game start
-    // button.onclick = () => {
-    // console.log('knapp');
-    // button.remove();
-    // playerBolt.remove();
-    // playerClank.remove();
-    // playerGadget.remove();
-    // }
-        
+    }      
 
     // start new screen for game start
     document.getElementById(bubbleID[1]).onclick = () => {
-        button.remove();
         playerBolt.remove();
         playerClank.remove();
         playerGadget.remove();
+        removeBubbles();
         drawGame();
     }
 
@@ -107,6 +68,8 @@ function checkBotArray(bot: string, botElement: HTMLElement){
         // remove bot if same bot is clicked again
         chosenBots = chosenBots.filter(b => b !== bot);
         botElement.style.backgroundImage = `url("../assets/imgs/player${bot}-grey.png")`
+
+        // removes bubble if no bot chosen
         if (chosenBots.length === 0){
             removeBubble(bubbleID[1], bubbleTextID[1]);
         } else {
@@ -121,7 +84,6 @@ function checkBotArray(bot: string, botElement: HTMLElement){
 
     } else if (chosenBots.length > -1 && botElement.style.backgroundImage === `url("../assets/imgs/player${bot}-chosen2.png")`){
 
-        // 
         botElement.style.backgroundImage = `url("../assets/imgs/player${bot}-chosen1.png")`
 
     } else {
