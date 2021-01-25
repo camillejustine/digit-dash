@@ -15,10 +15,14 @@ let amountOfGuesses: number = 0;
 
 
 function drawGame() {
+    chosenBots.splice(1, 0, "Player");
+    console.log(chosenBots)
     drawSlider();
     setRandomNumber();
     drawBubbles();
     gameLogic();
+    drawActiveBots();
+    drawAnswers();
 }
 
 function drawSlider() {
@@ -46,7 +50,46 @@ function drawSlider() {
 
 }
 
+function drawAnswers() {
+
+    let botAnswer1 = document.createElement('div');
+    botAnswer1.id = 'botAnswer1';
+    document.getElementById('answerWrapper').appendChild(botAnswer1);
+
+    let playerAnswer = document.createElement('div');
+    playerAnswer.id = 'playerAnswer';
+    document.getElementById('answerWrapper').appendChild(playerAnswer);
+
+    let botAnswer2 = document.createElement('div');
+    botAnswer2.id = 'botAnswer2';
+    document.getElementById('answerWrapper').appendChild(botAnswer2);
+
+}
+
 function drawActiveBots() {
+
+    // let bot1 = document.createElement('div');
+    // bot1.id = 'bot1';
+    // document.getElementById('botWrapper').appendChild(bot1);
+
+    // let player = document.createElement('div');
+    // player.id = 'player';
+    // document.getElementById('botWrapper').appendChild(player);
+
+    // let bot2 = document.createElement('div');
+    // bot2.id = 'bot2';
+    // document.getElementById('botWrapper').appendChild(bot2);
+
+    for (let i = 0; i < chosenBots.length; i++) {
+        let element = document.createElement('div');
+    element.id = chosenBots[i];
+    document.getElementById('botWrapper').appendChild(element);
+
+
+    }
+
+
+
 }
 
 function drawBubbles() {
