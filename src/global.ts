@@ -24,6 +24,11 @@ function removeBubbles(){
     }
 }
 
+function removeBubble(bubbleID: string, textID: string){
+    document.getElementById(textID).innerHTML = '';
+    document.getElementById(bubbleID).style.visibility = 'hidden'
+}
+
 function setlocalStorage(name: string) {
     
 }

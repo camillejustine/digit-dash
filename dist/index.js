@@ -106,6 +106,10 @@ function removeBubbles() {
         text.innerHTML = '';
     }
 }
+function removeBubble(bubbleID, textID) {
+    document.getElementById(textID).innerHTML = '';
+    document.getElementById(bubbleID).style.visibility = 'hidden';
+}
 function setlocalStorage(name) {
 }
 function fadeIn(id) {
@@ -117,7 +121,7 @@ function showBubble(bubbleID, bubbleTextID, bubbleText) {
     document.getElementById(bubbleID).style.visibility = "visible";
     setElementContent(bubbleTextID, bubbleText);
 }
-var bubbleText = ['Choose your opponents!', 'You can pick up to 2.', 'Bot info'];
+var bubbleText = ['Choose your opponents!', 'You can pick up to 2.', 'Bot info', 'Play'];
 // const botInfo = [
 //     {
 //         name: 'Bolt',
@@ -184,17 +188,16 @@ function lobby() {
             botModal.style.visibility = "hidden";
         };
     };
+    // // start new screen for game start
+    // button.onclick = () => {
+    // console.log('knapp');
+    // button.remove();
+    // playerBolt.remove();
+    // playerClank.remove();
+    // playerGadget.remove();
+    // }
     // start new screen for game start
-    button.onclick = function () {
-        console.log('knapp');
-        button.remove();
-        playerBolt.remove();
-        playerClank.remove();
-        playerGadget.remove();
-    };
-    // start new screen for game start
-    button.onclick = function () {
-        console.log('knapp');
+    document.getElementById(bubbleID[1]).onclick = function () {
         button.remove();
         playerBolt.remove();
         playerClank.remove();
@@ -207,7 +210,12 @@ function checkBotArray(bot, botElement) {
         // remove bot if same bot is clicked again
         chosenBots = chosenBots.filter(function (b) { return b !== bot; });
         botElement.style.backgroundImage = "url(\"../assets/imgs/player" + bot + "-grey.png\")";
-        document.getElementById("player" + chosenBots[0]).style.backgroundImage = "url(\"../assets/imgs/player" + chosenBots[0] + "-chosen1.png\")";
+        if (chosenBots.length === 0) {
+            removeBubble(bubbleID[1], bubbleTextID[1]);
+        }
+        else {
+            document.getElementById("player" + chosenBots[0]).style.backgroundImage = "url(\"../assets/imgs/player" + chosenBots[0] + "-chosen1.png\")";
+        }
     }
     else if (chosenBots.length > 0) {
         // first bot clicked (bot array length is below 2)
@@ -219,6 +227,7 @@ function checkBotArray(bot, botElement) {
         botElement.style.backgroundImage = "url(\"../assets/imgs/player" + bot + "-chosen1.png\")";
     }
     else {
+        showBubble(bubbleID[1], bubbleTextID[1], bubbleText[3]);
         chosenBots.push(bot);
         botElement.style.backgroundImage = "url(\"../assets/imgs/player" + bot + "-chosen1.png\")";
     }

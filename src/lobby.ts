@@ -1,4 +1,4 @@
-const bubbleText = ['Choose your opponents!', 'You can pick up to 2.', 'Bot info'];
+const bubbleText = ['Choose your opponents!', 'You can pick up to 2.', 'Bot info', 'Play'];
 
 // const botInfo = [
 //     {
@@ -28,6 +28,7 @@ function lobby() {
     showBubble(bubbleID[0], bubbleTextID[0], bubbleText[0]);
     showBubble(bubbleID[3], bubbleTextID[3], bubbleText[1]);
     showBubble(bubbleID[2], bubbleTextID[2], bubbleText[2]);
+    
 
     // creates start button
     let button = document.createElement('button');
@@ -79,25 +80,23 @@ function lobby() {
     }
 
 
-    // start new screen for game start
-    button.onclick = () => {
-    console.log('knapp');
-    button.remove();
-    playerBolt.remove();
-    playerClank.remove();
-    playerGadget.remove();
-    }
+    // // start new screen for game start
+    // button.onclick = () => {
+    // console.log('knapp');
+    // button.remove();
+    // playerBolt.remove();
+    // playerClank.remove();
+    // playerGadget.remove();
+    // }
         
 
     // start new screen for game start
-    button.onclick = () => {
-        console.log('knapp');
+    document.getElementById(bubbleID[1]).onclick = () => {
         button.remove();
         playerBolt.remove();
         playerClank.remove();
         playerGadget.remove();
         drawGame();
-
     }
 
 }
@@ -108,7 +107,11 @@ function checkBotArray(bot: string, botElement: HTMLElement){
         // remove bot if same bot is clicked again
         chosenBots = chosenBots.filter(b => b !== bot);
         botElement.style.backgroundImage = `url("../assets/imgs/player${bot}-grey.png")`
-        document.getElementById(`player${chosenBots[0]}`).style.backgroundImage = `url("../assets/imgs/player${chosenBots[0]}-chosen1.png")`
+        if (chosenBots.length === 0){
+            removeBubble(bubbleID[1], bubbleTextID[1]);
+        } else {
+            document.getElementById(`player${chosenBots[0]}`).style.backgroundImage = `url("../assets/imgs/player${chosenBots[0]}-chosen1.png")`
+        }
 
     }else if (chosenBots.length > 0) {
 
@@ -122,7 +125,7 @@ function checkBotArray(bot: string, botElement: HTMLElement){
         botElement.style.backgroundImage = `url("../assets/imgs/player${bot}-chosen1.png")`
 
     } else {
-
+        showBubble(bubbleID[1], bubbleTextID[1], bubbleText[3]);
         chosenBots.push(bot);
         botElement.style.backgroundImage = `url("../assets/imgs/player${bot}-chosen1.png")`
 
