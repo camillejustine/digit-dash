@@ -14,6 +14,9 @@
       href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap"
       rel="stylesheet"
     />
+    <script
+      src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"
+    ></script>
   </head>
   <body>
     <div id="quizzWrapper">
@@ -33,18 +36,14 @@
         </div>
 
         <div class="gmItem gameMaster">
-          <script
-            id="gameMasterAnimation"
-            src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"
-          ></script>
-          <lottie-player
-            src="https://assets5.lottiefiles.com/private_files/lf30_31x4tkfb.json"
-            background="transparent"
-            speed="1"
-            style="width: 200px; height: 200px"
-            loop
+          <lottie-player id="gameMaster"
             autoplay
-          ></lottie-player>
+            loop
+            src="https://assets5.lottiefiles.com/private_files/lf30_31x4tkfb.json"
+            mode="normal"
+            style="width: 200px; height: 200px"
+          >
+          </lottie-player>
         </div>
 
         <div class="speechBubbleWrapper">
@@ -67,7 +66,7 @@
     <div id="answerWrapper" class="answerContainer"></div>
 
     <div id="botWrapper" class="botContainer"></div>
-    
+
     <div id="buttonWrapper" class="buttonContainer"></div>
 
     <div id="ruleModal" class="rules">
@@ -99,7 +98,9 @@
             <img src="./assets/imgs/playerClank.png" />
             <div class="botTextWrapper">
               <h2>Clank</h2>
-              <p>Clank is old-school and his A.I was used in the moon landing.</p>
+              <p>
+                Clank is old-school and his A.I was used in the moon landing.
+              </p>
               <p>Clank has a win rate of 50%.</p>
             </div>
           </div>
@@ -118,14 +119,12 @@
     <div id="highScoresModal" class="highScores">
       <div class="highScoresContent">
         <div class="topModalHighScore">
-        <h2 class="ruleTitle">High Scores</h2>
-        <span class="close" id="closeHighScores">&times;</span>
-      </div>
+          <h2 class="ruleTitle">High Scores</h2>
+          <span class="close" id="closeHighScores">&times;</span>
+        </div>
         <div id="playerHighScores"></div>
         <!-- javascript -->
       </div>
     </div>
-
-
   </body>
 </html>
