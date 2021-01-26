@@ -20,9 +20,9 @@ function drawGame() {
     drawSlider();
     setRandomNumber();
     drawBubbles();
-    gameLogic();
     drawActiveBots();
     drawAnswers();
+    gameRound();
 }
 
 function drawSlider() {
@@ -68,29 +68,95 @@ function drawAnswers() {
 
 function drawActiveBots() {
 
-    // let bot1 = document.createElement('div');
-    // bot1.id = 'bot1';
-    // document.getElementById('botWrapper').appendChild(bot1);
-
-    // let player = document.createElement('div');
-    // player.id = 'player';
-    // document.getElementById('botWrapper').appendChild(player);
-
-    // let bot2 = document.createElement('div');
-    // bot2.id = 'bot2';
-    // document.getElementById('botWrapper').appendChild(bot2);
-
     for (let i = 0; i < chosenBots.length; i++) {
         let element = document.createElement('div');
     element.id = chosenBots[i];
     document.getElementById('botWrapper').appendChild(element);
+    }
+}
 
+let firstAnswerMade = false;
+    let playerAnswerMade = false; 
+    let thirdAnswerMade = false; 
 
+function gameRound() {
+
+    if (!firstAnswerMade && !playerAnswerMade && !thirdAnswerMade){
+        botAnswer();
+        firstAnswerMade = true;
+        console.log('answer1')
+        gameRound();
+    } else if (firstAnswerMade && !playerAnswerMade && !thirdAnswerMade) {
+        playerAnswerMade = true;
+        gameLogic();
+    } else if (firstAnswerMade && playerAnswerMade && !thirdAnswerMade){
+        botAnswer();
+        thirdAnswerMade = true;
+        console.log('answer2')
+        gameRound();
+    } else {
+    firstAnswerMade = false;
+    playerAnswerMade = false; 
+    thirdAnswerMade = false; 
+    gameRound();
     }
 
+    // for (let i = 0; i < chosenBots.length; i++) {
+    //     if (chosenBots[i] === 'Player') {
+    //         gameLogic();
+        
+    //     } else {
+    //        botAnswer();
+        
+    //     }
+    // }
+}
 
+// function checkGameState() {
+//     if (noPlayerWin) {
+//         gameRound();
+//     }
+// }
+
+// function for turns/ order
+function botAnswer() {
+
+let botGuessValue: number = Math.floor(Math.random() * (0 + 25) + 0);
+
+if (botGuessValue === randomNumber) {
+    // IF GUESS IS CORRECT 
+    document.getElementById(bubbleID[0]).style.visibility = "hidden";
+    document.getElementById(bubbleID[2]).style.visibility = "hidden";
+    document.getElementById(bubbleID[3]).style.visibility = "hidden";
+    document.getElementById(bubbleID[1]).style.visibility = "visible";
+    setElementContent(bubbleTextID[1], gpPhrases[1]);
+    amountOfGuesses++;
+
+} else if (botGuessValue > randomNumber) {
+    //IF GUESST IS HIGHER THAN RANDOMNUMB
+    document.getElementById(bubbleID[0]).style.visibility = "hidden";
+    document.getElementById(bubbleID[1]).style.visibility = "hidden";
+    document.getElementById(bubbleID[3]).style.visibility = "hidden";
+    document.getElementById(bubbleID[2]).style.visibility = "visible";
+    setElementContent(bubbleTextID[2], gpPhrases[2]);
+    amountOfGuesses++;
+
+
+} else if (botGuessValue < randomNumber) {
+    // IF GUESS IS LOWER THAN RANDOMNUMB
+    document.getElementById(bubbleID[0]).style.visibility = "hidden";
+    document.getElementById(bubbleID[1]).style.visibility = "hidden";
+    document.getElementById(bubbleID[2]).style.visibility = "hidden";
+    document.getElementById(bubbleID[3]).style.visibility = "visible";
+    setElementContent(bubbleTextID[3], gpPhrases[3]);
+    amountOfGuesses++;
+}
 
 }
+
+
+
+
 
 function drawBubbles() {
     document.getElementById(bubbleID[0]).style.visibility = "visible";
@@ -102,6 +168,7 @@ function setRandomNumber() {
     console.log('number:' + randomNumber);
 
 }
+
 function gameLogic() {
     let guessValue: number;
     // if randomNumber = inputValue, then correct! if randomNumber >/< inputValue, give corresponding respons
@@ -140,8 +207,7 @@ function gameLogic() {
             amountOfGuesses++;
             console.log('Higher!');
         }
+
+        gameRound();
     }
-}
-function botGuess() {
-    // different if statments depending on what bot thats been picked in the lobby
 }
