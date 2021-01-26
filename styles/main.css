@@ -286,7 +286,7 @@ body {
   background-color: khaki;
 }
 
-#botAnswer1, #botAnswer2, #playerAnswer {
+#answer1, #answer2, #answer3 {
   width: 5rem;
   height: 5rem;
 
