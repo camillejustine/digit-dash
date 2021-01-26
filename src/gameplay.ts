@@ -88,7 +88,7 @@ function gameRound() {
         gameRound();
     } else if (firstAnswerMade && !playerAnswerMade && !thirdAnswerMade) {
         playerAnswerMade = true;
-        gameLogic();
+        playerGuess();
     } else if (firstAnswerMade && playerAnswerMade && !thirdAnswerMade){
         botAnswer();
         thirdAnswerMade = true;
@@ -122,6 +122,7 @@ function gameRound() {
 function botAnswer() {
 
 let botGuessValue: number = Math.floor(Math.random() * (0 + 25) + 0);
+console.log(botGuessValue)
 
 if (botGuessValue === randomNumber) {
     // IF GUESS IS CORRECT 
@@ -169,7 +170,7 @@ function setRandomNumber() {
 
 }
 
-function gameLogic() {
+function playerGuess() {
     let guessValue: number;
     // if randomNumber = inputValue, then correct! if randomNumber >/< inputValue, give corresponding respons
     submitBtn.onclick = () => {
