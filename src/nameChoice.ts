@@ -28,6 +28,8 @@ const greeting: string = "Hi! What's your name?";
 function showGreeting() {
   document.getElementById(bubbleID[0]).style.visibility = "visible";
   setElementContent(bubbleTextID[0], greeting);
+  gameMaster.load("https://assets2.lottiefiles.com/private_files/lf30_bqqaxg5n.json");
+
 }
 
 function showNameInput() {
