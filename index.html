@@ -14,6 +14,9 @@
       href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap"
       rel="stylesheet"
     />
+    <script
+      src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"
+    ></script>
   </head>
   <body>
     <div id="quizzWrapper">
@@ -33,18 +36,14 @@
         </div>
 
         <div class="gmItem gameMaster">
-          <script
-            id="gameMasterAnimation"
-            src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"
-          ></script>
-          <lottie-player
-            src="https://assets5.lottiefiles.com/private_files/lf30_31x4tkfb.json"
-            background="transparent"
-            speed="1"
-            style="width: 200px; height: 200px"
-            loop
+          <lottie-player id="gameMaster"
             autoplay
-          ></lottie-player>
+            loop
+            src="https://assets5.lottiefiles.com/private_files/lf30_31x4tkfb.json"
+            mode="normal"
+            style="width: 200px; height: 200px"
+          >
+          </lottie-player>
         </div>
 
         <div class="speechBubbleWrapper">
@@ -63,6 +62,8 @@
     </div>
 
     <div id="inputField" class="inputWrapper"></div>
+
+    <div id="answerWrapper" class="answerContainer"></div>
 
     <div id="botWrapper" class="botContainer"></div>
 

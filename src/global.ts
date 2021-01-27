@@ -1,5 +1,7 @@
 window.addEventListener('load', welcomeScreen);
 
+const gameMaster: any = document.getElementById('gameMaster');
+
 let players: Array<Object> = [];
 //let player: {name: string, highscore: number, games: number}
 
@@ -28,13 +30,13 @@ function removeBubbles(){
 
 function removeBubble(bubbleID: string, textID: string){
     document.getElementById(textID).innerHTML = '';
-    document.getElementById(bubbleID).style.visibility = 'hidden'
+    document.getElementById(bubbleID).style.visibility = 'hidden';
 }
 
 function fadeIn(id: string){
     let element: HTMLElement = document.getElementById(id);
-    element.style.opacity = "0"
-    element.classList.add('fadeIn')
+    element.style.opacity = "0";
+    element.classList.add('fadeIn');
 }
 
 
