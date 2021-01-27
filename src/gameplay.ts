@@ -73,9 +73,14 @@ function updateAnswers(id: string, value: number) {
 
 //Gets called before every new answer
 function hideAnswerBubbles() {
-  document.getElementById("answer1").style.visibility = "hidden";
-  document.getElementById("answer2").style.visibility = "hidden";
-  document.getElementById("answer3").style.visibility = "hidden";
+  if (chosenBots.length > 2){
+    document.getElementById("answer1").style.visibility = "hidden";
+    document.getElementById("answer2").style.visibility = "hidden";
+    document.getElementById("answer3").style.visibility = "hidden";
+  } else {
+    document.getElementById("answer1").style.visibility = "hidden";
+    document.getElementById("answer2").style.visibility = "hidden";
+  }
 }
 
 function drawActiveBots() {
