@@ -294,16 +294,17 @@ lottie-player {
 #answer1,
 #answer2,
 #answer3 {
-  width: 5rem;
-  height: 5rem;
+  /* width: 5rem;
+  height: 5rem; */
 }  
 .answerBubble {
   width: 9.5rem;
-  height: 4rem;
+  height: 4.5rem;
 
   /* background-color: hotpink; */
   background-image: url(../assets/imgs/bubbleTR.png);
-  background-size: cover;
+  background-size: contain;
+  background-repeat: no-repeat;
   display:flex;
   justify-content: center;
   align-items: center;

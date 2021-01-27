@@ -25,8 +25,9 @@ function drawGame() {
   setRandomNumber();
   drawActiveBots();
   drawAnswers();
+  updateAnswers('answer1', '...');
   gameRound();
-  hideAnswerBubbles();
+//   hideAnswerBubbles();
 }
 
 function drawSlider() {
@@ -50,7 +51,7 @@ function drawSlider() {
 
     // target bubble instead
     
-
+    
     
 
   // Adds the elements to the wrapper
@@ -78,8 +79,8 @@ function drawAnswers() {
   document.getElementById('answer2').innerText = slider.value;
 }
 
-function updateAnswers(id: string, value: number) {
-  document.getElementById(id).innerText = String(value);
+function updateAnswers(id: string, value: string) {
+  document.getElementById(id).innerText = value;
   document.getElementById(id).style.visibility = "visible";
 }
 
@@ -118,7 +119,8 @@ let answerTime: number;
 function gameRound() {
     
     //sets a random number between 2000-4000 to use as timeout time.
-    answerTime = Math.floor(Math.random() * (4000 - 2000 + 1000) + 2000);
+    answerTime = Math.floor(Math.random() * (6000 - 3000 + 1000) + 3000);
+    let showThinkBubble = Math.floor(Math.random() * (0 + 100) + 0);
 
     //if stat for whos turn it is 
     if (!firstAnswerMade && !playerAnswerMade && !thirdAnswerMade) {
@@ -128,15 +130,26 @@ function gameRound() {
         submitBtn.style
 
         setTimeout(() => {
+            if (showThinkBubble > 50 && showThinkBubble < 75){
+                updateAnswers('answer1', '...');
+            } else if (showThinkBubble > 76) {
+                updateAnswers('answer1', 'Hmm...');
+            }
+        }, 1500)
+
+        
+        setTimeout(() => {
             botAnswer(0);
             compareAnswer(botGuessValue, randomNumber);
             firstAnswerMade = true;
             botOneAnswer = botGuessValue;
             hideAnswerBubbles();
-            console.log('Answer from bot 1');
-            updateAnswers('answer1', botOneAnswer);
+            // console.log('Answer from bot 1');
+            updateAnswers('answer1', String(botOneAnswer));
             gameRound();
         }, answerTime);
+
+        
 
     } else if (firstAnswerMade && !playerAnswerMade && !thirdAnswerMade) {
 
@@ -149,15 +162,25 @@ function gameRound() {
 
         slider.disabled = true;
         submitBtn.disabled = true;
+
+        setTimeout(() => {
+            if (showThinkBubble > 50 && showThinkBubble < 75){
+                updateAnswers('answer3', '...');
+            } else if (showThinkBubble > 76) {
+                updateAnswers('answer3', 'Hmm...');
+            }
+        }, 1500)
+
+
         setTimeout(() => {
             botAnswer(2);
             thirdAnswerMade = true;
             botTwoAnswer = botGuessValue;
             hideAnswerBubbles();
-            updateAnswers('answer3', botTwoAnswer);
+            updateAnswers('answer3', String(botTwoAnswer));
             gameRound();
         }, answerTime);
-        console.log('Asnwer from bot 2')
+        // console.log('Asnwer from bot 2')
 
     } else {
 
@@ -172,7 +195,7 @@ function gameRound() {
 // Answers from bots
 function botAnswer(index: number) {
   let IQRange: number = checkWhichBot(index);
-  console.log("IQRange: " + IQRange);
+//   console.log("IQRange: " + IQRange);
   botGuessValue = Math.floor(
     Math.random() * (randomNumber - IQRange + (randomNumber + IQRange)) + 0
   );
@@ -236,13 +259,16 @@ function setRandomNumber() {
 
 function playerGuess() {
   // if randomNumber = inputValue, then correct! if randomNumber >/< inputValue, give corresponding response
+  setTimeout(() => {
+    updateAnswers('answer2', slider.value);
+  },1000)
   submitBtn.onclick = () => {
     hideAnswerBubbles();
     guessValue = parseInt(slider.value);
     console.log("Guess: " + guessValue);
     console.log("number: " + randomNumber);
     compareAnswer(guessValue, randomNumber);
-    updateAnswers("answer2", guessValue);
+    updateAnswers("answer2", String(guessValue));
     clearInterval(timer);
     gameRound();
   };
@@ -257,7 +283,7 @@ function playerGuess() {
       guessValue = parseInt(slider.value);
       compareAnswer(guessValue, randomNumber);
       hideAnswerBubbles();
-      updateAnswers("answer2", guessValue);
+      updateAnswers("answer2", String(guessValue));
       gameRound();
       clearInterval(timer);
     }
