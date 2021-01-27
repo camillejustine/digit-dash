@@ -18,6 +18,7 @@ const submitBtn: HTMLButtonElement = document.createElement("button");
 let amountOfGuesses: number = 0;
 
 function drawGame() {
+  console.log(playerAnswerMade);
   chosenBots.splice(1, 0, "Player");
   drawSlider();
   drawBubbles();
@@ -25,15 +26,19 @@ function drawGame() {
   drawActiveBots();
   drawAnswers();
   gameRound();
+  hideAnswerBubbles();
 }
 
 function drawSlider() {
+
     // Slider
     slider.type = 'range';
     slider.min = '0';
     slider.max = '100';
     slider.id = 'rangeSlider'
     slider.disabled = true;
+
+
 
   //submit btn
   submitBtn.textContent = "Guess";
@@ -63,13 +68,31 @@ function drawAnswers() {
   for (let index = 0; index < chosenBots.length; index++) {
     let answer = document.createElement("div");
     answer.id = `answer${index + 1}`;
+    answer.classList.add("answerBubble");
     document.getElementById("answerWrapper").appendChild(answer);
+    let answerText = document.createElement("p");
+    document.getElementById(`answer${index + 1}`).style.visibility = "hidden";
+    document.getElementById(`answer${index + 1}`).appendChild(answerText);
   }
   // set slider value to bubble
   document.getElementById('answer2').innerText = slider.value;
 }
+
 function updateAnswers(id: string, value: number) {
   document.getElementById(id).innerText = String(value);
+  document.getElementById(id).style.visibility = "visible";
+}
+
+//Gets called before every new answer
+function hideAnswerBubbles() {
+  if (chosenBots.length > 2){
+    document.getElementById("answer1").style.visibility = "hidden";
+    document.getElementById("answer2").style.visibility = "hidden";
+    document.getElementById("answer3").style.visibility = "hidden";
+  } else {
+    document.getElementById("answer1").style.visibility = "hidden";
+    document.getElementById("answer2").style.visibility = "hidden";
+  }
 }
 
 function drawActiveBots() {
@@ -144,26 +167,29 @@ function gameRound() {
     }
 }
 
-
-// Answers from bots 
+// Answers from bots
 function botAnswer(index: number) {
-    let IQRange: number = checkWhichBot(index);
-    console.log('IQRange: ' + IQRange);
-    botGuessValue = Math.floor(Math.random() * ((randomNumber - IQRange) + (randomNumber + IQRange)) + 0);
+  let IQRange: number = checkWhichBot(index);
+  console.log("IQRange: " + IQRange);
+  botGuessValue = Math.floor(
+    Math.random() * (randomNumber - IQRange + (randomNumber + IQRange)) + 0
+  );
 
-    while (botGuessValue > 100 || botGuessValue < 0){
-        botGuessValue = Math.floor(Math.random() * ((randomNumber - IQRange) + (randomNumber + IQRange)) + 0);
-    }
+  while (botGuessValue > 100 || botGuessValue < 0) {
+    botGuessValue = Math.floor(
+      Math.random() * (randomNumber - IQRange + (randomNumber + IQRange)) + 0
+    );
+  }
 }
 
-function checkWhichBot(index: number){
-    if (chosenBots[index] === 'Bolt'){
-        return 25
-    } else if (chosenBots[index] === 'Gadget'){
-        return 50
-    } else if (chosenBots[index] === 'Clank'){
-        return 75
-    }
+function checkWhichBot(index: number) {
+  if (chosenBots[index] === "Bolt") {
+    return 25;
+  } else if (chosenBots[index] === "Gadget") {
+    return 50;
+  } else if (chosenBots[index] === "Clank") {
+    return 75;
+  }
 }
 
 //compares the answers that both bots and player gives
@@ -202,10 +228,8 @@ function drawBubbles() {
 
 //sets the random number that the players and bots tries to guess
 function setRandomNumber() {
-
-    randomNumber = Math.floor(Math.random() * (0 + 100) + 0);
-    console.log('number:' + randomNumber);
-
+  randomNumber = Math.floor(Math.random() * (0 + 100) + 0);
+  console.log("number:" + randomNumber);
 }
 
 function playerGuess() {
@@ -215,6 +239,7 @@ function playerGuess() {
     console.log("Guess: " + guessValue);
     console.log("number: " + randomNumber);
     compareAnswer(guessValue, randomNumber);
+    hideAnswerBubbles();
     updateAnswers("answer2", guessValue);
     clearInterval(timer);
     gameRound();
@@ -229,6 +254,7 @@ function playerGuess() {
     if (timeLeft <= 0) {
       guessValue = parseInt(slider.value);
       compareAnswer(guessValue, randomNumber);
+      hideAnswerBubbles();
       updateAnswers("answer2", guessValue);
       gameRound();
       clearInterval(timer);
