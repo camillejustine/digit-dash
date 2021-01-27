@@ -56,7 +56,7 @@ body {
   text-align: center;
   vertical-align: middle;
   position: absolute;
-  font-size: 0.6rem;
+  font-size: 0.5rem;
   font-weight: 600;
   max-width: 4rem;
   color: #ffffff;
@@ -146,7 +146,6 @@ body {
   transition: all 0.35s;
 }
 
-
 .rules {
   visibility: hidden;
   position: fixed;
@@ -196,7 +195,6 @@ body {
 .inputWrapper > input {
   width: 15rem;
 }
-
 
 /* highscore module */
 
@@ -253,13 +251,12 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-
 }
 
 #playerHighScores1 {
   height: 5rem;
   width: 30rem;
-  border-bottom: .1rem solid grey;
+  border-bottom: 0.1rem solid grey;
 }
 #userInput {
   border: 3px solid #dcd6e4;
@@ -274,7 +271,6 @@ body {
   box-sizing: border-box;
   border-radius: 270px;
   outline: none;
-
 }
 
 .answerContainer {
@@ -309,6 +305,4 @@ body {
 .fadeIn {
   opacity: 1;
   transition: opacity 3000ms;
-
 }
-
