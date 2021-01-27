@@ -18,25 +18,23 @@ const submitBtn: HTMLButtonElement = document.createElement("button");
 let amountOfGuesses: number = 0;
 
 function drawGame() {
-    console.log(playerAnswerMade)
-    chosenBots.splice(1, 0, "Player");
-    console.log(chosenBots)
-    drawSlider();
-    drawBubbles();
-    setRandomNumber();
-    drawActiveBots();
-    drawAnswers();
-    gameRound();
-    hideAnswerBubbles();
+  console.log(playerAnswerMade);
+  chosenBots.splice(1, 0, "Player");
+  console.log(chosenBots);
+  drawSlider();
+  drawBubbles();
+  setRandomNumber();
+  drawActiveBots();
+  drawAnswers();
+  gameRound();
+  hideAnswerBubbles();
 }
 
 function drawSlider() {
-
-    // Slider
-    slider.type = 'range';
-    slider.min = '0';
-    slider.max = '100';
-
+  // Slider
+  slider.type = "range";
+  slider.min = "0";
+  slider.max = "100";
 
   //submit btn
   submitBtn.textContent = "Guess";
@@ -57,39 +55,37 @@ function drawSlider() {
 }
 
 function drawAnswers() {
-    for (let index = 0; index < chosenBots.length; index++) {
-        let answer = document.createElement('div');
-        answer.id = `answer${index + 1}`;
-        answer.classList.add("answerBubble");
-        document.getElementById('answerWrapper').appendChild(answer);
-        let answerText = document.createElement('p');
-        document.getElementById(`answer${index + 1}`).style.visibility = "hidden";
-        document.getElementById(`answer${index + 1}`).appendChild(answerText);
-    }
+  for (let index = 0; index < chosenBots.length; index++) {
+    let answer = document.createElement("div");
+    answer.id = `answer${index + 1}`;
+    answer.classList.add("answerBubble");
+    document.getElementById("answerWrapper").appendChild(answer);
+    let answerText = document.createElement("p");
+    document.getElementById(`answer${index + 1}`).style.visibility = "hidden";
+    document.getElementById(`answer${index + 1}`).appendChild(answerText);
+  }
 }
 
 function updateAnswers(id: string, value: number) {
-    document.getElementById(id).innerText = String(value);
-    document.getElementById(id).style.visibility = "visible";
+  document.getElementById(id).innerText = String(value);
+  document.getElementById(id).style.visibility = "visible";
 }
 
 //Gets called before every new answer
-function hideAnswerBubbles(){
-    document.getElementById('answer1').style.visibility = "hidden";
-    document.getElementById('answer2').style.visibility = "hidden";
-    document.getElementById('answer3').style.visibility = "hidden";
+function hideAnswerBubbles() {
+  document.getElementById("answer1").style.visibility = "hidden";
+  document.getElementById("answer2").style.visibility = "hidden";
+  document.getElementById("answer3").style.visibility = "hidden";
 }
 
 function drawActiveBots() {
-    for (let i = 0; i < chosenBots.length; i++) {
-        let element = document.createElement("div");
-        element.id = chosenBots[i];
-        document.getElementById("botWrapper").appendChild(element);
-        element.style.backgroundImage = `url("../assets/imgs/player${chosenBots[i]}.png")`;
-      }
+  for (let i = 0; i < chosenBots.length; i++) {
+    let element = document.createElement("div");
+    element.id = chosenBots[i];
+    document.getElementById("botWrapper").appendChild(element);
+    element.style.backgroundImage = `url("../assets/imgs/player${chosenBots[i]}.png")`;
+  }
 }
-
-
 
 // vars
 let firstAnswerMade: boolean = false;
@@ -103,64 +99,69 @@ let answerTime: number;
 
 // the logic for how the rounds works----
 function gameRound() {
-
-    //sets a random number between 2000-4000 to use as timeout time.
-    answerTime = Math.floor(Math.random() * (4000 - 2000 + 1000) + 2000);
-    //if stat for whos turn it is 
-    if (!firstAnswerMade && !playerAnswerMade && !thirdAnswerMade) {
-        
-        setTimeout(() => {
-            botAnswer(0);
-            compareAnswer(botGuessValue, randomNumber);
-            firstAnswerMade = true;
-            botOneAnswer = botGuessValue;
-            console.log('Answer from bot 1');
-            hideAnswerBubbles();
-            updateAnswers('answer1', botOneAnswer);
-            gameRound();
-        }, answerTime);
-        
-    } else if (firstAnswerMade && !playerAnswerMade && !thirdAnswerMade) {
-        playerAnswerMade = true;
-        playerGuess();
-    } else if (chosenBots.length > 2 && firstAnswerMade && playerAnswerMade && !thirdAnswerMade) {
-        setTimeout(() => {
-            botAnswer(2);
-            thirdAnswerMade = true;
-            botTwoAnswer = botGuessValue;
-            hideAnswerBubbles();
-            updateAnswers('answer3', botTwoAnswer);
-            gameRound();
-        }, answerTime); 
-        console.log('Asnwer from bot 2')
-    } else {
-        firstAnswerMade = false;
-        playerAnswerMade = false;
-        thirdAnswerMade = false;
-        gameRound();
-    } 
+  //sets a random number between 2000-4000 to use as timeout time.
+  answerTime = Math.floor(Math.random() * (4000 - 2000 + 1000) + 2000);
+  //if stat for whos turn it is
+  if (!firstAnswerMade && !playerAnswerMade && !thirdAnswerMade) {
+    setTimeout(() => {
+      botAnswer(0);
+      compareAnswer(botGuessValue, randomNumber);
+      firstAnswerMade = true;
+      botOneAnswer = botGuessValue;
+      console.log("Answer from bot 1");
+      hideAnswerBubbles();
+      updateAnswers("answer1", botOneAnswer);
+      gameRound();
+    }, answerTime);
+  } else if (firstAnswerMade && !playerAnswerMade && !thirdAnswerMade) {
+    playerAnswerMade = true;
+    playerGuess();
+  } else if (
+    chosenBots.length > 2 &&
+    firstAnswerMade &&
+    playerAnswerMade &&
+    !thirdAnswerMade
+  ) {
+    setTimeout(() => {
+      botAnswer(2);
+      thirdAnswerMade = true;
+      botTwoAnswer = botGuessValue;
+      hideAnswerBubbles();
+      updateAnswers("answer3", botTwoAnswer);
+      gameRound();
+    }, answerTime);
+    console.log("Asnwer from bot 2");
+  } else {
+    firstAnswerMade = false;
+    playerAnswerMade = false;
+    thirdAnswerMade = false;
+    gameRound();
+  }
 }
 
-
-// Answers from bots 
+// Answers from bots
 function botAnswer(index: number) {
-    let IQRange: number = checkWhichBot(index);
-    console.log('IQRange: ' + IQRange);
-    botGuessValue = Math.floor(Math.random() * ((randomNumber - IQRange) + (randomNumber + IQRange)) + 0);
+  let IQRange: number = checkWhichBot(index);
+  console.log("IQRange: " + IQRange);
+  botGuessValue = Math.floor(
+    Math.random() * (randomNumber - IQRange + (randomNumber + IQRange)) + 0
+  );
 
-    while (botGuessValue > 100 || botGuessValue < 0){
-        botGuessValue = Math.floor(Math.random() * ((randomNumber - IQRange) + (randomNumber + IQRange)) + 0);
-    }
+  while (botGuessValue > 100 || botGuessValue < 0) {
+    botGuessValue = Math.floor(
+      Math.random() * (randomNumber - IQRange + (randomNumber + IQRange)) + 0
+    );
+  }
 }
 
-function checkWhichBot(index: number){
-    if (chosenBots[index] === 'Bolt'){
-        return 25
-    } else if (chosenBots[index] === 'Gadget'){
-        return 50
-    } else if (chosenBots[index] === 'Clank'){
-        return 75
-    }
+function checkWhichBot(index: number) {
+  if (chosenBots[index] === "Bolt") {
+    return 25;
+  } else if (chosenBots[index] === "Gadget") {
+    return 50;
+  } else if (chosenBots[index] === "Clank") {
+    return 75;
+  }
 }
 
 //compares the answers that both bots and player gives
@@ -199,10 +200,8 @@ function drawBubbles() {
 
 //sets the random number that the players and bots tries to guess
 function setRandomNumber() {
-
-    randomNumber = Math.floor(Math.random() * (0 + 100) + 0);
-    console.log('number:' + randomNumber);
-
+  randomNumber = Math.floor(Math.random() * (0 + 100) + 0);
+  console.log("number:" + randomNumber);
 }
 
 function playerGuess() {
@@ -227,6 +226,7 @@ function playerGuess() {
     if (timeLeft <= 0) {
       guessValue = 0;
       compareAnswer(guessValue, randomNumber);
+      hideAnswerBubbles();
       updateAnswers("answer2", guessValue);
       gameRound();
       clearInterval(timer);
