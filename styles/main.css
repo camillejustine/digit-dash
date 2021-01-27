@@ -12,6 +12,12 @@ body {
   /* background: linear-gradient(180deg, #FFFFFF 0%, #9B85AD 100%) */
 }
 
+h1, h2, button {
+  font-family: "Montserrat", sans-serif;
+  letter-spacing: .1rem;
+  text-transform: uppercase;
+}
+
 lottie-player {
   width: 200px;
   height: 200px;
@@ -96,17 +102,10 @@ lottie-player {
   height: 10rem;
 }
 
-/* #playerBolt,
-#playerClank,
-#playerGadget {
-  height: 7rem;
-  width: 7rem;
-  /* background-color: blue; */
-/* object-fit: cover;
-} */
+/* player styles */
 #playerBolt,
 #Bolt {
-  height: 7rem;
+  height: 7.5rem;
   width: 7rem;
   background-image: url("../assets/imgs/playerBolt-grey.png");
   background-size: cover;
@@ -294,21 +293,24 @@ lottie-player {
 #answer1,
 #answer2,
 #answer3 {
-  width: 5rem;
-  height: 5rem;
+  /* width: 5rem;
+  height: 5rem; */
 }  
 .answerBubble {
   width: 9.5rem;
-  height: 4rem;
-
+  height: 4.5rem;
+  background-position: center;
   /* background-color: hotpink; */
   background-image: url(../assets/imgs/bubbleTR.png);
-  background-size: cover;
+  background-size: contain;
+  background-repeat: no-repeat;
   display:flex;
   justify-content: center;
   align-items: center;
   padding-bottom: 1rem;
 
+  opacity: 1;
+  transition: all 1000ms;
 }
 
 .guessBtn{
