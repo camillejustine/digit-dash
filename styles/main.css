@@ -12,6 +12,12 @@ body {
   /* background: linear-gradient(180deg, #FFFFFF 0%, #9B85AD 100%) */
 }
 
+h1, h2, button {
+  font-family: "Montserrat", sans-serif;
+  letter-spacing: .1rem;
+  text-transform: uppercase;
+}
+
 lottie-player {
   width: 200px;
   height: 200px;
@@ -96,17 +102,10 @@ lottie-player {
   height: 10rem;
 }
 
-/* #playerBolt,
-#playerClank,
-#playerGadget {
-  height: 7rem;
-  width: 7rem;
-  /* background-color: blue; */
-/* object-fit: cover;
-} */
+/* player styles */
 #playerBolt,
 #Bolt {
-  height: 7rem;
+  height: 7.5rem;
   width: 7rem;
   background-image: url("../assets/imgs/playerBolt-grey.png");
   background-size: cover;
