@@ -9,14 +9,13 @@
 
     <link rel="stylesheet" href="./styles/main.css" />
     <link rel="stylesheet" href="./styles/lobby.css" />
+    <link rel="stylesheet" href="./styles/desktop.css" />
     <link rel="preconnect" href="https://fonts.gstatic.com" />
     <link
       href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap"
       rel="stylesheet"
     />
-    <script
-      src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"
-    ></script>
+    <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
   </head>
   <body>
     <div id="quizzWrapper">
@@ -24,36 +23,56 @@
       <div id="gameMasterWrapper" class="gameMasterWrapper">
         <div class="speechBubbleWrapper">
           <div class="gmItem bubble" id="bubbleTL">
-            <img class="bubbleImage" src="./assets/imgs/bubbleTL.png" alt="" />
+            <img
+              class="bubbleImage"
+              id="bubbleTL"
+              src="./assets/imgs/bubbleTL.png"
+              alt=""
+            />
             <p id="textTL"></p>
             <!-- put bubble img here -->
           </div>
           <div class="gmItem bubble" id="bubbleTR">
-            <img class="bubbleImage" src="./assets/imgs/bubbleTR.png" alt="" />
+            <img
+              class="bubbleImage"
+              id="bubbleTR"
+              src="./assets/imgs/bubbleTR.png"
+              alt=""
+            />
             <p id="textTR"></p>
             <!-- put bubble img here -->
           </div>
         </div>
 
         <div class="gmItem gameMaster">
-          <lottie-player id="gameMaster"
+          <lottie-player
+            id="gameMaster"
             autoplay
             loop
             src="https://assets5.lottiefiles.com/private_files/lf30_31x4tkfb.json"
             mode="normal"
-            style="width: 200px; height: 200px"
           >
           </lottie-player>
         </div>
 
         <div class="speechBubbleWrapper">
           <div class="gmItem bubble" id="bubbleBL">
-            <img class="bubbleImage" src="./assets/imgs/bubbleBL.png" alt="" />
+            <img
+              class="bubbleImage"
+              id="bubbleBL"
+              src="./assets/imgs/bubbleBL.png"
+              alt=""
+            />
             <p id="textBL"></p>
             <!-- put bubble img here -->
           </div>
           <div class="gmItem bubble" id="bubbleBR">
-            <img class="bubbleImage" src="./assets/imgs/bubbleBR.png" alt="" />
+            <img
+              class="bubbleImage"
+              id="bubbleBR"
+              src="./assets/imgs/bubbleBR.png"
+              alt=""
+            />
             <p id="textBR"></p>
             <!-- put bubble img here -->
           </div>

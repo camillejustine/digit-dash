@@ -6,9 +6,8 @@
 }
 .botModal {
   visibility: hidden;
-  position: fixed;
+  /* position: fixed; */
   z-index: 10;
-  left: 10%;
   top: 1rem;
   width: 80%;
   overflow: auto;
@@ -21,7 +20,9 @@
   transition: block 4s;
   position: absolute;
   border-radius: 4rem;
-  height: 75%;
+  height: 40rem;
+  /* left: 10%; */
+  margin: 0 2.5rem 0 2.5rem;
 }
 .botClose {
   color: rgb(61, 60, 60);
