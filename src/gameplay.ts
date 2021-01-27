@@ -89,7 +89,7 @@ function gameRound() {
             compareAnswer(botGuessValue, randomNumber);
             firstAnswerMade = true;
             botOneAnswer = botGuessValue;
-            console.log('answer1');
+            console.log('Answer from bot 1');
             updateAnswers('answer1', botOneAnswer);
             gameRound();
         }, answerTime);
@@ -104,7 +104,7 @@ function gameRound() {
             updateAnswers('answer3', botTwoAnswer);
             gameRound();
         }, answerTime);
-        console.log('answer2')
+        console.log('Asnwer from bot 2')
     } else {
         firstAnswerMade = false;
         playerAnswerMade = false;
@@ -118,7 +118,7 @@ function gameRound() {
 function botAnswer() {
     setTimeout(() => { })
     botGuessValue = Math.floor(Math.random() * (0 + 25) + 0);
-    console.log(botGuessValue)
+    console.log('Bot guess: ' + botGuessValue)
 }
 
 function compareAnswer(answer: number, randomNumber: number) {
@@ -174,7 +174,22 @@ function playerGuess() {
         console.log('number: ' + randomNumber);
         compareAnswer(guessValue, randomNumber);
         updateAnswers('answer2', guessValue);
+        clearInterval(timer);
         gameRound();
 
     }
+    //Timer for the player. 
+    let timeLeft: number = 10;
+    const timer = setInterval(() => {
+        timeLeft--;
+        console.log('time left: ' + timeLeft);
+        
+        if (timeLeft <= 0) {
+            guessValue = 0;
+            compareAnswer(guessValue, randomNumber);
+            updateAnswers('answer2', guessValue);
+            gameRound();
+            clearInterval(timer);
+        }
+    }, 1000);
 }
