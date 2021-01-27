@@ -88,6 +88,7 @@ function drawActiveBots() {
     }
 }
 
+// vars
 let firstAnswerMade: boolean = false;
 let playerAnswerMade: boolean = false;
 let thirdAnswerMade: boolean = false;
@@ -95,28 +96,38 @@ let botGuessValue: number;
 let botOneAnswer: number;
 let botTwoAnswer: number;
 let guessValue: number;
+let answerTime: number;
 
+// the logic for how the rounds works---- 
 function gameRound() {
-    
+    //sets a random number between 2000-4000 to use as timeout time.
+    answerTime = Math.floor(Math.random() * (4000 - 2000 + 1000) + 2000);
+
+    //if stat for whos turn it is 
     if (!firstAnswerMade && !playerAnswerMade && !thirdAnswerMade) {
-        botAnswer();
-        firstAnswerMade = true;
-        botOneAnswer = botGuessValue;
-        console.log('answer1');
-        updateAnswers('answer1', botOneAnswer);
-        //hideBubbles('answer2', 'answer3');
-        gameRound();
+        setTimeout(() => {
+            botAnswer();
+            compareAnswer(botGuessValue, randomNumber);
+            firstAnswerMade = true;
+            botOneAnswer = botGuessValue;
+            console.log('Answer from bot 1');
+            updateAnswers('answer1', botOneAnswer);
+            //hideBubbles('answer2', 'answer3');
+            gameRound();
+        }, answerTime);
     } else if (firstAnswerMade && !playerAnswerMade && !thirdAnswerMade) {
         playerAnswerMade = true;
         playerGuess();
     } else if (chosenBots.length > 2 && firstAnswerMade && playerAnswerMade && !thirdAnswerMade) {
-        botAnswer();
-        thirdAnswerMade = true;
-        botTwoAnswer = botGuessValue;
-        updateAnswers('answer3', botTwoAnswer);
-        console.log('answer2');
-        //hideBubbles('answer1', 'answer2');
-        gameRound();
+        setTimeout(() => {
+            botAnswer();
+            thirdAnswerMade = true;
+            botTwoAnswer = botGuessValue;
+            updateAnswers('answer3', botTwoAnswer);
+            gameRound();
+        }, answerTime);
+        //hideBubbles('answer1', 'answer3');
+        console.log('Asnwer from bot 2')
     } else {
         firstAnswerMade = false;
         playerAnswerMade = false;
@@ -126,18 +137,15 @@ function gameRound() {
 }
 
 
-// function checkGameState() {
-//     if (noPlayerWin) {
-//         gameRound();
-//     }
-// }
-
-// function for turns/ order
+// Answers from bots 
 function botAnswer() {
     botGuessValue = Math.floor(Math.random() * (0 + 25) + 0);
-    console.log(botGuessValue)
+    console.log('Bot guess: ' + botGuessValue)
+}
 
-    if (botGuessValue === randomNumber) {
+//compares the answers that both bots and player gives
+function compareAnswer(answer: number, randomNumber: number) {
+    if (answer === randomNumber) {
         // IF GUESS IS CORRECT 
         document.getElementById(bubbleID[0]).style.visibility = "hidden";
         document.getElementById(bubbleID[2]).style.visibility = "hidden";
@@ -146,7 +154,7 @@ function botAnswer() {
         setElementContent(bubbleTextID[1], gpPhrases[1]);
         amountOfGuesses++;
 
-    } else if (botGuessValue > randomNumber) {
+    } else if (answer > randomNumber) {
         //IF GUESST IS HIGHER THAN RANDOMNUMB
         document.getElementById(bubbleID[0]).style.visibility = "hidden";
         document.getElementById(bubbleID[1]).style.visibility = "hidden";
@@ -156,7 +164,7 @@ function botAnswer() {
         amountOfGuesses++;
 
 
-    } else if (botGuessValue < randomNumber) {
+    } else if (answer < randomNumber) {
         // IF GUESS IS LOWER THAN RANDOMNUMB
         document.getElementById(bubbleID[0]).style.visibility = "hidden";
         document.getElementById(bubbleID[1]).style.visibility = "hidden";
@@ -168,14 +176,12 @@ function botAnswer() {
 }
 
 
-
-
-
 function drawBubbles() {
     document.getElementById(bubbleID[0]).style.visibility = "visible";
     setElementContent(bubbleTextID[0], gpPhrases[0]);
 }
 
+//sets the random number that the players and bots tries to guess
 function setRandomNumber() {
     randomNumber = Math.floor(Math.random() * (0 + 25) + 0);
     console.log('number:' + randomNumber);
@@ -183,45 +189,29 @@ function setRandomNumber() {
 }
 
 function playerGuess() {
-    // if randomNumber = inputValue, then correct! if randomNumber >/< inputValue, give corresponding respons
+    // if randomNumber = inputValue, then correct! if randomNumber >/< inputValue, give corresponding response
     submitBtn.onclick = () => {
         guessValue = parseInt(slider.value);
         console.log('Guess: ' + guessValue);
         console.log('number: ' + randomNumber);
-
-        if (guessValue === randomNumber) {
-            // IF GUESS IS CORRECT 
-            document.getElementById(bubbleID[0]).style.visibility = "hidden";
-            document.getElementById(bubbleID[2]).style.visibility = "hidden";
-            document.getElementById(bubbleID[3]).style.visibility = "hidden";
-            document.getElementById(bubbleID[1]).style.visibility = "visible";
-            setElementContent(bubbleTextID[1], gpPhrases[1]);
-            amountOfGuesses++;
-            console.log('Correct');
-
-        } else if (guessValue > randomNumber) {
-            //IF GUESST IS HIGHER THAN RANDOMNUMB
-            document.getElementById(bubbleID[0]).style.visibility = "hidden";
-            document.getElementById(bubbleID[1]).style.visibility = "hidden";
-            document.getElementById(bubbleID[3]).style.visibility = "hidden";
-            document.getElementById(bubbleID[2]).style.visibility = "visible";
-            setElementContent(bubbleTextID[2], gpPhrases[2]);
-            amountOfGuesses++;
-            console.log('Lower!');
-
-        } else if (guessValue < randomNumber) {
-            // IF GUESS IS LOWER THAN RANDOMNUMB
-            document.getElementById(bubbleID[0]).style.visibility = "hidden";
-            document.getElementById(bubbleID[1]).style.visibility = "hidden";
-            document.getElementById(bubbleID[2]).style.visibility = "hidden";
-            document.getElementById(bubbleID[3]).style.visibility = "visible";
-            setElementContent(bubbleTextID[3], gpPhrases[3]);
-            amountOfGuesses++;
-            console.log('Higher!');
-        }
+        compareAnswer(guessValue, randomNumber);
         updateAnswers('answer2', guessValue);
+        clearInterval(timer);
         gameRound();
-        
-        
     }
+
+    //Timer for the player. 
+    let timeLeft: number = 10;
+    const timer = setInterval(() => {
+        timeLeft--;
+        console.log('time left: ' + timeLeft);
+
+        if (timeLeft <= 0) {
+            guessValue = 0;
+            compareAnswer(guessValue, randomNumber);
+            updateAnswers('answer2', guessValue);
+            gameRound();
+            clearInterval(timer);
+        }
+    }, 1000);
 }
