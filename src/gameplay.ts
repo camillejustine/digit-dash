@@ -29,10 +29,12 @@ function drawGame() {
 }
 
 function drawSlider() {
-  // Slider
-  slider.type = "range";
-  slider.min = "0";
-  slider.max = "25";
+
+    // Slider
+    slider.type = 'range';
+    slider.min = '0';
+    slider.max = '100';
+
 
   //submit btn
   submitBtn.textContent = "Guess";
@@ -84,49 +86,63 @@ let answerTime: number;
 
 // the logic for how the rounds works----
 function gameRound() {
-  //sets a random number between 2000-4000 to use as timeout time.
-  answerTime = Math.floor(Math.random() * (4000 - 2000 + 1000) + 2000);
 
-  //if stat for whos turn it is
-  if (!firstAnswerMade && !playerAnswerMade && !thirdAnswerMade) {
-    setTimeout(() => {
-      botAnswer();
-      compareAnswer(botGuessValue, randomNumber);
-      firstAnswerMade = true;
-      botOneAnswer = botGuessValue;
-      console.log("Answer from bot 1");
-      updateAnswers("answer1", botOneAnswer);
-      gameRound();
-    }, answerTime);
-  } else if (firstAnswerMade && !playerAnswerMade && !thirdAnswerMade) {
-    playerAnswerMade = true;
-    playerGuess();
-  } else if (
-    chosenBots.length > 2 &&
-    firstAnswerMade &&
-    playerAnswerMade &&
-    !thirdAnswerMade
-  ) {
-    setTimeout(() => {
-      botAnswer();
-      thirdAnswerMade = true;
-      botTwoAnswer = botGuessValue;
-      updateAnswers("answer3", botTwoAnswer);
-      gameRound();
-    }, answerTime);
-    console.log("Asnwer from bot 2");
-  } else {
-    firstAnswerMade = false;
-    playerAnswerMade = false;
-    thirdAnswerMade = false;
-    gameRound();
-  }
+    //sets a random number between 2000-4000 to use as timeout time.
+    answerTime = Math.floor(Math.random() * (4000 - 2000 + 1000) + 2000);
+
+    //if stat for whos turn it is 
+    if (!firstAnswerMade && !playerAnswerMade && !thirdAnswerMade) {
+        setTimeout(() => {
+            botAnswer(0);
+            compareAnswer(botGuessValue, randomNumber);
+            firstAnswerMade = true;
+            botOneAnswer = botGuessValue;
+            console.log('Answer from bot 1');
+            updateAnswers('answer1', botOneAnswer);
+            gameRound();
+        }, answerTime);
+    } else if (firstAnswerMade && !playerAnswerMade && !thirdAnswerMade) {
+        playerAnswerMade = true;
+        playerGuess();
+    } else if (chosenBots.length > 2 && firstAnswerMade && playerAnswerMade && !thirdAnswerMade) {
+        setTimeout(() => {
+            botAnswer(2);
+            thirdAnswerMade = true;
+            botTwoAnswer = botGuessValue;
+            updateAnswers('answer3', botTwoAnswer);
+            gameRound();
+        }, answerTime);
+        console.log('Asnwer from bot 2')
+    } else {
+        firstAnswerMade = false;
+        playerAnswerMade = false;
+        thirdAnswerMade = false;
+        gameRound();
+    }
 }
 
-// Answers from bots
-function botAnswer() {
-  botGuessValue = Math.floor(Math.random() * (0 + 25) + 0);
-  console.log("Bot guess: " + botGuessValue);
+
+// Answers from bots 
+function botAnswer(index: number) {
+    let IQRange: number = checkWhichBot(index);
+    console.log('IQRange: ' + IQRange);
+    botGuessValue = Math.floor(Math.random() * ((randomNumber - IQRange) + (randomNumber + IQRange)) + 0);
+    if (botGuessValue > 100){
+        botGuessValue = 100
+    } else if (botGuessValue < 0){
+        botGuessValue = 100
+    }
+    console.log('Bot guess: ' + botGuessValue)
+}
+
+function checkWhichBot(index: number){
+    if (chosenBots[index] === 'Bolt'){
+        return 25
+    } else if (chosenBots[index] === 'Gadget'){
+        return 50
+    } else if (chosenBots[index] === 'Clank'){
+        return 75
+    }
 }
 
 //compares the answers that both bots and player gives
@@ -165,8 +181,10 @@ function drawBubbles() {
 
 //sets the random number that the players and bots tries to guess
 function setRandomNumber() {
-  randomNumber = Math.floor(Math.random() * (0 + 25) + 0);
-  console.log("number:" + randomNumber);
+
+    randomNumber = Math.floor(Math.random() * (0 + 100) + 0);
+    console.log('number:' + randomNumber);
+
 }
 
 function playerGuess() {
