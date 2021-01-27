@@ -33,12 +33,6 @@ function removeBubble(bubbleID: string, textID: string){
     document.getElementById(bubbleID).style.visibility = 'hidden';
 }
 
-function fadeIn(id: string){
-    let element: HTMLElement = document.getElementById(id);
-    element.style.opacity = "0";
-    element.classList.add('fadeIn');
-}
-
 
 function showBubble(bubbleID: string, bubbleTextID: string, bubbleText: string){
     document.getElementById(bubbleID).style.visibility = "visible";
