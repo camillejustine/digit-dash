@@ -108,13 +108,9 @@ function botAnswer(index) {
     var IQRange = checkWhichBot(index);
     console.log('IQRange: ' + IQRange);
     botGuessValue = Math.floor(Math.random() * ((randomNumber - IQRange) + (randomNumber + IQRange)) + 0);
-    if (botGuessValue > 100) {
-        botGuessValue = 100;
+    while (botGuessValue > 100 || botGuessValue < 0) {
+        botGuessValue = Math.floor(Math.random() * ((randomNumber - IQRange) + (randomNumber + IQRange)) + 0);
     }
-    else if (botGuessValue < 0) {
-        botGuessValue = 100;
-    }
-    console.log('Bot guess: ' + botGuessValue);
 }
 function checkWhichBot(index) {
     if (chosenBots[index] === 'Bolt') {

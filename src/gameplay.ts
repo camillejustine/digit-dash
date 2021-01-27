@@ -123,12 +123,10 @@ function botAnswer(index: number) {
     let IQRange: number = checkWhichBot(index);
     console.log('IQRange: ' + IQRange);
     botGuessValue = Math.floor(Math.random() * ((randomNumber - IQRange) + (randomNumber + IQRange)) + 0);
-    if (botGuessValue > 100){
-        botGuessValue = 100
-    } else if (botGuessValue < 0){
-        botGuessValue = 100
+
+    while (botGuessValue > 100 || botGuessValue < 0){
+        botGuessValue = Math.floor(Math.random() * ((randomNumber - IQRange) + (randomNumber + IQRange)) + 0);
     }
-    console.log('Bot guess: ' + botGuessValue)
 }
 
 function checkWhichBot(index: number){
