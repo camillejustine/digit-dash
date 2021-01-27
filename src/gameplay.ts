@@ -9,6 +9,19 @@ const gpPhrases: string[] = [
   "Thats too high!",
   "Thats too low!",
 ];
+// thinkbubble content
+const bubblePhrases: string[] = [
+    "...",
+    "Hmm...",
+    "💭💭💭",
+    "⚙⚙⚙",
+    "🤖🤖🤖",
+    "Beep boop!",
+    "Loading...",
+    "Computing...",
+    "💾💾💾",
+    "0100100 011011"
+]
 // the slider and its value
 const slider: HTMLInputElement = document.createElement("input");
 let sliderValue: HTMLParagraphElement = document.createElement("p");
@@ -25,7 +38,8 @@ function drawGame() {
   setRandomNumber();
   drawActiveBots();
   drawAnswers();
-  updateAnswers('answer1', '...');
+  document.getElementById('answer1').style.backgroundImage = `url("../assets/imgs/thinkBubble.png")`
+  updateAnswers('answer1', bubblePhrases[Math.floor(Math.random() * (0 + bubblePhrases.length) + 0)]);
   gameRound();
 //   hideAnswerBubbles();
 }
@@ -120,7 +134,6 @@ function gameRound() {
     
     //sets a random number between 2000-4000 to use as timeout time.
     answerTime = Math.floor(Math.random() * (6000 - 3000 + 1000) + 3000);
-    let showThinkBubble = Math.floor(Math.random() * (0 + 100) + 0);
 
     //if stat for whos turn it is 
     if (!firstAnswerMade && !playerAnswerMade && !thirdAnswerMade) {
@@ -130,15 +143,13 @@ function gameRound() {
         submitBtn.style
 
         setTimeout(() => {
-            if (showThinkBubble > 50 && showThinkBubble < 75){
-                updateAnswers('answer1', '...');
-            } else if (showThinkBubble > 76) {
-                updateAnswers('answer1', 'Hmm...');
-            }
+            let getRandomNumb = Math.floor(Math.random() * (0 + bubblePhrases.length) + 0)
+            document.getElementById('answer1').style.backgroundImage = `url("../assets/imgs/thinkBubble.png")`
+            updateAnswers('answer1', bubblePhrases[getRandomNumb]);
         }, 1500)
-
         
         setTimeout(() => {
+            document.getElementById('answer1').style.backgroundImage = `url("../assets/imgs/bubbleTR.png")`
             botAnswer(0);
             compareAnswer(botGuessValue, randomNumber);
             firstAnswerMade = true;
@@ -164,15 +175,14 @@ function gameRound() {
         submitBtn.disabled = true;
 
         setTimeout(() => {
-            if (showThinkBubble > 50 && showThinkBubble < 75){
-                updateAnswers('answer3', '...');
-            } else if (showThinkBubble > 76) {
-                updateAnswers('answer3', 'Hmm...');
-            }
+            let getRandomNumb = Math.floor(Math.random() * (0 + bubblePhrases.length) + 0)
+            document.getElementById('answer3').style.backgroundImage = `url("../assets/imgs/thinkBubble.png")`
+            updateAnswers('answer3', bubblePhrases[getRandomNumb]);
         }, 1500)
 
 
         setTimeout(() => {
+            document.getElementById('answer3').style.backgroundImage = `url("../assets/imgs/bubbleTR.png")`
             botAnswer(2);
             thirdAnswerMade = true;
             botTwoAnswer = botGuessValue;
@@ -260,6 +270,7 @@ function setRandomNumber() {
 function playerGuess() {
   // if randomNumber = inputValue, then correct! if randomNumber >/< inputValue, give corresponding response
   setTimeout(() => {
+    document.getElementById('answer2').style.backgroundImage = `url("../assets/imgs/thinkBubble.png")`
     updateAnswers('answer2', slider.value);
   },1000)
   submitBtn.onclick = () => {
@@ -268,6 +279,7 @@ function playerGuess() {
     console.log("Guess: " + guessValue);
     console.log("number: " + randomNumber);
     compareAnswer(guessValue, randomNumber);
+    document.getElementById('answer2').style.backgroundImage = `url("../assets/imgs/bubbleTR.png")`
     updateAnswers("answer2", String(guessValue));
     clearInterval(timer);
     gameRound();
@@ -283,6 +295,7 @@ function playerGuess() {
       guessValue = parseInt(slider.value);
       compareAnswer(guessValue, randomNumber);
       hideAnswerBubbles();
+      document.getElementById('answer2').style.backgroundImage = `url("../assets/imgs/bubbleTR.png")`
       updateAnswers("answer2", String(guessValue));
       gameRound();
       clearInterval(timer);
