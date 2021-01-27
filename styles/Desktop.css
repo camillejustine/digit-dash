@@ -1,0 +1,110 @@
+@media only screen and (min-width: 700px) {
+  body {
+    max-width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    margin: auto;
+  }
+
+  lottie-player {
+    width: 250px;
+    height: 250px;
+  }
+
+  .gameMaster {
+    align-self: center;
+    width: 16rem;
+    height: 11rem;
+  }
+
+  .bubbleImage {
+    max-width: 160%;
+  }
+
+  #textTL {
+    padding-right: 3.3rem;
+    font-size: 0.7rem;
+    width: auto;
+    min-width: 5rem;
+  }
+
+  #textTR {
+    padding-left: 3.3rem;
+    font-size: 0.7rem;
+    width: 100%;
+    min-width: 5rem;
+  }
+
+  #textBL {
+    padding-right: 3.3rem;
+    font-size: 0.7rem;
+    min-width: 5rem;
+  }
+
+  #textBR {
+    padding-left: 3.3rem;
+    font-size: 0.7rem;
+    min-width: 5rem;
+  }
+
+  #bubbleTL {
+    margin-right: 3rem;
+  }
+  #bubbleTR {
+    margin-left: 3rem;
+  }
+  #bubbleBL {
+    margin-right: 3rem;
+  }
+  #bubbleBR {
+    margin-left: 3rem;
+  }
+
+  .rules {
+    top: 1rem;
+    width: 30rem;
+    height: 75%;
+    margin: auto;
+    max-width: 100%;
+    max-height: 55rem;
+    /* left: 25vw; */
+  }
+
+  .botModal {
+    top: 1rem;
+    width: 30rem;
+    height: 75%;
+    /* margin-left: auto; */
+    display: flex;
+    max-width: 100%;
+    max-height: 55rem;
+    /* left: 25vw; */
+  }
+
+  .botModalContent {
+    /* margin:  auto; 10% from the top and centered */
+    padding: 20px;
+    max-width: 80%; /* Could be more or less, depending on screen size */
+    text-align: center;
+    /* margin-top: 20%; */
+    display: flex;
+    flex-direction: column;
+  }
+
+  .answerContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+
+    width: 30rem;
+  }
+
+  .botContainer {
+    width: 30rem;
+
+    /* position: fixed; */
+  }
+}

@@ -12,6 +12,11 @@ body {
   /* background: linear-gradient(180deg, #FFFFFF 0%, #9B85AD 100%) */
 }
 
+lottie-player {
+  width: 200px;
+  height: 200px;
+}
+
 .welcomeScreenBG {
   background-color: #ffffff;
   transition: all 3000ms;
@@ -87,7 +92,6 @@ body {
   display: flex;
   justify-content: space-evenly;
 
-  background-color: aqua;
   width: 100%;
   height: 10rem;
 }
@@ -98,23 +102,26 @@ body {
   height: 7rem;
   width: 7rem;
   /* background-color: blue; */
-  /* object-fit: cover;
+/* object-fit: cover;
 } */
-#playerBolt, #Bolt {
+#playerBolt,
+#Bolt {
   height: 7rem;
   width: 7rem;
   background-image: url("../assets/imgs/playerBolt-grey.png");
   background-size: cover;
   object-fit: cover;
 }
-#playerClank, #Clank {
+#playerClank,
+#Clank {
   height: 7rem;
   width: 7rem;
   background-image: url("../assets/imgs/playerClank-grey.png");
   background-size: cover;
   object-fit: cover;
 }
-#playerGadget, #Gadget {
+#playerGadget,
+#Gadget {
   height: 7rem;
   width: 7rem;
   background-image: url("../assets/imgs/playerGadget-grey.png");
@@ -150,9 +157,9 @@ body {
   visibility: hidden;
   position: fixed;
   z-index: 10;
-  left: 10%;
+  margin: 0 2.5rem 0 2.5rem;
+  height: 40rem;
   top: 1rem;
-  width: 80%;
   overflow: auto;
   background: linear-gradient(
     180deg,
@@ -161,7 +168,7 @@ body {
   );
   backdrop-filter: blur(1rem);
   transition: block 4s;
-  position: absolute;
+  position: fixed;
   border-radius: 4rem;
 }
 .close {
@@ -279,11 +286,17 @@ body {
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
-  
+
   width: 100%;
-  background-color: khaki;
 }
 
+
+#answer1,
+#answer2,
+#answer3 {
+  width: 5rem;
+  height: 5rem;
+  
 .answerBubble {
   width: 9.5rem;
   height: 4rem;
@@ -319,7 +332,6 @@ body {
 .guessBtn:focus{
   outline: none;
 }
-
 
 /* REUSABLE CLASSES */
 
