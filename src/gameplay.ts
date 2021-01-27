@@ -15,6 +15,7 @@ let amountOfGuesses: number = 0;
 
 
 function drawGame() {
+    console.log(playerAnswerMade)
     chosenBots.splice(1, 0, "Player");
     console.log(chosenBots)
     drawSlider();
@@ -50,20 +51,36 @@ function drawSlider() {
 
 }
 
-
 function drawAnswers() {
     for (let index = 0; index < chosenBots.length; index++) {
         let answer = document.createElement('div');
         answer.id = `answer${index + 1}`;
+        answer.classList.add("answerBubble");
         document.getElementById('answerWrapper').appendChild(answer);
+        let answerText = document.createElement('p');
+        document.getElementById(`answer${index + 1}`).style.visibility = "visible";
+        document.getElementById(`answer${index + 1}`).appendChild(answerText);
     }
 }
 function updateAnswers(id: string, value: number) {
     document.getElementById(id).innerText = String(value);
+    document.getElementById(id).style.visibility = "visible";
+}
+
+function hideBubbles(id1: string, id2:string){
+   
+    document.getElementById(id1).style.visibility = "hidden";
+    document.getElementById(id2).style.visibility = "hidden"
+    //  if (firstAnswerMade && playerAnswerMade){
+    //  document.getElementById('answer1').style.visibility = 'hidden';
+    //  } else if (thirdAnswerMade && firstAnswerMade) {
+
+    //  }
+    
+
 }
 
 function drawActiveBots() {
-
     for (let i = 0; i < chosenBots.length; i++) {
         let element = document.createElement('div');
         element.id = chosenBots[i];
@@ -80,12 +97,14 @@ let botTwoAnswer: number;
 let guessValue: number;
 
 function gameRound() {
+    
     if (!firstAnswerMade && !playerAnswerMade && !thirdAnswerMade) {
         botAnswer();
         firstAnswerMade = true;
         botOneAnswer = botGuessValue;
         console.log('answer1');
         updateAnswers('answer1', botOneAnswer);
+        //hideBubbles('answer2', 'answer3');
         gameRound();
     } else if (firstAnswerMade && !playerAnswerMade && !thirdAnswerMade) {
         playerAnswerMade = true;
@@ -95,7 +114,8 @@ function gameRound() {
         thirdAnswerMade = true;
         botTwoAnswer = botGuessValue;
         updateAnswers('answer3', botTwoAnswer);
-        console.log('answer2')
+        console.log('answer2');
+        //hideBubbles('answer1', 'answer2');
         gameRound();
     } else {
         firstAnswerMade = false;
@@ -201,6 +221,7 @@ function playerGuess() {
         }
         updateAnswers('answer2', guessValue);
         gameRound();
+        
         
     }
 }
