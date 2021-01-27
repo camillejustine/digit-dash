@@ -1,4 +1,5 @@
-window.addEventListener('load', welcomeScreen);
+window.addEventListener('load', welcomeScreen); //GLÖM INTE ÄNDRA TILLBAKS
+//window.addEventListener('load', drawWinnerScreen);
 
 const gameMaster: any = document.getElementById('gameMaster');
 
