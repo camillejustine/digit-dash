@@ -71,6 +71,7 @@ function drawActiveBots() {
     }
 }
 
+// vars
 let firstAnswerMade: boolean = false;
 let playerAnswerMade: boolean = false;
 let thirdAnswerMade: boolean = false;
@@ -80,9 +81,12 @@ let botTwoAnswer: number;
 let guessValue: number;
 let answerTime: number;
 
+// the logic for how the rounds works---- 
 function gameRound() {
+    //sets a random number between 2000-4000 to use as timeout time.
     answerTime = Math.floor(Math.random() * (4000 - 2000 + 1000) + 2000);
 
+    //if stat for whos turn it is 
     if (!firstAnswerMade && !playerAnswerMade && !thirdAnswerMade) {
         setTimeout(() => {
             botAnswer();
@@ -114,15 +118,14 @@ function gameRound() {
 }
 
 
-// function for turns/ order
+// Answers from bots 
 function botAnswer() {
-    setTimeout(() => { })
     botGuessValue = Math.floor(Math.random() * (0 + 25) + 0);
     console.log('Bot guess: ' + botGuessValue)
 }
 
+//compares the answers that both bots and player gives
 function compareAnswer(answer: number, randomNumber: number) {
-
     if (answer === randomNumber) {
         // IF GUESS IS CORRECT 
         document.getElementById(bubbleID[0]).style.visibility = "hidden";
@@ -154,12 +157,12 @@ function compareAnswer(answer: number, randomNumber: number) {
 }
 
 
-
 function drawBubbles() {
     document.getElementById(bubbleID[0]).style.visibility = "visible";
     setElementContent(bubbleTextID[0], gpPhrases[0]);
 }
 
+//sets the random number that the players and bots tries to guess
 function setRandomNumber() {
     randomNumber = Math.floor(Math.random() * (0 + 25) + 0);
     console.log('number:' + randomNumber);
@@ -167,7 +170,7 @@ function setRandomNumber() {
 }
 
 function playerGuess() {
-    // if randomNumber = inputValue, then correct! if randomNumber >/< inputValue, give corresponding respons
+    // if randomNumber = inputValue, then correct! if randomNumber >/< inputValue, give corresponding response
     submitBtn.onclick = () => {
         guessValue = parseInt(slider.value);
         console.log('Guess: ' + guessValue);
@@ -176,14 +179,14 @@ function playerGuess() {
         updateAnswers('answer2', guessValue);
         clearInterval(timer);
         gameRound();
-
     }
+
     //Timer for the player. 
     let timeLeft: number = 10;
     const timer = setInterval(() => {
         timeLeft--;
         console.log('time left: ' + timeLeft);
-        
+
         if (timeLeft <= 0) {
             guessValue = 0;
             compareAnswer(guessValue, randomNumber);
