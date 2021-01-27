@@ -24,6 +24,7 @@ function drawGame() {
     drawActiveBots();
     drawAnswers();
     gameRound();
+    hideAnswerBubbles();
 }
 
 function drawSlider() {
@@ -58,26 +59,21 @@ function drawAnswers() {
         answer.classList.add("answerBubble");
         document.getElementById('answerWrapper').appendChild(answer);
         let answerText = document.createElement('p');
-        document.getElementById(`answer${index + 1}`).style.visibility = "visible";
+        document.getElementById(`answer${index + 1}`).style.visibility = "hidden";
         document.getElementById(`answer${index + 1}`).appendChild(answerText);
     }
 }
+
 function updateAnswers(id: string, value: number) {
     document.getElementById(id).innerText = String(value);
     document.getElementById(id).style.visibility = "visible";
 }
 
-function hideBubbles(id1: string, id2:string){
-   
-    document.getElementById(id1).style.visibility = "hidden";
-    document.getElementById(id2).style.visibility = "hidden"
-    //  if (firstAnswerMade && playerAnswerMade){
-    //  document.getElementById('answer1').style.visibility = 'hidden';
-    //  } else if (thirdAnswerMade && firstAnswerMade) {
-
-    //  }
-    
-
+//Gets called before every new answer
+function hideAnswerBubbles(){
+    document.getElementById('answer1').style.visibility = "hidden";
+    document.getElementById('answer2').style.visibility = "hidden";
+    document.getElementById('answer3').style.visibility = "hidden";
 }
 
 function drawActiveBots() {
@@ -102,19 +98,20 @@ let answerTime: number;
 function gameRound() {
     //sets a random number between 2000-4000 to use as timeout time.
     answerTime = Math.floor(Math.random() * (4000 - 2000 + 1000) + 2000);
-
     //if stat for whos turn it is 
     if (!firstAnswerMade && !playerAnswerMade && !thirdAnswerMade) {
+        
         setTimeout(() => {
             botAnswer();
             compareAnswer(botGuessValue, randomNumber);
             firstAnswerMade = true;
             botOneAnswer = botGuessValue;
             console.log('Answer from bot 1');
+            hideAnswerBubbles();
             updateAnswers('answer1', botOneAnswer);
-            //hideBubbles('answer2', 'answer3');
             gameRound();
         }, answerTime);
+        
     } else if (firstAnswerMade && !playerAnswerMade && !thirdAnswerMade) {
         playerAnswerMade = true;
         playerGuess();
@@ -123,17 +120,17 @@ function gameRound() {
             botAnswer();
             thirdAnswerMade = true;
             botTwoAnswer = botGuessValue;
+            hideAnswerBubbles();
             updateAnswers('answer3', botTwoAnswer);
             gameRound();
-        }, answerTime);
-        //hideBubbles('answer1', 'answer3');
+        }, answerTime); 
         console.log('Asnwer from bot 2')
     } else {
         firstAnswerMade = false;
         playerAnswerMade = false;
         thirdAnswerMade = false;
         gameRound();
-    }
+    } 
 }
 
 
@@ -195,6 +192,7 @@ function playerGuess() {
         console.log('Guess: ' + guessValue);
         console.log('number: ' + randomNumber);
         compareAnswer(guessValue, randomNumber);
+        hideAnswerBubbles();
         updateAnswers('answer2', guessValue);
         clearInterval(timer);
         gameRound();
