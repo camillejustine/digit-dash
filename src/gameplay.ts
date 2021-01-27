@@ -29,7 +29,7 @@ function drawSlider() {
     // Slider
     slider.type = 'range';
     slider.min = '0';
-    slider.max = '25';
+    slider.max = '100';
 
     //submit btn 
     submitBtn.textContent = 'Guess'
@@ -89,7 +89,7 @@ function gameRound() {
     //if stat for whos turn it is 
     if (!firstAnswerMade && !playerAnswerMade && !thirdAnswerMade) {
         setTimeout(() => {
-            botAnswer();
+            botAnswer(0);
             compareAnswer(botGuessValue, randomNumber);
             firstAnswerMade = true;
             botOneAnswer = botGuessValue;
@@ -102,7 +102,7 @@ function gameRound() {
         playerGuess();
     } else if (chosenBots.length > 2 && firstAnswerMade && playerAnswerMade && !thirdAnswerMade) {
         setTimeout(() => {
-            botAnswer();
+            botAnswer(2);
             thirdAnswerMade = true;
             botTwoAnswer = botGuessValue;
             updateAnswers('answer3', botTwoAnswer);
@@ -119,9 +119,26 @@ function gameRound() {
 
 
 // Answers from bots 
-function botAnswer() {
-    botGuessValue = Math.floor(Math.random() * (0 + 25) + 0);
+function botAnswer(index: number) {
+    let IQRange: number = checkWhichBot(index);
+    console.log('IQRange: ' + IQRange);
+    botGuessValue = Math.floor(Math.random() * ((randomNumber - IQRange) + (randomNumber + IQRange)) + 0);
+    if (botGuessValue > 100){
+        botGuessValue = 100
+    } else if (botGuessValue < 0){
+        botGuessValue = 100
+    }
     console.log('Bot guess: ' + botGuessValue)
+}
+
+function checkWhichBot(index: number){
+    if (chosenBots[index] === 'Bolt'){
+        return 25
+    } else if (chosenBots[index] === 'Gadget'){
+        return 50
+    } else if (chosenBots[index] === 'Clank'){
+        return 75
+    }
 }
 
 //compares the answers that both bots and player gives
@@ -164,7 +181,7 @@ function drawBubbles() {
 
 //sets the random number that the players and bots tries to guess
 function setRandomNumber() {
-    randomNumber = Math.floor(Math.random() * (0 + 25) + 0);
+    randomNumber = Math.floor(Math.random() * (0 + 100) + 0);
     console.log('number:' + randomNumber);
 
 }
