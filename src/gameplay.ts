@@ -1,18 +1,21 @@
-
 //Variables
 
 //The number you have to guess
 let randomNumber: number;
 //Gamemaster pharases
-const gpPhrases: string[] = ['Lets make a guess!', 'Thats correct!', 'Thats too high!', 'Thats too low!'];
+const gpPhrases: string[] = [
+  "Lets make a guess!",
+  "Thats correct!",
+  "Thats too high!",
+  "Thats too low!",
+];
 // the slider and its value
-const slider: HTMLInputElement = document.createElement('input');
-let sliderValue: HTMLParagraphElement = document.createElement('p');
+const slider: HTMLInputElement = document.createElement("input");
+let sliderValue: HTMLParagraphElement = document.createElement("p");
 //submit button
-const submitBtn: HTMLButtonElement = document.createElement('button');
-//number of guesses the players has made 
+const submitBtn: HTMLButtonElement = document.createElement("button");
+//number of guesses the players has made
 let amountOfGuesses: number = 0;
-
 
 function drawGame() {
     console.log(playerAnswerMade)
@@ -28,28 +31,29 @@ function drawGame() {
 }
 
 function drawSlider() {
+
     // Slider
     slider.type = 'range';
     slider.min = '0';
-    slider.max = '25';
+    slider.max = '100';
 
-    //submit btn 
-    submitBtn.textContent = 'Guess'
 
-    //Value from slider
+  //submit btn
+  submitBtn.textContent = "Guess";
+
+  //Value from slider
+  sliderValue.innerText = slider.value;
+  sliderValue.id = "sliderValue";
+
+  // Adds the elements to the wrapper
+  inputWrapper.appendChild(slider);
+  inputWrapper.appendChild(sliderValue);
+  inputWrapper.appendChild(submitBtn);
+
+  //updates the value when you move the slider
+  slider.oninput = () => {
     sliderValue.innerText = slider.value;
-    sliderValue.id = 'sliderValue';
-
-    // Adds the elements to the wrapper
-    inputWrapper.appendChild(slider);
-    inputWrapper.appendChild(sliderValue);
-    inputWrapper.appendChild(submitBtn);
-
-    //updates the value when you move the slider
-    slider.oninput = () => {
-        sliderValue.innerText = slider.value;
-    }
-
+  };
 }
 
 function drawAnswers() {
@@ -78,11 +82,14 @@ function hideAnswerBubbles(){
 
 function drawActiveBots() {
     for (let i = 0; i < chosenBots.length; i++) {
-        let element = document.createElement('div');
+        let element = document.createElement("div");
         element.id = chosenBots[i];
-        document.getElementById('botWrapper').appendChild(element);
-    }
+        document.getElementById("botWrapper").appendChild(element);
+        element.style.backgroundImage = `url("../assets/imgs/player${chosenBots[i]}.png")`;
+      }
 }
+
+
 
 // vars
 let firstAnswerMade: boolean = false;
@@ -94,15 +101,16 @@ let botTwoAnswer: number;
 let guessValue: number;
 let answerTime: number;
 
-// the logic for how the rounds works---- 
+// the logic for how the rounds works----
 function gameRound() {
+
     //sets a random number between 2000-4000 to use as timeout time.
     answerTime = Math.floor(Math.random() * (4000 - 2000 + 1000) + 2000);
     //if stat for whos turn it is 
     if (!firstAnswerMade && !playerAnswerMade && !thirdAnswerMade) {
         
         setTimeout(() => {
-            botAnswer();
+            botAnswer(0);
             compareAnswer(botGuessValue, randomNumber);
             firstAnswerMade = true;
             botOneAnswer = botGuessValue;
@@ -117,7 +125,7 @@ function gameRound() {
         playerGuess();
     } else if (chosenBots.length > 2 && firstAnswerMade && playerAnswerMade && !thirdAnswerMade) {
         setTimeout(() => {
-            botAnswer();
+            botAnswer(2);
             thirdAnswerMade = true;
             botTwoAnswer = botGuessValue;
             hideAnswerBubbles();
@@ -135,81 +143,93 @@ function gameRound() {
 
 
 // Answers from bots 
-function botAnswer() {
-    botGuessValue = Math.floor(Math.random() * (0 + 25) + 0);
-    console.log('Bot guess: ' + botGuessValue)
+function botAnswer(index: number) {
+    let IQRange: number = checkWhichBot(index);
+    console.log('IQRange: ' + IQRange);
+    botGuessValue = Math.floor(Math.random() * ((randomNumber - IQRange) + (randomNumber + IQRange)) + 0);
+
+    while (botGuessValue > 100 || botGuessValue < 0){
+        botGuessValue = Math.floor(Math.random() * ((randomNumber - IQRange) + (randomNumber + IQRange)) + 0);
+    }
+}
+
+function checkWhichBot(index: number){
+    if (chosenBots[index] === 'Bolt'){
+        return 25
+    } else if (chosenBots[index] === 'Gadget'){
+        return 50
+    } else if (chosenBots[index] === 'Clank'){
+        return 75
+    }
 }
 
 //compares the answers that both bots and player gives
 function compareAnswer(answer: number, randomNumber: number) {
-    if (answer === randomNumber) {
-        // IF GUESS IS CORRECT 
-        document.getElementById(bubbleID[0]).style.visibility = "hidden";
-        document.getElementById(bubbleID[2]).style.visibility = "hidden";
-        document.getElementById(bubbleID[3]).style.visibility = "hidden";
-        document.getElementById(bubbleID[1]).style.visibility = "visible";
-        setElementContent(bubbleTextID[1], gpPhrases[1]);
-        amountOfGuesses++;
-
-    } else if (answer > randomNumber) {
-        //IF GUESST IS HIGHER THAN RANDOMNUMB
-        document.getElementById(bubbleID[0]).style.visibility = "hidden";
-        document.getElementById(bubbleID[1]).style.visibility = "hidden";
-        document.getElementById(bubbleID[3]).style.visibility = "hidden";
-        document.getElementById(bubbleID[2]).style.visibility = "visible";
-        setElementContent(bubbleTextID[2], gpPhrases[2]);
-        amountOfGuesses++;
-
-
-    } else if (answer < randomNumber) {
-        // IF GUESS IS LOWER THAN RANDOMNUMB
-        document.getElementById(bubbleID[0]).style.visibility = "hidden";
-        document.getElementById(bubbleID[1]).style.visibility = "hidden";
-        document.getElementById(bubbleID[2]).style.visibility = "hidden";
-        document.getElementById(bubbleID[3]).style.visibility = "visible";
-        setElementContent(bubbleTextID[3], gpPhrases[3]);
-        amountOfGuesses++;
-    }
+  if (answer === randomNumber) {
+    // IF GUESS IS CORRECT
+    document.getElementById(bubbleID[0]).style.visibility = "hidden";
+    document.getElementById(bubbleID[2]).style.visibility = "hidden";
+    document.getElementById(bubbleID[3]).style.visibility = "hidden";
+    document.getElementById(bubbleID[1]).style.visibility = "visible";
+    setElementContent(bubbleTextID[1], gpPhrases[1]);
+    amountOfGuesses++;
+  } else if (answer > randomNumber) {
+    //IF GUESST IS HIGHER THAN RANDOMNUMB
+    document.getElementById(bubbleID[0]).style.visibility = "hidden";
+    document.getElementById(bubbleID[1]).style.visibility = "hidden";
+    document.getElementById(bubbleID[3]).style.visibility = "hidden";
+    document.getElementById(bubbleID[2]).style.visibility = "visible";
+    setElementContent(bubbleTextID[2], gpPhrases[2]);
+    amountOfGuesses++;
+  } else if (answer < randomNumber) {
+    // IF GUESS IS LOWER THAN RANDOMNUMB
+    document.getElementById(bubbleID[0]).style.visibility = "hidden";
+    document.getElementById(bubbleID[1]).style.visibility = "hidden";
+    document.getElementById(bubbleID[2]).style.visibility = "hidden";
+    document.getElementById(bubbleID[3]).style.visibility = "visible";
+    setElementContent(bubbleTextID[3], gpPhrases[3]);
+    amountOfGuesses++;
+  }
 }
 
-
 function drawBubbles() {
-    document.getElementById(bubbleID[0]).style.visibility = "visible";
-    setElementContent(bubbleTextID[0], gpPhrases[0]);
+  document.getElementById(bubbleID[0]).style.visibility = "visible";
+  setElementContent(bubbleTextID[0], gpPhrases[0]);
 }
 
 //sets the random number that the players and bots tries to guess
 function setRandomNumber() {
-    randomNumber = Math.floor(Math.random() * (0 + 25) + 0);
+
+    randomNumber = Math.floor(Math.random() * (0 + 100) + 0);
     console.log('number:' + randomNumber);
 
 }
 
 function playerGuess() {
-    // if randomNumber = inputValue, then correct! if randomNumber >/< inputValue, give corresponding response
-    submitBtn.onclick = () => {
-        guessValue = parseInt(slider.value);
-        console.log('Guess: ' + guessValue);
-        console.log('number: ' + randomNumber);
-        compareAnswer(guessValue, randomNumber);
-        hideAnswerBubbles();
-        updateAnswers('answer2', guessValue);
-        clearInterval(timer);
-        gameRound();
+  // if randomNumber = inputValue, then correct! if randomNumber >/< inputValue, give corresponding response
+  submitBtn.onclick = () => {
+    guessValue = parseInt(slider.value);
+    console.log("Guess: " + guessValue);
+    console.log("number: " + randomNumber);
+    compareAnswer(guessValue, randomNumber);
+    hideAnswerBubbles();
+    updateAnswers("answer2", guessValue);
+    clearInterval(timer);
+    gameRound();
+  };
+
+  //Timer for the player.
+  let timeLeft: number = 10;
+  const timer = setInterval(() => {
+    timeLeft--;
+    console.log("time left: " + timeLeft);
+
+    if (timeLeft <= 0) {
+      guessValue = 0;
+      compareAnswer(guessValue, randomNumber);
+      updateAnswers("answer2", guessValue);
+      gameRound();
+      clearInterval(timer);
     }
-
-    //Timer for the player. 
-    let timeLeft: number = 10;
-    const timer = setInterval(() => {
-        timeLeft--;
-        console.log('time left: ' + timeLeft);
-
-        if (timeLeft <= 0) {
-            guessValue = 0;
-            compareAnswer(guessValue, randomNumber);
-            updateAnswers('answer2', guessValue);
-            gameRound();
-            clearInterval(timer);
-        }
-    }, 1000);
+  }, 1000);
 }
