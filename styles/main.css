@@ -187,9 +187,11 @@ body {
 
 .inputWrapper {
   display: flex;
+  flex-direction: column;
+  align-items: center;
   /* background-color: khaki; */
   width: 100%;
-  height: 2rem;
+  height: 10rem;
   justify-content: center;
 }
 .inputWrapper > input {
@@ -287,6 +289,28 @@ body {
   height: 5rem;
 
   background-color: hotpink;
+}
+
+.guessBtn{
+  border:none;
+  background: none;
+  background-image: url('../assets/imgs/guessButton.png');
+  width: 10rem;
+  height: 4rem;
+  background-size: cover;
+}
+
+.guessBtn:disabled, .guessBtn:disabled:hover{
+  filter:grayscale(100%);
+  cursor:default;
+}
+
+.guessBtn:hover{
+  cursor:pointer;
+}
+
+.guessBtn:focus{
+  outline: none;
 }
 
 

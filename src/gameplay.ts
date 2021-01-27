@@ -19,7 +19,6 @@ let amountOfGuesses: number = 0;
 
 function drawGame() {
   chosenBots.splice(1, 0, "Player");
-  console.log(chosenBots);
   drawSlider();
   drawBubbles();
   setRandomNumber();
@@ -29,19 +28,25 @@ function drawGame() {
 }
 
 function drawSlider() {
-
     // Slider
     slider.type = 'range';
     slider.min = '0';
     slider.max = '100';
-
+    slider.id = 'rangeSlider'
+    slider.disabled = true;
 
   //submit btn
   submitBtn.textContent = "Guess";
-
+  submitBtn.classList.add('guessBtn');
+  submitBtn.disabled = true;
   //Value from slider
-  sliderValue.innerText = slider.value;
-  sliderValue.id = "sliderValue";
+//   sliderValue.innerText = slider.value;
+//   sliderValue.id = "sliderValue";
+
+    // target bubble instead
+    
+
+    
 
   // Adds the elements to the wrapper
   inputWrapper.appendChild(slider);
@@ -50,7 +55,7 @@ function drawSlider() {
 
   //updates the value when you move the slider
   slider.oninput = () => {
-    sliderValue.innerText = slider.value;
+    document.getElementById('answer2').innerText = slider.value;
   };
 }
 
@@ -60,6 +65,8 @@ function drawAnswers() {
     answer.id = `answer${index + 1}`;
     document.getElementById("answerWrapper").appendChild(answer);
   }
+  // set slider value to bubble
+  document.getElementById('answer2').innerText = slider.value;
 }
 function updateAnswers(id: string, value: number) {
   document.getElementById(id).innerText = String(value);
@@ -86,12 +93,17 @@ let answerTime: number;
 
 // the logic for how the rounds works----
 function gameRound() {
-
+    
     //sets a random number between 2000-4000 to use as timeout time.
     answerTime = Math.floor(Math.random() * (4000 - 2000 + 1000) + 2000);
 
     //if stat for whos turn it is 
     if (!firstAnswerMade && !playerAnswerMade && !thirdAnswerMade) {
+
+        slider.disabled = true;
+        submitBtn.disabled = true;
+        submitBtn.style
+
         setTimeout(() => {
             botAnswer(0);
             compareAnswer(botGuessValue, randomNumber);
@@ -101,10 +113,18 @@ function gameRound() {
             updateAnswers('answer1', botOneAnswer);
             gameRound();
         }, answerTime);
+
     } else if (firstAnswerMade && !playerAnswerMade && !thirdAnswerMade) {
+
+        slider.disabled = false;
+        submitBtn.disabled = false;
         playerAnswerMade = true;
         playerGuess();
+
     } else if (chosenBots.length > 2 && firstAnswerMade && playerAnswerMade && !thirdAnswerMade) {
+
+        slider.disabled = true;
+        submitBtn.disabled = true;
         setTimeout(() => {
             botAnswer(2);
             thirdAnswerMade = true;
@@ -113,11 +133,14 @@ function gameRound() {
             gameRound();
         }, answerTime);
         console.log('Asnwer from bot 2')
+
     } else {
+
         firstAnswerMade = false;
         playerAnswerMade = false;
         thirdAnswerMade = false;
         gameRound();
+
     }
 }
 
@@ -204,7 +227,7 @@ function playerGuess() {
     console.log("time left: " + timeLeft);
 
     if (timeLeft <= 0) {
-      guessValue = 0;
+      guessValue = parseInt(slider.value);
       compareAnswer(guessValue, randomNumber);
       updateAnswers("answer2", guessValue);
       gameRound();

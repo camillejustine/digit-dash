@@ -3,17 +3,21 @@
 //The number you have to guess
 var randomNumber;
 //Gamemaster pharases
-var gpPhrases = ['Lets make a guess!', 'Thats correct!', 'Thats too high!', 'Thats too low!'];
+var gpPhrases = [
+    "Lets make a guess!",
+    "Thats correct!",
+    "Thats too high!",
+    "Thats too low!",
+];
 // the slider and its value
-var slider = document.createElement('input');
-var sliderValue = document.createElement('p');
+var slider = document.createElement("input");
+var sliderValue = document.createElement("p");
 //submit button
-var submitBtn = document.createElement('button');
-//number of guesses the players has made 
+var submitBtn = document.createElement("button");
+//number of guesses the players has made
 var amountOfGuesses = 0;
 function drawGame() {
     chosenBots.splice(1, 0, "Player");
-    console.log(chosenBots);
     drawSlider();
     drawBubbles();
     setRandomNumber();
@@ -26,35 +30,43 @@ function drawSlider() {
     slider.type = 'range';
     slider.min = '0';
     slider.max = '100';
-    //submit btn 
-    submitBtn.textContent = 'Guess';
+    slider.id = 'rangeSlider';
+    slider.disabled = true;
+    //submit btn
+    submitBtn.textContent = "Guess";
+    submitBtn.classList.add('guessBtn');
+    submitBtn.disabled = true;
     //Value from slider
-    sliderValue.innerText = slider.value;
-    sliderValue.id = 'sliderValue';
+    //   sliderValue.innerText = slider.value;
+    //   sliderValue.id = "sliderValue";
+    // target bubble instead
     // Adds the elements to the wrapper
     inputWrapper.appendChild(slider);
     inputWrapper.appendChild(sliderValue);
     inputWrapper.appendChild(submitBtn);
     //updates the value when you move the slider
     slider.oninput = function () {
-        sliderValue.innerText = slider.value;
+        document.getElementById('answer2').innerText = slider.value;
     };
 }
 function drawAnswers() {
     for (var index = 0; index < chosenBots.length; index++) {
-        var answer = document.createElement('div');
+        var answer = document.createElement("div");
         answer.id = "answer" + (index + 1);
-        document.getElementById('answerWrapper').appendChild(answer);
+        document.getElementById("answerWrapper").appendChild(answer);
     }
+    // set slider value to bubble
+    document.getElementById('answer2').innerText = slider.value;
 }
 function updateAnswers(id, value) {
     document.getElementById(id).innerText = String(value);
 }
 function drawActiveBots() {
     for (var i = 0; i < chosenBots.length; i++) {
-        var element = document.createElement('div');
+        var element = document.createElement("div");
         element.id = chosenBots[i];
-        document.getElementById('botWrapper').appendChild(element);
+        document.getElementById("botWrapper").appendChild(element);
+        element.style.backgroundImage = "url(\"../assets/imgs/player" + chosenBots[i] + ".png\")";
     }
 }
 // vars
@@ -66,12 +78,15 @@ var botOneAnswer;
 var botTwoAnswer;
 var guessValue;
 var answerTime;
-// the logic for how the rounds works---- 
+// the logic for how the rounds works----
 function gameRound() {
     //sets a random number between 2000-4000 to use as timeout time.
     answerTime = Math.floor(Math.random() * (4000 - 2000 + 1000) + 2000);
     //if stat for whos turn it is 
     if (!firstAnswerMade && !playerAnswerMade && !thirdAnswerMade) {
+        slider.disabled = true;
+        submitBtn.disabled = true;
+        submitBtn.style;
         setTimeout(function () {
             botAnswer(0);
             compareAnswer(botGuessValue, randomNumber);
@@ -83,10 +98,14 @@ function gameRound() {
         }, answerTime);
     }
     else if (firstAnswerMade && !playerAnswerMade && !thirdAnswerMade) {
+        slider.disabled = false;
+        submitBtn.disabled = false;
         playerAnswerMade = true;
         playerGuess();
     }
     else if (chosenBots.length > 2 && firstAnswerMade && playerAnswerMade && !thirdAnswerMade) {
+        slider.disabled = true;
+        submitBtn.disabled = true;
         setTimeout(function () {
             botAnswer(2);
             thirdAnswerMade = true;
@@ -126,7 +145,7 @@ function checkWhichBot(index) {
 //compares the answers that both bots and player gives
 function compareAnswer(answer, randomNumber) {
     if (answer === randomNumber) {
-        // IF GUESS IS CORRECT 
+        // IF GUESS IS CORRECT
         document.getElementById(bubbleID[0]).style.visibility = "hidden";
         document.getElementById(bubbleID[2]).style.visibility = "hidden";
         document.getElementById(bubbleID[3]).style.visibility = "hidden";
@@ -166,22 +185,22 @@ function playerGuess() {
     // if randomNumber = inputValue, then correct! if randomNumber >/< inputValue, give corresponding response
     submitBtn.onclick = function () {
         guessValue = parseInt(slider.value);
-        console.log('Guess: ' + guessValue);
-        console.log('number: ' + randomNumber);
+        console.log("Guess: " + guessValue);
+        console.log("number: " + randomNumber);
         compareAnswer(guessValue, randomNumber);
-        updateAnswers('answer2', guessValue);
+        updateAnswers("answer2", guessValue);
         clearInterval(timer);
         gameRound();
     };
-    //Timer for the player. 
+    //Timer for the player.
     var timeLeft = 10;
     var timer = setInterval(function () {
         timeLeft--;
-        console.log('time left: ' + timeLeft);
+        console.log("time left: " + timeLeft);
         if (timeLeft <= 0) {
-            guessValue = 0;
+            guessValue = parseInt(slider.value);
             compareAnswer(guessValue, randomNumber);
-            updateAnswers('answer2', guessValue);
+            updateAnswers("answer2", guessValue);
             gameRound();
             clearInterval(timer);
         }
