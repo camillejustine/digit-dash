@@ -132,6 +132,7 @@ function gameRound() {
             compareAnswer(botGuessValue, randomNumber);
             firstAnswerMade = true;
             botOneAnswer = botGuessValue;
+            hideAnswerBubbles();
             console.log('Answer from bot 1');
             updateAnswers('answer1', botOneAnswer);
             gameRound();
@@ -152,6 +153,7 @@ function gameRound() {
             botAnswer(2);
             thirdAnswerMade = true;
             botTwoAnswer = botGuessValue;
+            hideAnswerBubbles();
             updateAnswers('answer3', botTwoAnswer);
             gameRound();
         }, answerTime);
@@ -235,11 +237,11 @@ function setRandomNumber() {
 function playerGuess() {
   // if randomNumber = inputValue, then correct! if randomNumber >/< inputValue, give corresponding response
   submitBtn.onclick = () => {
+    hideAnswerBubbles();
     guessValue = parseInt(slider.value);
     console.log("Guess: " + guessValue);
     console.log("number: " + randomNumber);
     compareAnswer(guessValue, randomNumber);
-    hideAnswerBubbles();
     updateAnswers("answer2", guessValue);
     clearInterval(timer);
     gameRound();
