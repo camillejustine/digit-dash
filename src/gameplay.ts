@@ -203,6 +203,7 @@ function gameRound() {
   }
 }
 
+//timer function 
 function drawTimer(time: number) {
   document.getElementById(bubbleID[0]).style.visibility = "visible";
   setElementContent(bubbleTextID[0], String(time));
@@ -293,10 +294,11 @@ function playerGuess() {
     gameRound();
   };
 
-  //Timer for the player.
+  //Timer for the player. starts as 11 to give the player the feeling of having 10 full seconds.
   let timeLeft: number = 11;
 
   function timeCounter() {
+    //draws timer with -one sec to get correct time 
     drawTimer(timeLeft - 1);
     timeLeft--;
     console.log("time left: " + timeLeft);
