@@ -26,7 +26,7 @@ function loadMain(): void {
     setElementContent(bubbleTextID[index], mainText[index]);
     document.getElementById(bubbleID[index]).style.visibility = 'visible';
 
-    // move to own function???
+    // how to play module
     if (mainText[index] === "How to play") {
       const ruleBubble: HTMLElement = document.getElementById("bubbleBL");
 
