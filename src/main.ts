@@ -19,6 +19,7 @@ function welcomeScreen() {
 }
 
 function loadMain(): void {
+  //setTimeout(drawWinnerScreen, 2000)
   document.body.style.background = "white";
   // gameState = 'main';
   for (let index = 0; index < mainText.length; index++) {

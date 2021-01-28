@@ -289,13 +289,13 @@ lottie-player {
   width: 100%;
 }
 
-
+/* 
 #answer1,
 #answer2,
 #answer3 {
-  /* width: 5rem;
-  height: 5rem; */
-}  
+   width: 5rem;
+  height: 5rem; 
+}   */
 .answerBubble {
   width: 9.5rem;
   height: 4.5rem;
@@ -373,14 +373,15 @@ lottie-player {
   align-items: center;
 }
 
-#gadgetWinner, #boltWinner, #clankWinner, #playerWinner{
-  display: none;
-}
+ #winner {
+   display:none;
+ }
 
 #playerWinner {
   height: 10rem;
   width:10rem;
   background-color: black;
+  display: none;
 }
 /* REUSABLE CLASSES */
 

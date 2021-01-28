@@ -31,7 +31,7 @@ const submitBtn: HTMLButtonElement = document.createElement("button");
 let amountOfGuesses: number = 0;
 
 function drawGame() {
-  console.log(playerAnswerMade);
+  
   chosenBots.splice(1, 0, "Player");
   drawSlider();
   drawBubbles();
@@ -151,8 +151,8 @@ function gameRound() {
         setTimeout(() => {
             document.getElementById('answer1').style.backgroundImage = `url("../assets/imgs/bubbleTR.png")`
             botAnswer(0);
-            compareAnswer(botGuessValue, randomNumber);
             firstAnswerMade = true;
+            compareAnswer(botGuessValue, randomNumber);
             botOneAnswer = botGuessValue;
             hideAnswerBubbles();
             // console.log('Answer from bot 1');
@@ -166,8 +166,8 @@ function gameRound() {
 
         slider.disabled = false;
         submitBtn.disabled = false;
-        playerAnswerMade = true;
         playerGuess();
+        playerAnswerMade = true;
 
     } else if (chosenBots.length > 2 && firstAnswerMade && playerAnswerMade && !thirdAnswerMade) {
 
@@ -185,6 +185,7 @@ function gameRound() {
             document.getElementById('answer3').style.backgroundImage = `url("../assets/imgs/bubbleTR.png")`
             botAnswer(2);
             thirdAnswerMade = true;
+            compareAnswer(botGuessValue, randomNumber);
             botTwoAnswer = botGuessValue;
             hideAnswerBubbles();
             updateAnswers('answer3', String(botTwoAnswer));
@@ -237,6 +238,7 @@ function compareAnswer(answer: number, randomNumber: number) {
     document.getElementById(bubbleID[1]).style.visibility = "visible";
     setElementContent(bubbleTextID[1], gpPhrases[1]);
     amountOfGuesses++;
+    checkWhoWon();
   } else if (answer > randomNumber) {
     //IF GUESST IS HIGHER THAN RANDOMNUMB
     document.getElementById(bubbleID[0]).style.visibility = "hidden";

@@ -8,6 +8,7 @@ const bubbleText = [
 let chosenBots: Array<string> = [];
 
 function lobby() {
+  
   // display bubbles
   showBubble(bubbleID[0], bubbleTextID[0], bubbleText[0]);
   showBubble(bubbleID[3], bubbleTextID[3], bubbleText[1]);
@@ -56,7 +57,8 @@ function lobby() {
 
   // start new screen for game start
   document.getElementById(bubbleID[1]).onclick = () => {
-    playerBolt.remove();
+   document.getElementById("botWrapper");
+   playerBolt.remove();
     playerClank.remove();
     playerGadget.remove();
     removeBubbles();
