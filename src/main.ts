@@ -6,6 +6,7 @@ const mainText: string[] = ["", "High Scores", "How to play", "Play"];
  * First edition of the welcomeScreen, feel free to change it as you like!
  */
 function welcomeScreen() {
+  saveBotWinsToLS();
   removeBubbles();
   document.body.style.background = "linear-gradient(180deg, #FFFFFF 0%, #9B85AD 100%)" //This needs some adjustment
   document.getElementById("gameMasterWrapper").classList.add('fadeIn')
