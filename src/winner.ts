@@ -15,23 +15,35 @@ function drawWinnerScreen(winner: string) {
   modal.style.opacity = "1";
   modal.style.visibility = "visible";
 
-  if (winner == "Gadget") {
+  if (winner === "Gadget") {
     document.getElementById("winner").style.display = "block";
     document.getElementById("winner").load("https://assets6.lottiefiles.com/private_files/lf30_okvpyhqk.json");
     document.getElementById("winnerName").innerHTML = "GADGET WON!";
-  } else if (winner == "Clank") {
+    addWinToBotStat(1);
+    
+  } else if (winner === "Clank") {
      document.getElementById("winner").style.display = "block"; 
      document.getElementById("winner").load("https://assets3.lottiefiles.com/private_files/lf30_mvcyn7ao.json");
      document.getElementById("winnerName").innerHTML = "CLANK WON!";
-  } else if (winner == "Bolt") {
+     addWinToBotStat(0);
+  } else if (winner === "Bolt") {
     document.getElementById("winner").style.display = "block";
     document.getElementById("winner").load("https://assets5.lottiefiles.com/private_files/lf30_skjhneze.json");
     document.getElementById("winnerName").innerHTML = "BOLT WON!";
-  } else if (winner == "Player") {
+    addWinToBotStat(2);
+  } else if (winner === "Player") {
+    // guessesMade 
     document.getElementById("playerWinner").style.display = "block";
     document.getElementById("winnerName").innerHTML = getPlayerName() + ", you won!";
   }
   setTimeout(restartGame, 4000);
+}
+
+//Adds statistics to bot that wins. 
+function addWinToBotStat(index: number){
+  localStorage.removeItem('bots');
+  bots[index].wins++;
+  localStorage.setItem('bots', JSON.stringify(bots));
 }
 
 /** Function to restart the game */
@@ -65,4 +77,8 @@ function getPlayerName() {
   const players: Array<Object> = JSON.parse(localStorage.getItem("players"));
   const number = players.length - 1; //-1 to get the right indexnumber
   return players[number].name; //Looks like an error but works fine
+}
+
+function saveBotWinsToLS(){
+  localStorage.setItem('bots', JSON.stringify(bots));
 }

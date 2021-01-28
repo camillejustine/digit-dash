@@ -43,7 +43,7 @@ function lobby() {
   let botInfoButton = document.getElementById(bubbleID[2]);
   botInfoButton.onclick = () => {
     const botModal: HTMLElement | null = document.getElementById("botModal");
-
+    
     botModal.style.opacity = "1";
     botModal.style.visibility = "visible";
 
