@@ -29,7 +29,7 @@ function drawWinnerScreen(winner: string) {
     document.getElementById("winnerName").innerHTML = "BOLT WON!";
   } else if (winner == "Player") {
     document.getElementById("playerWinner").style.display = "block";
-    document.getElementById("winnerName").innerHTML = getPlayerName() + " won!";
+    document.getElementById("winnerName").innerHTML = getPlayerName() + ", you won!";
   }
   setTimeout(restartGame, 4000);
 }
