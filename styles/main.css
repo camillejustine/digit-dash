@@ -23,14 +23,14 @@ p {
   letter-spacing: 2%;
 }
 
-#textBL, #textBR {
-  padding-top: .7rem;
+#textTL, #textTR {
+  padding-bottom: 1rem;
   font-size: .7rem;
   letter-spacing: 6%;
 }
 
-#textTL, #textTR {
-  padding-bottom: 1rem;
+#textBL, #textBR {
+  padding-top: .5rem;
   font-size: .7rem;
   letter-spacing: 6%;
 }
