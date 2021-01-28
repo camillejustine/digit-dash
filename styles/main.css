@@ -289,13 +289,13 @@ lottie-player {
   width: 100%;
 }
 
-
+/* 
 #answer1,
 #answer2,
 #answer3 {
-  /* width: 5rem;
-  height: 5rem; */
-}  
+   width: 5rem;
+  height: 5rem; 
+}   */
 .answerBubble {
   width: 9.5rem;
   height: 4.5rem;
@@ -335,6 +335,54 @@ lottie-player {
   outline: none;
 }
 
+#winnerModal {
+  opacity: 0;
+  transition: all 0.35s;
+}
+
+.winnerScreen {
+  visibility: hidden;
+  position: fixed;
+  z-index: 10;
+  margin: 0 2.5rem 0 2.5rem;
+  height: 40rem;
+  top: 1rem;
+  overflow: auto;
+  background: linear-gradient(
+    180deg,
+    rgba(212, 206, 220, 0.6) 0%,
+    rgba(23, 38, 77, 0.6) 100%
+  );
+  backdrop-filter: blur(1rem);
+  transition: block 4s;
+  position: fixed;
+  border-radius: 4rem;
+
+}
+
+.winnerContent {
+  margin: 15% auto; /* 15% from the top and centered */
+  padding: 20px;
+  width: 80%; /* Could be more or less, depending on screen size */
+  color: white;
+  text-align: center;
+  font-size: 2rem;
+  display:flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+ #winner {
+   display:none;
+ }
+
+#playerWinner {
+  height: 10rem;
+  width:10rem;
+  background-color: black;
+  display: none;
+}
 /* REUSABLE CLASSES */
 
 .flex {
@@ -351,3 +399,4 @@ lottie-player {
   opacity: 1;
   transition: opacity 3000ms;
 }
+

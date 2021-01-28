@@ -11,7 +11,7 @@ function welcomeScreen() {
   document.getElementById("gameMasterWrapper").classList.add('fadeIn')
   document.getElementById(bubbleID[0]).style.visibility = 'visible';
   setElementContent(bubbleTextID[0], "Welcome");
-  setTimeout(loadMain, 4000)
+  setTimeout(loadMain, 4000);
 
   //To be added:
   //"DIGIT DASH" text
@@ -19,6 +19,7 @@ function welcomeScreen() {
 }
 
 function loadMain(): void {
+  //setTimeout(drawWinnerScreen, 2000)
   document.body.style.background = "white";
   // gameState = 'main';
   for (let index = 0; index < mainText.length; index++) {

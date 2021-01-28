@@ -19,6 +19,7 @@ function nameChoice() {
       removeBubbles();
       nameInput.remove();
       lobby();
+      event.stopImmediatePropagation();
     }
   });
 }
