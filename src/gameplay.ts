@@ -11,16 +11,16 @@ const gpPhrases: string[] = [
 ];
 // thinkbubble content
 const bubblePhrases: string[] = [
-    "...",
-    "Hmm...",
-    "💭💭💭",
-    "⚙⚙⚙",
-    "🤖🤖🤖",
-    "Beep boop!",
-    "Loading...",
-    "Computing...",
-    "💾💾💾",
-    "0100100 011011"
+  "...",
+  "Hmm...",
+  "💭💭💭",
+  "⚙⚙⚙",
+  "🤖🤖🤖",
+  "Beep boop!",
+  "Loading...",
+  "Computing...",
+  "💾💾💾",
+  "0100100 011011"
 ]
 // the slider and its value
 const slider: HTMLInputElement = document.createElement("input");
@@ -31,7 +31,7 @@ const submitBtn: HTMLButtonElement = document.createElement("button");
 let amountOfGuesses: number = 0;
 
 function drawGame() {
-  
+
   chosenBots.splice(1, 0, "Player");
   drawSlider();
   drawBubbles();
@@ -41,17 +41,17 @@ function drawGame() {
   document.getElementById('answer1').style.backgroundImage = `url("../assets/imgs/thinkBubble.png")`
   updateAnswers('answer1', bubblePhrases[Math.floor(Math.random() * (0 + bubblePhrases.length) + 0)]);
   gameRound();
-//   hideAnswerBubbles();
+  //   hideAnswerBubbles();
 }
 
 function drawSlider() {
 
-    // Slider
-    slider.type = 'range';
-    slider.min = '0';
-    slider.max = '100';
-    slider.id = 'rangeSlider'
-    slider.disabled = true;
+  // Slider
+  slider.type = 'range';
+  slider.min = '0';
+  slider.max = '100';
+  slider.id = 'rangeSlider'
+  slider.disabled = true;
 
 
 
@@ -60,13 +60,13 @@ function drawSlider() {
   submitBtn.classList.add('guessBtn');
   submitBtn.disabled = true;
   //Value from slider
-//   sliderValue.innerText = slider.value;
-//   sliderValue.id = "sliderValue";
+  //   sliderValue.innerText = slider.value;
+  //   sliderValue.id = "sliderValue";
 
-    // target bubble instead
-    
-    
-    
+  // target bubble instead
+
+
+
 
   // Adds the elements to the wrapper
   inputWrapper.appendChild(slider);
@@ -100,7 +100,7 @@ function updateAnswers(id: string, value: string) {
 
 //Gets called before every new answer
 function hideAnswerBubbles() {
-  if (chosenBots.length > 2){
+  if (chosenBots.length > 2) {
     document.getElementById("answer1").style.visibility = "hidden";
     document.getElementById("answer2").style.visibility = "hidden";
     document.getElementById("answer3").style.visibility = "hidden";
@@ -131,82 +131,87 @@ let answerTime: number;
 
 // the logic for how the rounds works----
 function gameRound() {
-    
-    //sets a random number between 2000-4000 to use as timeout time.
-    answerTime = Math.floor(Math.random() * (6000 - 3000 + 1000) + 3000);
 
-    //if stat for whos turn it is 
-    if (!firstAnswerMade && !playerAnswerMade && !thirdAnswerMade) {
+  //sets a random number between 2000-4000 to use as timeout time.
+  answerTime = Math.floor(Math.random() * (6000 - 3000 + 1000) + 3000);
 
-        slider.disabled = true;
-        submitBtn.disabled = true;
-        submitBtn.style
+  //if stat for whos turn it is 
+  if (!firstAnswerMade && !playerAnswerMade && !thirdAnswerMade) {
 
-        setTimeout(() => {
-            let getRandomNumb = Math.floor(Math.random() * (0 + bubblePhrases.length) + 0)
-            document.getElementById('answer1').style.backgroundImage = `url("../assets/imgs/thinkBubble.png")`
-            updateAnswers('answer1', bubblePhrases[getRandomNumb]);
-        }, 1500)
-        
-        setTimeout(() => {
-            document.getElementById('answer1').style.backgroundImage = `url("../assets/imgs/bubbleTR.png")`
-            botAnswer(0);
-            firstAnswerMade = true;
-            compareAnswer(botGuessValue, randomNumber);
-            botOneAnswer = botGuessValue;
-            hideAnswerBubbles();
-            // console.log('Answer from bot 1');
-            updateAnswers('answer1', String(botOneAnswer));
-            gameRound();
-        }, answerTime);
+    slider.disabled = true;
+    submitBtn.disabled = true;
+    submitBtn.style
 
-        
+    setTimeout(() => {
+      let getRandomNumb = Math.floor(Math.random() * (0 + bubblePhrases.length) + 0)
+      document.getElementById('answer1').style.backgroundImage = `url("../assets/imgs/thinkBubble.png")`
+      updateAnswers('answer1', bubblePhrases[getRandomNumb]);
+    }, 1500)
 
-    } else if (firstAnswerMade && !playerAnswerMade && !thirdAnswerMade) {
-
-        slider.disabled = false;
-        submitBtn.disabled = false;
-        playerGuess();
-        playerAnswerMade = true;
-
-    } else if (chosenBots.length > 2 && firstAnswerMade && playerAnswerMade && !thirdAnswerMade) {
-
-        slider.disabled = true;
-        submitBtn.disabled = true;
-
-        setTimeout(() => {
-            let getRandomNumb = Math.floor(Math.random() * (0 + bubblePhrases.length) + 0)
-            document.getElementById('answer3').style.backgroundImage = `url("../assets/imgs/thinkBubble.png")`
-            updateAnswers('answer3', bubblePhrases[getRandomNumb]);
-        }, 1500)
+    setTimeout(() => {
+      document.getElementById('answer1').style.backgroundImage = `url("../assets/imgs/bubbleTR.png")`
+      botAnswer(0);
+      firstAnswerMade = true;
+      compareAnswer(botGuessValue, randomNumber);
+      botOneAnswer = botGuessValue;
+      hideAnswerBubbles();
+      // console.log('Answer from bot 1');
+      updateAnswers('answer1', String(botOneAnswer));
+      gameRound();
+    }, answerTime);
 
 
-        setTimeout(() => {
-            document.getElementById('answer3').style.backgroundImage = `url("../assets/imgs/bubbleTR.png")`
-            botAnswer(2);
-            thirdAnswerMade = true;
-            compareAnswer(botGuessValue, randomNumber);
-            botTwoAnswer = botGuessValue;
-            hideAnswerBubbles();
-            updateAnswers('answer3', String(botTwoAnswer));
-            gameRound();
-        }, answerTime);
-        // console.log('Asnwer from bot 2')
 
-    } else {
+  } else if (firstAnswerMade && !playerAnswerMade && !thirdAnswerMade) {
 
-        firstAnswerMade = false;
-        playerAnswerMade = false;
-        thirdAnswerMade = false;
-        gameRound();
+    slider.disabled = false;
+    submitBtn.disabled = false;
+    playerGuess();
+    playerAnswerMade = true;
 
-    }
+  } else if (chosenBots.length > 2 && firstAnswerMade && playerAnswerMade && !thirdAnswerMade) {
+
+    slider.disabled = true;
+    submitBtn.disabled = true;
+
+    setTimeout(() => {
+      let getRandomNumb = Math.floor(Math.random() * (0 + bubblePhrases.length) + 0)
+      document.getElementById('answer3').style.backgroundImage = `url("../assets/imgs/thinkBubble.png")`
+      updateAnswers('answer3', bubblePhrases[getRandomNumb]);
+    }, 1500)
+
+
+    setTimeout(() => {
+      document.getElementById('answer3').style.backgroundImage = `url("../assets/imgs/bubbleTR.png")`
+      botAnswer(2);
+      thirdAnswerMade = true;
+      compareAnswer(botGuessValue, randomNumber);
+      botTwoAnswer = botGuessValue;
+      hideAnswerBubbles();
+      updateAnswers('answer3', String(botTwoAnswer));
+      gameRound();
+    }, answerTime);
+    // console.log('Asnwer from bot 2')
+
+  } else {
+
+    firstAnswerMade = false;
+    playerAnswerMade = false;
+    thirdAnswerMade = false;
+    gameRound();
+
+  }
+}
+
+function drawTimer(time: number) {
+  document.getElementById(bubbleID[0]).style.visibility = "visible";
+  setElementContent(bubbleTextID[0], String(time));
 }
 
 // Answers from bots
 function botAnswer(index: number) {
   let IQRange: number = checkWhichBot(index);
-//   console.log("IQRange: " + IQRange);
+  //   console.log("IQRange: " + IQRange);
   botGuessValue = Math.floor(
     Math.random() * (randomNumber - IQRange + (randomNumber + IQRange)) + 0
   );
@@ -271,10 +276,11 @@ function setRandomNumber() {
 
 function playerGuess() {
   // if randomNumber = inputValue, then correct! if randomNumber >/< inputValue, give corresponding response
-  setTimeout(() => {
+  // setTimeout(() => {
     document.getElementById('answer2').style.backgroundImage = `url("../assets/imgs/thinkBubble.png")`
     updateAnswers('answer2', slider.value);
-  },1000)
+  // }, 1000);
+
   submitBtn.onclick = () => {
     hideAnswerBubbles();
     guessValue = parseInt(slider.value);
@@ -288,8 +294,10 @@ function playerGuess() {
   };
 
   //Timer for the player.
-  let timeLeft: number = 10;
-  const timer = setInterval(() => {
+  let timeLeft: number = 11;
+
+  function timeCounter() {
+    drawTimer(timeLeft - 1);
     timeLeft--;
     console.log("time left: " + timeLeft);
 
@@ -302,5 +310,6 @@ function playerGuess() {
       gameRound();
       clearInterval(timer);
     }
-  }, 1000);
+  }
+  const timer = setInterval(timeCounter, 1000);
 }
