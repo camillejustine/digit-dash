@@ -11,6 +11,7 @@ function welcomeScreen() {
   document.body.style.background = "linear-gradient(180deg, #FFFFFF 0%, #9B85AD 100%)" //This needs some adjustment
   document.getElementById("gameMasterWrapper").classList.add('fadeIn')
   document.getElementById(bubbleID[0]).style.visibility = 'visible';
+  document.getElementById(bubbleID[0]).style.textAlign = 'center';
   setElementContent(bubbleTextID[0], "Welcome");
   setTimeout(loadMain, 4000);
 
@@ -26,10 +27,12 @@ function loadMain(): void {
   for (let index = 0; index < mainText.length; index++) {
     setElementContent(bubbleTextID[index], mainText[index]);
     document.getElementById(bubbleID[index]).style.visibility = 'visible';
+    document.getElementById(bubbleID[index]).style.textAlign = 'center';
+
 
     // how to play module
     if (mainText[index] === "How to play") {
-      const ruleBubble: HTMLElement = document.getElementById("bubbleBL");
+      const ruleBubble : HTMLElement = document.getElementById("bubbleBL");
 
       ruleBubble.onclick = () => {
         const modal: HTMLElement | null = document.getElementById("ruleModal");

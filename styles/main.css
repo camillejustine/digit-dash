@@ -23,17 +23,75 @@ p {
   letter-spacing: 2%;
 }
 
+/* text inside bubbles */
+
 #textTL, #textTR {
-  padding-bottom: 1rem;
-  font-size: .7rem;
+  padding-bottom: 1.5rem;
+  font-size: 1rem;
   letter-spacing: 6%;
+  width:8rem;
+  color: white;
 }
 
 #textBL, #textBR {
-  padding-top: .5rem;
-  font-size: .7rem;
+  padding-top: 1rem;
+  font-size: 1rem;
   letter-spacing: 6%;
+  width:8rem;
+  color: white;
 }
+
+/* talk bubbles  */
+
+#bubbleTR {
+  background-image: url("../assets/imgs/bubbleTR.png");
+  height: 8rem;
+  width: 12rem;
+}
+
+#bubbleTL {
+  background-image: url("../assets/imgs/bubbleTL.png");
+  height: 8rem;
+  width: 12rem;
+}
+
+#bubbleBR {
+  background-image: url("../assets/imgs/bubbleBR.png");
+  height: 8rem;
+  width: 12rem;
+}
+
+#bubbleBL {
+  background-image: url("../assets/imgs/bubbleBL.png");
+  height: 8rem;
+  width: 12rem;
+}
+
+/* eventuell styling till knappar  */
+
+/* #bubbleTR-button {
+  background-image: url("../assets/imgs/bubbleTR-button.png");
+  height: 8rem;
+  width: 12rem;
+}
+
+#bubbleTL-button {
+  background-image: url("../assets/imgs/bubbleTL-button.png");
+  height: 8rem;
+  width: 12rem;
+}
+
+#bubbleBR-button {
+  background-image: url("../assets/imgs/bubbleBR-button.png");
+  height: 8rem;
+  width: 12rem;
+}
+
+#bubbleBL-button {
+  background-image: url("../assets/imgs/bubbleBL-button.png");
+  height: 8rem;
+  width: 12rem;
+} */
 
 lottie-player {
   width: 200px;
@@ -52,15 +110,13 @@ lottie-player {
   margin: 1rem;
   opacity: 0; /* to make it fade in at welcomescreen*/
 }
+
 .gmItem {
-  /* background-color: gray; */
-  height: 15vh;
-  width: 25vw;
-  margin: 0 0.3rem;
   border-style: none !important;
   outline: none !important;
   -webkit-tap-highlight-color: transparent;
 }
+
 .speechBubbleWrapper {
   display: flex;
   height: 5rem;
@@ -181,7 +237,7 @@ lottie-player {
   border-radius: 4rem;
 }
 .close {
-  color: rgb(61, 60, 60);
+  color: white;
   float: right;
   font-size: 28px;
   font-weight: bold;
@@ -219,8 +275,6 @@ lottie-player {
 #highScoresModal {
   display: flex;
   justify-content: center;
-  align-items: center;
-
   opacity: 0;
   transition: all 0.35s;
 }
@@ -239,6 +293,7 @@ lottie-player {
   left: 10%;
   top: 1rem;
   width: 80%;
+  height: 40rem;
   overflow: auto;
   background: linear-gradient(
     180deg,
@@ -252,29 +307,11 @@ lottie-player {
 }
 
 .highScoresContent {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-
   margin: 15% auto; /* 15% from the top and centered */
   padding: 20px;
   width: 80%; /* Could be more or less, depending on screen size */
   color: white;
   text-align: center;
-}
-
-.playerHighScores {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-
-#playerHighScores1 {
-  height: 5rem;
-  width: 30rem;
-  border-bottom: 0.1rem solid grey;
 }
 
 #userInput {
