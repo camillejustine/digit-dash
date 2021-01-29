@@ -11,6 +11,7 @@ function checkWhoWon() {
 
 /** Draws winnermodal and the right lottie-animation */
 function drawWinnerScreen(winner: string) {
+  updateGamesPlayed();
   const modal: HTMLElement | null = document.getElementById("winnerModal");
   modal.style.opacity = "1";
   modal.style.visibility = "visible";
@@ -36,7 +37,7 @@ function drawWinnerScreen(winner: string) {
     document.getElementById("winnerName").innerHTML =
       getPlayerName() + ", you won!";
   }
-  setTimeout(restartGame, 4000);
+  setTimeout(restartGame, 3500);
 }
 
 //Adds statistics to bot that wins.
@@ -49,16 +50,15 @@ function addWinToBotStat(index: number) {
 /** Function to restart the game */
 function restartGame() {
   hideGamePlay();
-  
   //Hide modal
   const modal: HTMLElement | null = document.getElementById("winnerModal");
   modal.style.opacity = "0";
   modal.style.visibility = "hidden";
   
   //Resets answer round
-  firstAnswerMade = false;
-  playerAnswerMade = false;
-  thirdAnswerMade = false;
+   firstAnswerMade = false;
+   playerAnswerMade = false;
+   thirdAnswerMade = false;
   
   // Loads main-screen
   loadMain();
@@ -67,6 +67,7 @@ function restartGame() {
 /** Hides all element from Gameplay */
 function hideGamePlay() {
   removeBubbles();
+  removeBubble(bubbleID[0] , bubbleTextID[0])
   //Hides inputfield and button
   let inputAndButton = document.getElementById("inputField");
   while (inputAndButton.firstChild)
@@ -89,4 +90,40 @@ function getPlayerName() {
 
 function saveBotWinsToLS() {
   localStorage.setItem("bots", JSON.stringify(bots));
+}
+
+/**
+ * Updates gamesplayed(in LS) for the bots that was chosen for the round
+ */
+function updateGamesPlayed(){
+  let index1;
+  let index2;
+
+   if (chosenBots.length > 2){
+     if (chosenBots[2] === "Bolt"){
+       index2 = 2;
+     }else if (chosenBots[2] === "Gadget"){
+       index2 = 1;
+     }else if (chosenBots[2] === "Clank"){
+       index2 = 0;
+     }
+   }
+
+   if (chosenBots[0] === "Bolt"){
+     index1 = 2;
+     console.log("Bolt va med o spela!")
+   } else if (chosenBots[0] === "Gadget"){
+     index1 = 1;
+     console.log("Gadget va med o spela!")
+   } else if (chosenBots[0] === "Clank"){
+     index1 = 0;
+     console.log("Clank va med o spela!")
+   }
+
+   localStorage.removeItem("bots");
+   bots[index1].gamesPlayed++;
+   if (chosenBots.length > 2){
+   bots[index2].gamesPlayed++;
+  }
+   localStorage.setItem("bots", JSON.stringify(bots));
 }

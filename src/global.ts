@@ -1,7 +1,6 @@
-window.addEventListener('load', welcomeScreen); //GLÖM INTE ÄNDRA TILLBAKS
-//window.addEventListener('load', drawWinnerScreen);
+window.addEventListener('load', welcomeScreen); 
 
-class BotObjct { bot: string; wins: number; };
+class BotObjct { bot: string; wins: number; gamesPlayed: number;};
 
 
 const gameMaster: any = document.getElementById('gameMaster');
@@ -10,9 +9,9 @@ let players: Array<Object> = [];
 let bots: Array<BotObjct>;
 if (localStorage.getItem('bots') == null) {
     bots = [
-        { bot: 'Clank', wins: 0 },
-        { bot: 'Gadget', wins: 0 },
-        { bot: 'Bolt', wins: 0 }
+        { bot: 'Clank', wins: 9, gamesPlayed: 20},
+        { bot: 'Gadget', wins: 18, gamesPlayed: 20},
+        { bot: 'Bolt', wins: 2, gamesPlayed: 20}
     ];
 } else {
     bots = JSON.parse(localStorage.getItem('bots'));

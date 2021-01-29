@@ -8,7 +8,6 @@ const bubbleText = [
 let chosenBots: Array<string> = [];
 
 function lobby() {
-  
   // display bubbles
   showBubble(bubbleID[0], bubbleTextID[0], bubbleText[0]);
   showBubble(bubbleID[3], bubbleTextID[3], bubbleText[1]);
@@ -42,8 +41,9 @@ function lobby() {
   // bot info click event (show modal)
   let botInfoButton = document.getElementById(bubbleID[2]);
   botInfoButton.onclick = () => {
+    drawBotWins();
     const botModal: HTMLElement | null = document.getElementById("botModal");
-    
+
     botModal.style.opacity = "1";
     botModal.style.visibility = "visible";
 
@@ -57,8 +57,8 @@ function lobby() {
 
   // start new screen for game start
   document.getElementById(bubbleID[1]).onclick = () => {
-   document.getElementById("botWrapper");
-   playerBolt.remove();
+    document.getElementById("botWrapper");
+    playerBolt.remove();
     playerClank.remove();
     playerGadget.remove();
     removeBubbles();
@@ -95,4 +95,14 @@ function checkBotArray(bot: string, botElement: HTMLElement) {
     chosenBots.push(bot);
     botElement.style.backgroundImage = `url("../assets/imgs/player${bot}-chosen1.png")`;
   }
+}
+
+function drawBotWins() {
+  let clankWinRate: number = (bots[0].wins / bots[0].gamesPlayed) * 100;
+  let gadgetWinRate: number = (bots[1].wins / bots[1].gamesPlayed) * 100;
+  let boltWinRate: number = (bots[2].wins / bots[2].gamesPlayed) * 100;
+
+  document.getElementById("clankWins").innerHTML ="Clank has a total win rate of " + clankWinRate.toFixed(1) + "% and currently has " + bots[0].wins + " wins.";
+  document.getElementById("gadgetWins").innerHTML = "Gadget has a total win rate of " + gadgetWinRate.toFixed(1) + "% and currently has " + bots[1].wins + " wins.";
+  document.getElementById("boltWins").innerHTML = "Bolt has a total win rate of " + boltWinRate.toFixed(1) + "% and currently has " + bots[2].wins + " wins.";
 }
