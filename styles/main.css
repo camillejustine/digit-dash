@@ -350,7 +350,7 @@ lottie-player {
   position: fixed;
   z-index: 10;
   margin: 0 2.5rem 0 2.5rem;
-  height: 40rem;
+  height: 90%;
   top: 1rem;
   overflow: auto;
   background: linear-gradient(
@@ -363,12 +363,15 @@ lottie-player {
   position: fixed;
   border-radius: 4rem;
 
+  display:flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .winnerContent {
-  margin: 15% auto; /* 15% from the top and centered */
-  padding: 20px;
-  width: 80%; /* Could be more or less, depending on screen size */
+  margin: 1% auto; /* 1% from the top and centered */
+  padding: 20px; 
+  width: 70%; /* Could be more or less, depending on screen size */
   color: white;
   text-align: center;
   font-size: 2rem;
