@@ -18,6 +18,23 @@ h1, h2, button {
   text-transform: uppercase;
 }
 
+p {
+  font-size: .9rem;
+  letter-spacing: 2%;
+}
+
+#textTL, #textTR {
+  padding-bottom: 1rem;
+  font-size: .7rem;
+  letter-spacing: 6%;
+}
+
+#textBL, #textBR {
+  padding-top: .5rem;
+  font-size: .7rem;
+  letter-spacing: 6%;
+}
+
 lottie-player {
   width: 200px;
   height: 200px;
@@ -48,11 +65,13 @@ lottie-player {
   display: flex;
   height: 5rem;
 }
+
 .gameMaster {
   align-self: center;
   width: 12rem;
   height: 10rem;
 }
+
 .bubble {
   background-position: center;
   background-size: contain;
@@ -61,8 +80,11 @@ lottie-player {
   justify-content: center;
   align-items: center;
   cursor: pointer;
-  width: 6rem;
+
+  width: 8rem;
+  height: 6rem;
 }
+
 .bubble > p {
   text-align: center;
   vertical-align: middle;
@@ -74,26 +96,11 @@ lottie-player {
   letter-spacing: 0.5px;
 }
 
-#textTL {
-  padding-bottom: 0.3rem;
-}
-
-#textTR {
-  padding-bottom: 0.3rem;
-}
-
-#textBL {
-  padding-top: 0.3rem;
-}
-
-#textBR {
-  padding-top: 0.3rem;
-}
-
 .bubbleImage {
   max-width: 110%;
   max-height: 110%;
 }
+
 .botContainer {
   display: flex;
   justify-content: space-evenly;
@@ -147,6 +154,9 @@ lottie-player {
   height: 3rem;
   /* background-color: blue; */
 }
+
+/* rule modal */ 
+
 #ruleModal {
   opacity: 0;
   transition: all 0.35s;
@@ -204,7 +214,7 @@ lottie-player {
   width: 15rem;
 }
 
-/* highscore module */
+/* high score module */
 
 #highScoresModal {
   display: flex;
@@ -266,6 +276,7 @@ lottie-player {
   width: 30rem;
   border-bottom: 0.1rem solid grey;
 }
+
 #userInput {
   border: 3px solid #dcd6e4;
   box-sizing: border-box;
@@ -289,13 +300,6 @@ lottie-player {
   width: 100%;
 }
 
-/* 
-#answer1,
-#answer2,
-#answer3 {
-   width: 5rem;
-  height: 5rem; 
-}   */
 .answerBubble {
   width: 9.5rem;
   height: 4.5rem;
@@ -334,6 +338,7 @@ lottie-player {
 .guessBtn:focus{
   outline: none;
 }
+
 
 #winnerModal {
   opacity: 0;

@@ -27,7 +27,7 @@ function loadMain(): void {
     setElementContent(bubbleTextID[index], mainText[index]);
     document.getElementById(bubbleID[index]).style.visibility = 'visible';
 
-    // move to own function???
+    // how to play module
     if (mainText[index] === "How to play") {
       const ruleBubble: HTMLElement = document.getElementById("bubbleBL");
 
@@ -42,13 +42,6 @@ function loadMain(): void {
           modal.style.opacity = "0";
           modal.style.visibility = "hidden";
         };
-
-        // TO DO: make background close modal on click
-        // window.onclick = (event: Event) => {
-        //   if (event.target === modal) {
-        //     modal.style.visibility = "hidden";
-        //   }
-        // };
       };
     }
 

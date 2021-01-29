@@ -24,7 +24,7 @@ function nameChoice() {
   });
 }
 
-const greeting: string = "Hi! What's your name?";
+const greeting: string = "What's your name?";
 
 function showGreeting() {
   document.getElementById(bubbleID[0]).style.visibility = "visible";
