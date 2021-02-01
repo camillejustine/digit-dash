@@ -8,10 +8,11 @@ const mainText: string[] = ["", "High Scores", "How to play", "Play"];
 function welcomeScreen() {
   saveBotWinsToLS();
   removeBubbles();
-  document.body.style.background = "linear-gradient(180deg, #FFFFFF 0%, #9B85AD 100%)" //This needs some adjustment
-  document.getElementById("gameMasterWrapper").classList.add('fadeIn')
-  document.getElementById(bubbleID[0]).style.visibility = 'visible';
-  document.getElementById(bubbleID[0]).style.textAlign = 'center';
+  document.body.style.background =
+    "linear-gradient(180deg, #FFFFFF 0%, #9B85AD 100%)"; //This needs some adjustment
+  document.getElementById("gameMasterWrapper").classList.add("fadeIn");
+  document.getElementById(bubbleID[0]).style.visibility = "visible";
+  document.getElementById(bubbleID[0]).style.textAlign = "center";
   setElementContent(bubbleTextID[0], "Welcome");
   setTimeout(loadMain, 4000);
 
@@ -26,13 +27,13 @@ function loadMain(): void {
   // gameState = 'main';
   for (let index = 0; index < mainText.length; index++) {
     setElementContent(bubbleTextID[index], mainText[index]);
-    document.getElementById(bubbleID[index]).style.visibility = 'visible';
-    document.getElementById(bubbleID[index]).style.textAlign = 'center';
-
+    document.getElementById(bubbleID[index]).style.visibility = "visible";
+    document.getElementById(bubbleID[index]).style.textAlign = "center";
 
     // how to play module
     if (mainText[index] === "How to play") {
-      const ruleBubble : HTMLElement = document.getElementById("bubbleBL");
+      const ruleBubble: HTMLElement = document.getElementById("bubbleBL");
+      ruleBubble.classList.add("cursorPointer");
 
       ruleBubble.onclick = () => {
         const modal: HTMLElement | null = document.getElementById("ruleModal");
@@ -50,6 +51,7 @@ function loadMain(): void {
 
     if (mainText[index] === "Play") {
       const playBubble: HTMLElement = document.getElementById("bubbleBR");
+      playBubble.classList.add("cursorPointer");
       playBubble.onclick = () => {
         console.log("nameChoice");
         removeBubbles();
@@ -58,34 +60,39 @@ function loadMain(): void {
       };
     }
 
-    // high score module 
+    // high score module
     if (mainText[index] === "High Scores") {
       const highScoresBubble: HTMLElement = document.getElementById("bubbleTR");
+      highScoresBubble.classList.add("cursorPointer");
 
       highScoresBubble.onclick = () => {
-
-        const modal: HTMLElement | null = document.getElementById("highScoresModal");
+        const modal: HTMLElement | null = document.getElementById(
+          "highScoresModal"
+        );
         modal.style.opacity = "1";
         modal.style.visibility = "visible";
-        console.log('High score');
+        console.log("High score");
 
-        let playerHighScores1 = document.createElement('div');
-        playerHighScores1.id = 'playerHighScores1';
-        document.getElementById('playerHighScores').appendChild(playerHighScores1);
+        let playerHighScores1 = document.createElement("div");
+        playerHighScores1.id = "playerHighScores1";
+        document
+          .getElementById("playerHighScores")
+          .appendChild(playerHighScores1);
 
-        const closeHighScores: HTMLElement | null = document.getElementById("closeHighScores");
+        const closeHighScores: HTMLElement | null = document.getElementById(
+          "closeHighScores"
+        );
 
         closeHighScores.onclick = () => {
           modal.style.opacity = "0";
           modal.style.visibility = "hidden";
-          console.log('close High Score');
+          console.log("close High Score");
         };
       };
     }
 
     document.getElementById(bubbleID[0]).style.visibility = "hidden";
-
   }
 }
 
-    // Function showTot() { SHOW TEXT /VIDEO  
+// Function showTot() { SHOW TEXT /VIDEO
