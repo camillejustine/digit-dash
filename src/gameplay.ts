@@ -160,7 +160,9 @@ function gameRound() {
     ).style.backgroundImage = `url("../assets/imgs/thinkBubble.png")`;
 
     setTimeout(() => {
-      document.getElementById("answer2").style.backgroundImage = `url("../assets/imgs/thinkBubble.png")`;
+      document.getElementById(
+        "answer2"
+      ).style.backgroundImage = `url("../assets/imgs/thinkBubble.png")`;
       let getRandomNumb = Math.floor(
         Math.random() * (0 + bubblePhrases.length) + 0
       );
@@ -168,10 +170,10 @@ function gameRound() {
     }, 1500);
 
     setTimeout(() => {
+
       lastAnswerGiven = botGuessValue;
-      document.getElementById(
-        "answer1"
-      ).style.backgroundImage = `url("../assets/imgs/bubbleTR.png")`;
+     
+      document.getElementById('answer1').style.backgroundImage = `url("../assets/imgs/answerBubble.png")`;
       botAnswer(0);
       firstAnswerMade = true;
       compareAnswer(botGuessValue, randomNumber);
@@ -213,9 +215,7 @@ function gameRound() {
     }, 1500);
 
     setTimeout(() => {
-      document.getElementById(
-        "answer3"
-      ).style.backgroundImage = `url("../assets/imgs/bubbleTR.png")`;
+      document.getElementById('answer3').style.backgroundImage = `url("../assets/imgs/answerBubble.png")`;
       botAnswer(2);
       thirdAnswerMade = true;
       compareAnswer(botGuessValue, randomNumber);
@@ -282,7 +282,8 @@ function checkWhichBot(index: number) {
 
 //compares the answers that both bots and player gives
 function compareAnswer(answer: number, randomNumber: number) {
-  if (answer === randomNumber) { // correct answer
+  if (answer === randomNumber) {
+    // correct answer
     document.getElementById(bubbleID[0]).style.visibility = "hidden";
     document.getElementById(bubbleID[2]).style.visibility = "hidden";
     document.getElementById(bubbleID[3]).style.visibility = "hidden";
@@ -291,19 +292,27 @@ function compareAnswer(answer: number, randomNumber: number) {
     amountOfGuesses++;
     checkWhoWon();
     correctGuessMade = true;
-  } else if (answer > randomNumber) { // guess is too low
+  } else if (answer > randomNumber) {
+    // guess is too low
     document.getElementById(bubbleID[0]).style.visibility = "hidden";
     document.getElementById(bubbleID[1]).style.visibility = "hidden";
     document.getElementById(bubbleID[3]).style.visibility = "hidden";
     document.getElementById(bubbleID[2]).style.visibility = "visible";
     setElementContent(bubbleTextID[2], gpPhrases[2]);
+    setTimeout(() => {
+      document.getElementById(bubbleID[2]).style.visibility = "hidden";
+    }, 2000);
     amountOfGuesses++;
-  } else if (answer < randomNumber) { // guess is too high
+  } else if (answer < randomNumber) {
+    // guess is too high
     document.getElementById(bubbleID[0]).style.visibility = "hidden";
     document.getElementById(bubbleID[1]).style.visibility = "hidden";
     document.getElementById(bubbleID[2]).style.visibility = "hidden";
     document.getElementById(bubbleID[3]).style.visibility = "visible";
     setElementContent(bubbleTextID[3], gpPhrases[3]);
+    setTimeout(() => {
+      document.getElementById(bubbleID[3]).style.visibility = "hidden";
+    }, 2000);
     amountOfGuesses++;
   }
 }
@@ -333,15 +342,13 @@ function playerGuess() {
   ).style.backgroundImage = `url("../assets/imgs/thinkBubble.png")`;
   updateAnswers("answer2", slider.value);
 
-
   submitBtn.onclick = () => {
     hideAnswerBubbles();
     guessValue = parseInt(slider.value);
     compareAnswer(guessValue, randomNumber);
-    document.getElementById(
-      "answer2"
-    ).style.backgroundImage = `url("../assets/imgs/bubbleTR.png")`;
+
     lastAnswerGiven = guessValue;
+    document.getElementById('answer2').style.backgroundImage = `url("../assets/imgs/answerBubble.png")`;
     updateAnswers("answer2", String(guessValue));
     clearInterval(timer);
     gameRound();

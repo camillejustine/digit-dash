@@ -75,31 +75,6 @@ p {
   width: 12rem;
 }
 
-/* eventuell styling till knappar  */
-
-/* #bubbleTR-button {
-  background-image: url("../assets/imgs/bubbleTR-button.png");
-  height: 8rem;
-  width: 12rem;
-}
-
-#bubbleTL-button {
-  background-image: url("../assets/imgs/bubbleTL-button.png");
-  height: 8rem;
-  width: 12rem;
-}
-
-#bubbleBR-button {
-  background-image: url("../assets/imgs/bubbleBR-button.png");
-  height: 8rem;
-  width: 12rem;
-}
-
-#bubbleBL-button {
-  background-image: url("../assets/imgs/bubbleBL-button.png");
-  height: 8rem;
-  width: 12rem;
-} */
 
 lottie-player {
   width: 200px;
@@ -205,9 +180,11 @@ lottie-player {
 }
 
 #Player {
-  height: 7rem;
-  width: 7rem;
-  background-color: black;
+  height: 8rem;
+  width: 7.5rem;
+  background-image: url("../assets/imgs/playerBrain.png");
+  background-size: cover;
+  object-fit: cover;
 }
 
 .buttonContainer {
@@ -334,6 +311,9 @@ lottie-player {
   border-radius: 270px;
   color: #8d809e;
   text-align: center;
+  font-size: 1rem;
+  height: 3rem;
+  width: 14rem;
 }
 
 #userInput:focus {
@@ -355,8 +335,7 @@ lottie-player {
   width: 9.5rem;
   height: 4.5rem;
   background-position: center;
-  /* background-color: hotpink; */
-  background-image: url(../assets/imgs/thinkBubble.png);
+  background-image: url(../assets/imgs/answerBubble.png);
   background-size: contain;
   background-repeat: no-repeat;
   display: flex;
@@ -368,13 +347,15 @@ lottie-player {
   transition: all 500ms;
 }
 
-.guessBtn {
-  border: none;
+.guessBtn{
+  padding-bottom: .3rem;
+  border:none;
   background: none;
   background-image: url("../assets/imgs/guessButton.png");
   width: 10rem;
   height: 4rem;
   background-size: cover;
+  color: white;
 }
 
 .guessBtn:disabled,
@@ -458,10 +439,10 @@ lottie-player {
 
 
 #playerWinner {
-  height: 10rem;
-  width: 10rem;
-  background-color: black;
-  margin:1rem;
+  height: 20rem;
+  width: 20rem;
+  background-image: url('../assets/imgs/playerPlayer.png');
+  background-size: cover;
   display: none;
 }
 /* REUSABLE CLASSES */
