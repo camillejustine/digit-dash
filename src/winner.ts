@@ -11,7 +11,9 @@ function checkWhoWon() {
 
 /** Draws winnermodal and the right lottie-animation */
 function drawWinnerScreen(winner: string) {
-  updateGamesPlayed();
+  document.getElementById("winner").style.display = "none";
+  document.getElementById("playerWinner").style.display = "none";
+
   const modal: HTMLElement | null = document.getElementById("winnerModal");
   modal.style.opacity = "1";
   modal.style.visibility = "visible";
@@ -66,6 +68,7 @@ function restartGame() {
 
 /** Hides all element from Gameplay */
 function hideGamePlay() {
+  updateGamesPlayed();
   removeBubbles();
   removeBubble(bubbleID[0] , bubbleTextID[0])
   //Hides inputfield and button
