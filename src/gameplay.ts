@@ -33,6 +33,8 @@ const submitBtn: HTMLButtonElement = document.createElement("button");
 let amountOfGuesses: number = 0;
 
 function drawGame() {
+  minGuess = 0;
+  maxGuess = 100;
   correctGuessMade = false;
   chosenBots.splice(1, 0, "Player");
   drawSlider();
@@ -135,7 +137,10 @@ let correctGuessMade: boolean;
 
 // the logic for how the rounds works----
 function gameRound() {
- 
+
+  console.log(botGuessValue);
+  console.log('maxguess: ' + maxGuess);
+  console.log('minguess: ' + minGuess);
   //If someone wins the gameround breaks/ends
   if (correctGuessMade === true) {
     return;
@@ -163,6 +168,7 @@ function gameRound() {
     }, 1500);
 
     setTimeout(() => {
+      lastAnswerGiven = botGuessValue;
       document.getElementById(
         "answer1"
       ).style.backgroundImage = `url("../assets/imgs/bubbleTR.png")`;
@@ -170,7 +176,6 @@ function gameRound() {
       firstAnswerMade = true;
       compareAnswer(botGuessValue, randomNumber);
       botOneAnswer = botGuessValue;
-      lastAnswerGiven = botGuessValue;
       hideAnswerBubbles();
       updateAnswers("answer1", String(botOneAnswer));
       gameRound();
@@ -235,44 +240,41 @@ function drawTimer(time: number) {
   setElementContent(bubbleTextID[0], String(time));
 }
 
+// Answers from bots
 let minGuess: number;
 let maxGuess: number;
-
-// Answers from bots
 function botAnswer(index: number) {
   let IQRange: number = checkWhichBot(index);
 
-  if (answerIsHigher === undefined) {
-    console.log('undefined');
-    minGuess = randomNumber - IQRange;
-    maxGuess = randomNumber + IQRange;
-  } else if (!answerIsHigher) {
+
+  if (lastAnswerGiven > randomNumber) {
     maxGuess = lastAnswerGiven - 1;
-    console.log('maxguess: ' + maxGuess);
-  } else if (answerIsHigher) {
+  } else if (lastAnswerGiven < randomNumber) {
     minGuess = lastAnswerGiven + 1;
-    console.log('minguess: ' + minGuess);
   }
 
-  botGuessValue = Math.floor(
-    Math.random() * (maxGuess - minGuess) + minGuess);
-
-  while (botGuessValue > 100 || botGuessValue < 0) {
+  botGuessValue = Math.floor(Math.random() * ((randomNumber + IQRange) - (randomNumber - IQRange)) + (randomNumber - IQRange));
+  while (botGuessValue > 100 || botGuessValue < 0 || botGuessValue > maxGuess || botGuessValue < minGuess) {
     botGuessValue = Math.floor(
-      Math.random() * (maxGuess - minGuess) + minGuess
-    );
-    console.log('while');
+      Math.random() * ((randomNumber + IQRange) - (randomNumber - IQRange)) + (randomNumber - IQRange));
+  }
 
+  if (chosenBots[index] === 'Gadget' && (minGuess + 5) > randomNumber || (maxGuess - 5) < randomNumber) {
+    botGuessValue = randomNumber;
+    console.log('DINGDINGDINGDINDG IM GOINGINSAINE FROM THIS CODe ahaAHAHAHAHAHAhahAhAH');
   }
 }
 
 function checkWhichBot(index: number) {
-  if (chosenBots[index] === "Bolt") {
-    return 25;
-  } else if (chosenBots[index] === "Gadget") {
-    return 50;
+  if (chosenBots[index] === "Gadget") {
+    let x = Math.floor(Math.random() * (15 - 3) + 3);
+    return x;
   } else if (chosenBots[index] === "Clank") {
-    return 75;
+    let x = Math.floor(Math.random() * (60 - 30) + 30);
+    return x;
+  } else if (chosenBots[index] === "Bolt") {
+    let x = Math.floor(Math.random() * (90 - 70) + 70);
+    return x;
   }
 }
 
@@ -296,7 +298,6 @@ function compareAnswer(answer: number, randomNumber: number) {
     document.getElementById(bubbleID[3]).style.visibility = "hidden";
     document.getElementById(bubbleID[2]).style.visibility = "visible";
     setElementContent(bubbleTextID[2], gpPhrases[2]);
-    answerIsHigher = false;
     amountOfGuesses++;
   } else if (answer < randomNumber) { // guess is too high
     document.getElementById(bubbleID[0]).style.visibility = "hidden";
@@ -304,7 +305,6 @@ function compareAnswer(answer: number, randomNumber: number) {
     document.getElementById(bubbleID[2]).style.visibility = "hidden";
     document.getElementById(bubbleID[3]).style.visibility = "visible";
     setElementContent(bubbleTextID[3], gpPhrases[3]);
-    answerIsHigher = true;
     amountOfGuesses++;
   }
 }
@@ -329,7 +329,6 @@ function setRandomNumber() {
 }
 
 function playerGuess() {
-
   document.getElementById(
     "answer2"
   ).style.backgroundImage = `url("../assets/imgs/thinkBubble.png")`;
