@@ -20,7 +20,7 @@ var bubblePhrases = [
     "Loading...",
     "Computing...",
     "💾💾💾",
-    "0100100 011011"
+    "0100100 011011",
 ];
 // the slider and its value
 var slider = document.createElement("input");
@@ -30,28 +30,28 @@ var submitBtn = document.createElement("button");
 //number of guesses the players has made
 var amountOfGuesses = 0;
 function drawGame() {
-    console.log(playerAnswerMade);
+    correctGuessMade = false;
     chosenBots.splice(1, 0, "Player");
     drawSlider();
     drawBubbles();
     setRandomNumber();
     drawActiveBots();
     drawAnswers();
-    document.getElementById('answer1').style.backgroundImage = "url(\"../assets/imgs/thinkBubble.png\")";
-    updateAnswers('answer1', bubblePhrases[Math.floor(Math.random() * (0 + bubblePhrases.length) + 0)]);
+    document.getElementById("answer1").style.backgroundImage = "url(\"../assets/imgs/thinkBubble.png\")";
+    updateAnswers("answer1", bubblePhrases[Math.floor(Math.random() * (0 + bubblePhrases.length) + 0)]);
     gameRound();
     //   hideAnswerBubbles();
 }
 function drawSlider() {
     // Slider
-    slider.type = 'range';
-    slider.min = '0';
-    slider.max = '100';
-    slider.id = 'rangeSlider';
+    slider.type = "range";
+    slider.min = "0";
+    slider.max = "100";
+    slider.id = "rangeSlider";
     slider.disabled = true;
     //submit btn
     submitBtn.textContent = "Guess";
-    submitBtn.classList.add('guessBtn');
+    submitBtn.classList.add("guessBtn");
     submitBtn.disabled = true;
     //Value from slider
     //   sliderValue.innerText = slider.value;
@@ -61,9 +61,10 @@ function drawSlider() {
     inputWrapper.appendChild(slider);
     inputWrapper.appendChild(sliderValue);
     inputWrapper.appendChild(submitBtn);
+    inputWrapper.style.height = "10rem";
     //updates the value when you move the slider
     slider.oninput = function () {
-        document.getElementById('answer2').innerText = slider.value;
+        document.getElementById("answer2").innerText = slider.value;
     };
 }
 function drawAnswers() {
@@ -77,7 +78,7 @@ function drawAnswers() {
         document.getElementById("answer" + (index + 1)).appendChild(answerText);
     }
     // set slider value to bubble
-    document.getElementById('answer2').innerText = slider.value;
+    document.getElementById("answer2").innerText = slider.value;
 }
 function updateAnswers(id, value) {
     document.getElementById(id).innerText = value;
@@ -112,53 +113,62 @@ var botOneAnswer;
 var botTwoAnswer;
 var guessValue;
 var answerTime;
+var correctGuessMade;
 // the logic for how the rounds works----
 function gameRound() {
+    //If someone wins the gameround breaks/ends
+    if (correctGuessMade === true) {
+        return;
+    }
     //sets a random number between 2000-4000 to use as timeout time.
     answerTime = Math.floor(Math.random() * (6000 - 3000 + 1000) + 3000);
-    //if stat for whos turn it is 
+    //if stat for whos turn it is
     if (!firstAnswerMade && !playerAnswerMade && !thirdAnswerMade) {
         slider.disabled = true;
         submitBtn.disabled = true;
         submitBtn.style;
         setTimeout(function () {
             var getRandomNumb = Math.floor(Math.random() * (0 + bubblePhrases.length) + 0);
-            document.getElementById('answer1').style.backgroundImage = "url(\"../assets/imgs/thinkBubble.png\")";
-            updateAnswers('answer1', bubblePhrases[getRandomNumb]);
+            document.getElementById("answer1").style.backgroundImage = "url(\"../assets/imgs/thinkBubble.png\")";
+            updateAnswers("answer1", bubblePhrases[getRandomNumb]);
         }, 1500);
         setTimeout(function () {
-            document.getElementById('answer1').style.backgroundImage = "url(\"../assets/imgs/bubbleTR.png\")";
+            document.getElementById("answer1").style.backgroundImage = "url(\"../assets/imgs/bubbleTR.png\")";
             botAnswer(0);
-            compareAnswer(botGuessValue, randomNumber);
             firstAnswerMade = true;
+            compareAnswer(botGuessValue, randomNumber);
             botOneAnswer = botGuessValue;
             hideAnswerBubbles();
             // console.log('Answer from bot 1');
-            updateAnswers('answer1', String(botOneAnswer));
+            updateAnswers("answer1", String(botOneAnswer));
             gameRound();
         }, answerTime);
     }
     else if (firstAnswerMade && !playerAnswerMade && !thirdAnswerMade) {
         slider.disabled = false;
         submitBtn.disabled = false;
-        playerAnswerMade = true;
         playerGuess();
+        playerAnswerMade = true;
     }
-    else if (chosenBots.length > 2 && firstAnswerMade && playerAnswerMade && !thirdAnswerMade) {
+    else if (chosenBots.length > 2 &&
+        firstAnswerMade &&
+        playerAnswerMade &&
+        !thirdAnswerMade) {
         slider.disabled = true;
         submitBtn.disabled = true;
         setTimeout(function () {
             var getRandomNumb = Math.floor(Math.random() * (0 + bubblePhrases.length) + 0);
-            document.getElementById('answer3').style.backgroundImage = "url(\"../assets/imgs/thinkBubble.png\")";
-            updateAnswers('answer3', bubblePhrases[getRandomNumb]);
+            document.getElementById("answer3").style.backgroundImage = "url(\"../assets/imgs/thinkBubble.png\")";
+            updateAnswers("answer3", bubblePhrases[getRandomNumb]);
         }, 1500);
         setTimeout(function () {
-            document.getElementById('answer3').style.backgroundImage = "url(\"../assets/imgs/bubbleTR.png\")";
+            document.getElementById("answer3").style.backgroundImage = "url(\"../assets/imgs/bubbleTR.png\")";
             botAnswer(2);
             thirdAnswerMade = true;
+            compareAnswer(botGuessValue, randomNumber);
             botTwoAnswer = botGuessValue;
             hideAnswerBubbles();
-            updateAnswers('answer3', String(botTwoAnswer));
+            updateAnswers("answer3", String(botTwoAnswer));
             gameRound();
         }, answerTime);
         // console.log('Asnwer from bot 2')
@@ -169,6 +179,11 @@ function gameRound() {
         thirdAnswerMade = false;
         gameRound();
     }
+}
+//timer function
+function drawTimer(time) {
+    document.getElementById(bubbleID[0]).style.visibility = "visible";
+    setElementContent(bubbleTextID[0], String(time));
 }
 // Answers from bots
 function botAnswer(index) {
@@ -200,6 +215,8 @@ function compareAnswer(answer, randomNumber) {
         document.getElementById(bubbleID[1]).style.visibility = "visible";
         setElementContent(bubbleTextID[1], gpPhrases[1]);
         amountOfGuesses++;
+        checkWhoWon();
+        correctGuessMade = true;
     }
     else if (answer > randomNumber) {
         //IF GUESST IS HIGHER THAN RANDOMNUMB
@@ -222,7 +239,15 @@ function compareAnswer(answer, randomNumber) {
 }
 function drawBubbles() {
     document.getElementById(bubbleID[0]).style.visibility = "visible";
+    document.getElementById(bubbleID[0]).classList.remove("cursorPointer");
+    document.getElementById(bubbleID[1]).classList.remove("cursorPointer");
+    document.getElementById(bubbleID[2]).classList.remove("cursorPointer");
+    document.getElementById(bubbleID[3]).classList.remove("cursorPointer");
     setElementContent(bubbleTextID[0], gpPhrases[0]);
+    document.getElementById(bubbleID[1]).style.backgroundImage =
+        "url(../assets/imgs/bubbleTR.png)";
+    document.getElementById(bubbleID[2]).style.backgroundImage =
+        "url(../assets/imgs/bubbleBL.png)";
 }
 //sets the random number that the players and bots tries to guess
 function setRandomNumber() {
@@ -231,44 +256,63 @@ function setRandomNumber() {
 }
 function playerGuess() {
     // if randomNumber = inputValue, then correct! if randomNumber >/< inputValue, give corresponding response
-    setTimeout(function () {
-        document.getElementById('answer2').style.backgroundImage = "url(\"../assets/imgs/thinkBubble.png\")";
-        updateAnswers('answer2', slider.value);
-    }, 1000);
+    // setTimeout(() => {
+    document.getElementById("answer2").style.backgroundImage = "url(\"../assets/imgs/thinkBubble.png\")";
+    updateAnswers("answer2", slider.value);
+    // }, 1000);
     submitBtn.onclick = function () {
         hideAnswerBubbles();
         guessValue = parseInt(slider.value);
         console.log("Guess: " + guessValue);
         console.log("number: " + randomNumber);
         compareAnswer(guessValue, randomNumber);
-        document.getElementById('answer2').style.backgroundImage = "url(\"../assets/imgs/bubbleTR.png\")";
+        document.getElementById("answer2").style.backgroundImage = "url(\"../assets/imgs/bubbleTR.png\")";
         updateAnswers("answer2", String(guessValue));
         clearInterval(timer);
         gameRound();
     };
-    //Timer for the player.
-    var timeLeft = 10;
-    var timer = setInterval(function () {
+    //Timer for the player. starts as 11 to give the player the feeling of having 10 full seconds.
+    var timeLeft = 11;
+    function timeCounter() {
+        //draws timer with -one sec to get correct time
+        drawTimer(timeLeft - 1);
         timeLeft--;
         console.log("time left: " + timeLeft);
         if (timeLeft <= 0) {
             guessValue = parseInt(slider.value);
             compareAnswer(guessValue, randomNumber);
             hideAnswerBubbles();
-            document.getElementById('answer2').style.backgroundImage = "url(\"../assets/imgs/bubbleTR.png\")";
+            document.getElementById("answer2").style.backgroundImage = "url(\"../assets/imgs/bubbleTR.png\")";
             updateAnswers("answer2", String(guessValue));
             gameRound();
             clearInterval(timer);
         }
-    }, 1000);
+    }
+    var timer = setInterval(timeCounter, 1000);
 }
-window.addEventListener('load', welcomeScreen);
-var gameMaster = document.getElementById('gameMaster');
+window.addEventListener("load", welcomeScreen);
+var BotObjct = /** @class */ (function () {
+    function BotObjct() {
+    }
+    return BotObjct;
+}());
+var gameMaster = document.getElementById("gameMaster");
 var players = [];
-//let player: {name: string, highscore: number, games: number}
-var bubbleTextID = ['textTL', 'textTR', 'textBL', 'textBR'];
-var bubbleID = ['bubbleTL', 'bubbleTR', 'bubbleBL', 'bubbleBR'];
-var inputWrapper = document.getElementById('inputField');
+var bots;
+if (localStorage.getItem("bots") == null) {
+    bots = [
+        { bot: "Clank", wins: 9, gamesPlayed: 20 },
+        { bot: "Gadget", wins: 18, gamesPlayed: 20 },
+        { bot: "Bolt", wins: 2, gamesPlayed: 20 },
+    ];
+}
+else {
+    bots = JSON.parse(localStorage.getItem("bots"));
+}
+var bubbleTextID = ["textTL", "textTR", "textBL", "textBR"];
+var bubbleID = ["bubbleTL", "bubbleTR", "bubbleBL", "bubbleBR"];
+// const bubbleButtonID: string[] = ['bubbleTL-button', 'bubbleTR-button', 'bubbleBL-button', 'bubbleBR-button'];
+var inputWrapper = document.getElementById("inputField");
 function setElementContent(id, mainText) {
     var element = document.getElementById(id);
     element.innerHTML = mainText;
@@ -278,15 +322,15 @@ function removeBubbles() {
         var bubbles = document.getElementById(bubbleID[index]);
         var text = document.getElementById(bubbleTextID[index]);
         bubbles.onclick = function () {
-            // reset onclick 
+            // reset onclick
         };
-        bubbles.style.visibility = 'hidden';
-        text.innerHTML = '';
+        bubbles.style.visibility = "hidden";
+        text.innerHTML = "";
     }
 }
 function removeBubble(bubbleID, textID) {
-    document.getElementById(textID).innerHTML = '';
-    document.getElementById(bubbleID).style.visibility = 'hidden';
+    document.getElementById(textID).innerHTML = "";
+    document.getElementById(bubbleID).style.visibility = "hidden";
 }
 function showBubble(bubbleID, bubbleTextID, bubbleText) {
     document.getElementById(bubbleID).style.visibility = "visible";
@@ -304,6 +348,9 @@ function lobby() {
     showBubble(bubbleID[0], bubbleTextID[0], bubbleText[0]);
     showBubble(bubbleID[3], bubbleTextID[3], bubbleText[1]);
     showBubble(bubbleID[2], bubbleTextID[2], bubbleText[2]);
+    document.getElementById("bubbleBR").style.cursor = "default";
+    document.getElementById("bubbleBR").style.backgroundImage =
+        "url(../assets/imgs/bubbleBR.png)";
     // creates bot players
     var playerBolt = document.createElement("div");
     playerBolt.id = "playerBolt";
@@ -329,6 +376,7 @@ function lobby() {
     // bot info click event (show modal)
     var botInfoButton = document.getElementById(bubbleID[2]);
     botInfoButton.onclick = function () {
+        drawBotWins();
         var botModal = document.getElementById("botModal");
         botModal.style.opacity = "1";
         botModal.style.visibility = "visible";
@@ -340,6 +388,7 @@ function lobby() {
     };
     // start new screen for game start
     document.getElementById(bubbleID[1]).onclick = function () {
+        document.getElementById("botWrapper");
         playerBolt.remove();
         playerClank.remove();
         playerGadget.remove();
@@ -376,16 +425,42 @@ function checkBotArray(bot, botElement) {
         botElement.style.backgroundImage = "url(\"../assets/imgs/player" + bot + "-chosen1.png\")";
     }
 }
+function drawBotWins() {
+    var clankWinRate = (bots[0].wins / bots[0].gamesPlayed) * 100;
+    var gadgetWinRate = (bots[1].wins / bots[1].gamesPlayed) * 100;
+    var boltWinRate = (bots[2].wins / bots[2].gamesPlayed) * 100;
+    document.getElementById("clankWins").innerHTML =
+        "Clank has a total win rate of " +
+            clankWinRate.toFixed(1) +
+            "% and currently has " +
+            bots[0].wins +
+            " wins.";
+    document.getElementById("gadgetWins").innerHTML =
+        "Gadget has a total win rate of " +
+            gadgetWinRate.toFixed(1) +
+            "% and currently has " +
+            bots[1].wins +
+            " wins.";
+    document.getElementById("boltWins").innerHTML =
+        "Bolt has a total win rate of " +
+            boltWinRate.toFixed(1) +
+            "% and currently has " +
+            bots[2].wins +
+            " wins.";
+}
 var mainText = ["", "High Scores", "How to play", "Play"];
 // let gameState: string = 'main', 'nameChoice', 'lobby', 'gamePlay', 'highScore'
 /**
  * First edition of the welcomeScreen, feel free to change it as you like!
  */
 function welcomeScreen() {
+    saveBotWinsToLS();
     removeBubbles();
-    document.body.style.background = "linear-gradient(180deg, #FFFFFF 0%, #9B85AD 100%)"; //This needs some adjustment
-    document.getElementById("gameMasterWrapper").classList.add('fadeIn');
-    document.getElementById(bubbleID[0]).style.visibility = 'visible';
+    document.body.style.background =
+        "linear-gradient(180deg, #FFFFFF 0%, #9B85AD 100%)"; //This needs some adjustment
+    document.getElementById("gameMasterWrapper").classList.add("fadeIn");
+    document.getElementById(bubbleID[0]).style.visibility = "visible";
+    document.getElementById(bubbleID[0]).style.textAlign = "center";
     setElementContent(bubbleTextID[0], "Welcome");
     setTimeout(loadMain, 4000);
     //To be added:
@@ -393,14 +468,19 @@ function welcomeScreen() {
     // More smooth transition to next screen(?)s
 }
 function loadMain() {
+    //setTimeout(drawWinnerScreen, 2000)
     document.body.style.background = "white";
     // gameState = 'main';
     for (var index = 0; index < mainText.length; index++) {
         setElementContent(bubbleTextID[index], mainText[index]);
-        document.getElementById(bubbleID[index]).style.visibility = 'visible';
-        // move to own function???
+        document.getElementById(bubbleID[index]).style.visibility = "visible";
+        document.getElementById(bubbleID[index]).style.textAlign = "center";
+        // how to play module
         if (mainText[index] === "How to play") {
             var ruleBubble = document.getElementById("bubbleBL");
+            ruleBubble.classList.add("cursorPointer");
+            ruleBubble.style.backgroundImage =
+                "url(../assets/imgs/bubbleBL-button.png)";
             ruleBubble.onclick = function () {
                 var modal = document.getElementById("ruleModal");
                 modal.style.opacity = "1";
@@ -410,16 +490,13 @@ function loadMain() {
                     modal.style.opacity = "0";
                     modal.style.visibility = "hidden";
                 };
-                // TO DO: make background close modal on click
-                // window.onclick = (event: Event) => {
-                //   if (event.target === modal) {
-                //     modal.style.visibility = "hidden";
-                //   }
-                // };
             };
         }
         if (mainText[index] === "Play") {
             var playBubble = document.getElementById("bubbleBR");
+            playBubble.classList.add("cursorPointer");
+            playBubble.style.backgroundImage =
+                "url(../assets/imgs/bubbleBR-button.png)";
             playBubble.onclick = function () {
                 console.log("nameChoice");
                 removeBubbles();
@@ -427,29 +504,34 @@ function loadMain() {
                 //gameState = 'nameChoice';
             };
         }
-        // high score module 
+        // high score module
         if (mainText[index] === "High Scores") {
             var highScoresBubble = document.getElementById("bubbleTR");
+            highScoresBubble.classList.add("cursorPointer");
+            highScoresBubble.style.backgroundImage =
+                "url(../assets/imgs/bubbleTR-button.png)";
             highScoresBubble.onclick = function () {
                 var modal = document.getElementById("highScoresModal");
                 modal.style.opacity = "1";
                 modal.style.visibility = "visible";
-                console.log('High score');
-                var playerHighScores1 = document.createElement('div');
-                playerHighScores1.id = 'playerHighScores1';
-                document.getElementById('playerHighScores').appendChild(playerHighScores1);
+                console.log("High score");
+                var playerHighScores1 = document.createElement("div");
+                playerHighScores1.id = "playerHighScores1";
+                document
+                    .getElementById("playerHighScores")
+                    .appendChild(playerHighScores1);
                 var closeHighScores = document.getElementById("closeHighScores");
                 closeHighScores.onclick = function () {
                     modal.style.opacity = "0";
                     modal.style.visibility = "hidden";
-                    console.log('close High Score');
+                    console.log("close High Score");
                 };
             };
         }
         document.getElementById(bubbleID[0]).style.visibility = "hidden";
     }
 }
-// Function showTot() { SHOW TEXT /VIDEO  
+// Function showTot() { SHOW TEXT /VIDEO
 var nameInput = document.createElement("input");
 var lastPlayer;
 function nameChoice() {
@@ -470,10 +552,11 @@ function nameChoice() {
             removeBubbles();
             nameInput.remove();
             lobby();
+            event.stopImmediatePropagation();
         }
     });
 }
-var greeting = "Hi! What's your name?";
+var greeting = "What's your name?";
 function showGreeting() {
     document.getElementById(bubbleID[0]).style.visibility = "visible";
     setElementContent(bubbleTextID[0], greeting);
@@ -509,5 +592,134 @@ function getLastPlayersName() {
         var number = players_1.length - 1; //-1 to get the right indexnumber
         return players_1[number].name; //Looks like an error but works fine
     }
+}
+/** Checks which answer was the right one */
+function checkWhoWon() {
+    if (firstAnswerMade && !playerAnswerMade && !thirdAnswerMade) {
+        setTimeout(drawWinnerScreen, 1500, chosenBots[0]);
+    }
+    else if (firstAnswerMade && playerAnswerMade && !thirdAnswerMade) {
+        setTimeout(drawWinnerScreen, 1500, chosenBots[1]);
+    }
+    else if (chosenBots.length > 2 && firstAnswerMade && playerAnswerMade && thirdAnswerMade) {
+        setTimeout(drawWinnerScreen, 1500, chosenBots[2]);
+    }
+}
+/** Draws winnermodal and the right lottie-animation */
+function drawWinnerScreen(winner) {
+    document.getElementById("winner").style.display = "none";
+    document.getElementById("playerWinner").style.display = "none";
+    var modal = document.getElementById("winnerModal");
+    modal.style.opacity = "1";
+    modal.style.visibility = "visible";
+    if (winner === "Gadget") {
+        document.getElementById("winner").style.display = "block";
+        document.getElementById("winner").load("https://assets6.lottiefiles.com/private_files/lf30_okvpyhqk.json");
+        document.getElementById("winnerName").innerHTML = "GADGET WON!";
+        addWinToBotStat(1);
+    }
+    else if (winner === "Clank") {
+        document.getElementById("winner").style.display = "block";
+        document.getElementById("winner").load("https://assets3.lottiefiles.com/private_files/lf30_mvcyn7ao.json");
+        document.getElementById("winnerName").innerHTML = "CLANK WON!";
+        addWinToBotStat(0);
+    }
+    else if (winner === "Bolt") {
+        document.getElementById("winner").style.display = "block";
+        document.getElementById("winner").load("https://assets5.lottiefiles.com/private_files/lf30_skjhneze.json");
+        document.getElementById("winnerName").innerHTML = "BOLT WON!";
+        addWinToBotStat(2);
+    }
+    else if (winner === "Player") {
+        // guessesMade
+        document.getElementById("playerWinner").style.display = "block";
+        document.getElementById("winnerName").innerHTML =
+            getPlayerName() + ", you won!";
+    }
+    setTimeout(restartGame, 3500);
+}
+//Adds statistics to bot that wins.
+function addWinToBotStat(index) {
+    localStorage.removeItem("bots");
+    bots[index].wins++;
+    localStorage.setItem("bots", JSON.stringify(bots));
+}
+/** Function to restart the game */
+function restartGame() {
+    hideGamePlay();
+    //Hide modal
+    var modal = document.getElementById("winnerModal");
+    modal.style.opacity = "0";
+    modal.style.visibility = "hidden";
+    //Resets answer round
+    firstAnswerMade = false;
+    playerAnswerMade = false;
+    thirdAnswerMade = false;
+    // Loads main-screen
+    loadMain();
+}
+/** Hides all element from Gameplay */
+function hideGamePlay() {
+    updateGamesPlayed();
+    removeBubbles();
+    removeBubble(bubbleID[0], bubbleTextID[0]);
+    //Hides inputfield and button
+    var inputAndButton = document.getElementById("inputField");
+    while (inputAndButton.firstChild)
+        inputAndButton.removeChild(inputAndButton.firstChild);
+    // hides the bots
+    var bots = document.getElementById("botWrapper");
+    while (bots.firstChild)
+        bots.removeChild(bots.firstChild);
+    chosenBots = [];
+    //hides the answer-bubbles
+    var answers = document.getElementById("answerWrapper");
+    while (answers.firstChild)
+        answers.removeChild(answers.firstChild);
+}
+/** Gets most recent player from localStorage */
+function getPlayerName() {
+    var players = JSON.parse(localStorage.getItem("players"));
+    var number = players.length - 1; //-1 to get the right indexnumber
+    return players[number].name; //Looks like an error but works fine
+}
+function saveBotWinsToLS() {
+    localStorage.setItem("bots", JSON.stringify(bots));
+}
+/**
+ * Updates gamesplayed(in LS) for the bots that was chosen for the round
+ */
+function updateGamesPlayed() {
+    var index1;
+    var index2;
+    if (chosenBots.length > 2) {
+        if (chosenBots[2] === "Bolt") {
+            index2 = 2;
+        }
+        else if (chosenBots[2] === "Gadget") {
+            index2 = 1;
+        }
+        else if (chosenBots[2] === "Clank") {
+            index2 = 0;
+        }
+    }
+    if (chosenBots[0] === "Bolt") {
+        index1 = 2;
+        console.log("Bolt va med o spela!");
+    }
+    else if (chosenBots[0] === "Gadget") {
+        index1 = 1;
+        console.log("Gadget va med o spela!");
+    }
+    else if (chosenBots[0] === "Clank") {
+        index1 = 0;
+        console.log("Clank va med o spela!");
+    }
+    localStorage.removeItem("bots");
+    bots[index1].gamesPlayed++;
+    if (chosenBots.length > 2) {
+        bots[index2].gamesPlayed++;
+    }
+    localStorage.setItem("bots", JSON.stringify(bots));
 }
 //# sourceMappingURL=index.js.map
