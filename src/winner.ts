@@ -34,6 +34,7 @@ function drawWinnerScreen(winner: string) {
   } else if (winner === "Player") {
     // guessesMade
     document.getElementById("playerWinner").style.display = "block";
+    document.getElementById("playerWinner").url("../assets/imgs/playerPlayer.png");
     document.getElementById("winnerName").innerHTML =
       getPlayerName() + ", you won!";
   }
