@@ -34,6 +34,8 @@ function loadMain(): void {
     if (mainText[index] === "How to play") {
       const ruleBubble: HTMLElement = document.getElementById("bubbleBL");
       ruleBubble.classList.add("cursorPointer");
+      ruleBubble.style.backgroundImage =
+        "url(../assets/imgs/bubbleBL-button.png)";
 
       ruleBubble.onclick = () => {
         const modal: HTMLElement | null = document.getElementById("ruleModal");
@@ -52,6 +54,8 @@ function loadMain(): void {
     if (mainText[index] === "Play") {
       const playBubble: HTMLElement = document.getElementById("bubbleBR");
       playBubble.classList.add("cursorPointer");
+      playBubble.style.backgroundImage =
+        "url(../assets/imgs/bubbleBR-button.png)";
       playBubble.onclick = () => {
         console.log("nameChoice");
         removeBubbles();
@@ -64,6 +68,8 @@ function loadMain(): void {
     if (mainText[index] === "High Scores") {
       const highScoresBubble: HTMLElement = document.getElementById("bubbleTR");
       highScoresBubble.classList.add("cursorPointer");
+      highScoresBubble.style.backgroundImage =
+        "url(../assets/imgs/bubbleTR-button.png)";
 
       highScoresBubble.onclick = () => {
         const modal: HTMLElement | null = document.getElementById(

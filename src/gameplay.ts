@@ -284,6 +284,10 @@ function drawBubbles() {
   document.getElementById(bubbleID[2]).classList.remove("cursorPointer");
   document.getElementById(bubbleID[3]).classList.remove("cursorPointer");
   setElementContent(bubbleTextID[0], gpPhrases[0]);
+  document.getElementById(bubbleID[1]).style.backgroundImage =
+    "url(../assets/imgs/bubbleTR.png)";
+  document.getElementById(bubbleID[2]).style.backgroundImage =
+    "url(../assets/imgs/bubbleBL.png)";
 }
 
 //sets the random number that the players and bots tries to guess
