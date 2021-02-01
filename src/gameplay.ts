@@ -161,9 +161,7 @@ function gameRound() {
     }, 1500);
 
     setTimeout(() => {
-      document.getElementById(
-        "answer1"
-      ).style.backgroundImage = `url("../assets/imgs/bubbleTR.png")`;
+      document.getElementById('answer1').style.backgroundImage = `url("../assets/imgs/answerBubble.png")`;
       botAnswer(0);
       firstAnswerMade = true;
       compareAnswer(botGuessValue, randomNumber);
@@ -202,9 +200,7 @@ function gameRound() {
     }, 1500);
 
     setTimeout(() => {
-      document.getElementById(
-        "answer3"
-      ).style.backgroundImage = `url("../assets/imgs/bubbleTR.png")`;
+      document.getElementById('answer3').style.backgroundImage = `url("../assets/imgs/answerBubble.png")`;
       botAnswer(2);
       thirdAnswerMade = true;
       compareAnswer(botGuessValue, randomNumber);
@@ -321,9 +317,7 @@ function playerGuess() {
     console.log("Guess: " + guessValue);
     console.log("number: " + randomNumber);
     compareAnswer(guessValue, randomNumber);
-    document.getElementById(
-      "answer2"
-    ).style.backgroundImage = `url("../assets/imgs/bubbleTR.png")`;
+    document.getElementById('answer2').style.backgroundImage = `url("../assets/imgs/answerBubble.png")`;
     updateAnswers("answer2", String(guessValue));
     clearInterval(timer);
     gameRound();
