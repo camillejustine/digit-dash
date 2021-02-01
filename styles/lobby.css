@@ -6,7 +6,6 @@
 }
 .botModal {
   visibility: hidden;
-  /* position: fixed; */
   z-index: 10;
   top: 1rem;
   width: 80%;
@@ -20,7 +19,6 @@
   transition: block 4s;
   position: absolute;
   border-radius: 4rem;
-  height: 90rem;
   /* left: 10%; */
   margin: 0 2.5rem 0 2.5rem;
 
@@ -28,14 +26,19 @@
   justify-content: center;
 }
 
+#botClose {
+  margin-top: 2rem;
+}
 .botModalContent {
   display: flex;
+  flex-direction: column;
   justify-content: center;
 
   /* margin:  auto; 10% from the top and centered */
   width: 80%; /* Could be more or less, depending on screen size */
   color: white;
   text-align: center;
+  padding-top: 0;
 }
 
 .modalTop {
@@ -44,12 +47,14 @@
 }
 
 .botListWrapper {
-  padding-top: 2rem;
+  padding-top: 0rem;
+  padding-bottom: 1rem;
 }
 
 .botWrapper {
   display: flex;
   flex-direction: row;
+  align-items: center;
 }
 
 .botWrapper img {
