@@ -31,7 +31,7 @@ const submitBtn: HTMLButtonElement = document.createElement("button");
 let amountOfGuesses: number = 0;
 
 function drawGame() {
-
+  correctGuessMade = false;
   chosenBots.splice(1, 0, "Player");
   drawSlider();
   drawBubbles();
@@ -41,6 +41,7 @@ function drawGame() {
   document.getElementById('answer1').style.backgroundImage = `url("../assets/imgs/thinkBubble.png")`
   updateAnswers('answer1', bubblePhrases[Math.floor(Math.random() * (0 + bubblePhrases.length) + 0)]);
   gameRound();
+  
   //   hideAnswerBubbles();
 }
 
@@ -128,9 +129,15 @@ let botOneAnswer: number;
 let botTwoAnswer: number;
 let guessValue: number;
 let answerTime: number;
+let correctGuessMade: boolean;
 
 // the logic for how the rounds works----
 function gameRound() {
+  
+  //If someone wins the gameround breaks/ends
+  if (correctGuessMade === true){
+    return;
+  }
 
   //sets a random number between 2000-4000 to use as timeout time.
   answerTime = Math.floor(Math.random() * (6000 - 3000 + 1000) + 3000);
@@ -245,6 +252,7 @@ function compareAnswer(answer: number, randomNumber: number) {
     setElementContent(bubbleTextID[1], gpPhrases[1]);
     amountOfGuesses++;
     checkWhoWon();
+    correctGuessMade = true;
   } else if (answer > randomNumber) {
     //IF GUESST IS HIGHER THAN RANDOMNUMB
     document.getElementById(bubbleID[0]).style.visibility = "hidden";
