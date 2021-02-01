@@ -7,7 +7,6 @@
     align-items: center;
 
     margin: auto;
-    margin-top: 2rem;
   }
 
   lottie-player {
@@ -30,38 +29,39 @@
     padding-bottom: 1.5rem;
     font-size: 1rem;
     letter-spacing: 6%;
+    color: white;
   }
 
   #textBL, #textBR {
-    padding-top: 1.5rem;
+    padding-top: 1rem;
     font-size: 1rem;
     letter-spacing: 6%;
-  }
-
-  #textBR, #textTR { 
-    padding-left: 3rem;
-  }
-
-  #textBL, #textTL { 
-    padding-right: 3rem;
+    color: white;
   }
 
   #bubbleTL {
     display: flex;
     justify-content: center;
     margin-right: 3rem;
+    color: white;
   }
 
   #bubbleTR {
+    display: flex;
+    justify-content: center;
     margin-left: 3rem;
   }
 
   #bubbleBL {
+    display: flex;
+    justify-content: center;
     margin-top: 1rem;
     margin-right: 3rem;
   }
 
   #bubbleBR {
+    display: flex;
+    justify-content: center;
     margin-top: 1rem;
     margin-left: 3rem;
   }

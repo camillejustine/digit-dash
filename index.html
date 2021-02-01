@@ -23,23 +23,11 @@
       <div id="gameMasterWrapper" class="gameMasterWrapper">
         <div class="speechBubbleWrapper">
           <div class="gmItem bubble" id="bubbleTL">
-            <img
-              class="bubbleImage"
-              id="bubbleTL"
-              src="./assets/imgs/bubbleTL.png"
-              alt=""
-            />
-            <p id="textTL"></p>
+            <div id="textTL"></div>
             <!-- put bubble img here -->
           </div>
-          <div class="gmItem bubble" id="bubbleTR">
-            <img
-              class="bubbleImage"
-              id="bubbleTR"
-              src="./assets/imgs/bubbleTR-button.png"
-              alt=""
-            />
-            <p id="textTR"></p>
+          <div class="gmItem bubble bubbleTR-button" id="bubbleTR">
+            <div id="textTR"></div>
             <!-- put bubble img here -->
           </div>
         </div>
@@ -57,23 +45,11 @@
 
         <div class="speechBubbleWrapper">
           <div class="gmItem bubble" id="bubbleBL">
-            <img
-              class="bubbleImage"
-              id="bubbleBL"
-              src="./assets/imgs/bubbleBL-button.png"
-              alt=""
-            />
-            <p id="textBL"></p>
+            <div id="textBL"></div>
             <!-- put bubble img here -->
           </div>
           <div class="gmItem bubble" id="bubbleBR">
-            <img
-              class="bubbleImage"
-              id="bubbleBR"
-              src="./assets/imgs/bubbleBR-button.png"
-              alt=""
-            />
-            <p id="textBR"></p>
+            <div id="textBR"></div>
             <!-- put bubble img here -->
           </div>
         </div>
@@ -91,11 +67,12 @@
     <div id="ruleModal" class="rules">
       <div class="rulesContent">
         <span class="close" id="close">&times;</span>
+        <br><br>
         <h2 class="ruleTitle">Welcome to Digit Dash!</h2>
         <p>
           In this fun game each contestant takes turn guessing for a number
-          between 1 and 25 that the game master (Kitt) has in mind. Kitt will tell
-          you if the number she is thinking of is higher or lower than your
+          between 1 and 25 that the game master (Kitt) has in mind.<br><br>
+          Kitt will tell you if the number she is thinking of is higher or lower than your
           guess. You only have 10 seconds to pick a number, so act fast.<br /><br />
           The first contestant to guess the correct number is named the winner!
         </p>
@@ -103,7 +80,11 @@
     </div>
     <div id="botModal" class="botModal">
       <div class="botModalContent">
-        <span class="botClose" id="botClose">&times;</span>
+        <div class="topModal">
+        <span class="close" id="botClose">&times;</span>
+        <br><br>
+        <h2>Bot information center</h2>
+      </div>
         <div class="botListWrapper">
           <div class="botWrapper">
             <img src="./assets/imgs/playerGadget.png" />
@@ -144,10 +125,9 @@
 
     <div id="highScoresModal" class="highScores">
       <div class="highScoresContent">
-        <div class="topModalHighScore">
-          <h2 class="ruleTitle">High Scores</h2>
           <span class="close" id="closeHighScores">&times;</span>
-        </div>
+          <br><br>
+          <h2 class="ruleTitle">High Scores</h2>
         <div id="playerHighScores"></div>
         <!-- javascript -->
       </div>
