@@ -261,7 +261,6 @@ function botAnswer(index: number) {
 
   if (chosenBots[index] === 'Gadget' && (minGuess + 5) > randomNumber || (maxGuess - 5) < randomNumber) {
     botGuessValue = randomNumber;
-    console.log('DINGDINGDINGDINDG IM GOINGINSAINE FROM THIS CODe ahaAHAHAHAHAHAhahAhAH');
   }
 }
 
