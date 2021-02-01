@@ -175,6 +175,10 @@ lottie-player {
 }
 
 /* player styles */
+#playerBolt:hover,#playerClank:hover,#playerGadget:hover{
+  cursor:pointer;
+}
+
 #playerBolt,
 #Bolt {
   height: 7.5rem;
