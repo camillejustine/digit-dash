@@ -2,6 +2,8 @@
 
 //The number you have to guess
 let randomNumber: number;
+let lastAnswerGiven: number;
+let answerIsHigher: boolean;
 //Gamemaster pharases
 const gpPhrases: string[] = [
   "Lets make a guess!",
@@ -31,6 +33,8 @@ const submitBtn: HTMLButtonElement = document.createElement("button");
 let amountOfGuesses: number = 0;
 
 function drawGame() {
+  minGuess = 0;
+  maxGuess = 100;
   correctGuessMade = false;
   chosenBots.splice(1, 0, "Player");
   drawSlider();
@@ -133,6 +137,10 @@ let correctGuessMade: boolean;
 
 // the logic for how the rounds works----
 function gameRound() {
+
+  console.log(botGuessValue);
+  console.log('maxguess: ' + maxGuess);
+  console.log('minguess: ' + minGuess);
   //If someone wins the gameround breaks/ends
   if (correctGuessMade === true) {
     return;
@@ -141,8 +149,9 @@ function gameRound() {
   //sets a random number between 2000-4000 to use as timeout time.
   answerTime = Math.floor(Math.random() * (6000 - 3000 + 1000) + 3000);
 
-  //if stat for whos turn it is
+  //bot 1 
   if (!firstAnswerMade && !playerAnswerMade && !thirdAnswerMade) {
+
     slider.disabled = true;
     submitBtn.disabled = true;
     submitBtn.style;
@@ -161,16 +170,20 @@ function gameRound() {
     }, 1500);
 
     setTimeout(() => {
+
+      lastAnswerGiven = botGuessValue;
+     
       document.getElementById('answer1').style.backgroundImage = `url("../assets/imgs/answerBubble.png")`;
       botAnswer(0);
       firstAnswerMade = true;
       compareAnswer(botGuessValue, randomNumber);
       botOneAnswer = botGuessValue;
       hideAnswerBubbles();
-      // console.log('Answer from bot 1');
       updateAnswers("answer1", String(botOneAnswer));
       gameRound();
     }, answerTime);
+
+    // spelare tur
   } else if (firstAnswerMade && !playerAnswerMade && !thirdAnswerMade) {
     document.getElementById(
       "answer2"
@@ -180,6 +193,8 @@ function gameRound() {
     submitBtn.disabled = false;
     playerGuess();
     playerAnswerMade = true;
+
+    //bot 2
   } else if (
     chosenBots.length > 2 &&
     firstAnswerMade &&
@@ -205,11 +220,12 @@ function gameRound() {
       thirdAnswerMade = true;
       compareAnswer(botGuessValue, randomNumber);
       botTwoAnswer = botGuessValue;
+      lastAnswerGiven = botGuessValue;
       hideAnswerBubbles();
       updateAnswers("answer3", String(botTwoAnswer));
       gameRound();
     }, answerTime);
-    // console.log('Asnwer from bot 2')
+
   } else {
     firstAnswerMade = false;
     playerAnswerMade = false;
@@ -225,29 +241,44 @@ function drawTimer(time: number) {
 }
 
 // Answers from bots
+let minGuess: number;
+let maxGuess: number;
 function botAnswer(index: number) {
   let IQRange: number = checkWhichBot(index);
-  //   console.log("IQRange: " + IQRange);
-  botGuessValue = Math.floor(
-    Math.random() * (randomNumber - IQRange + (randomNumber + IQRange)) + 0
-  );
 
-  while (botGuessValue > 100 || botGuessValue < 0) {
+
+  if (lastAnswerGiven > randomNumber) {
+    maxGuess = lastAnswerGiven - 1;
+  } else if (lastAnswerGiven < randomNumber) {
+    minGuess = lastAnswerGiven + 1;
+  }
+
+  botGuessValue = Math.floor(Math.random() * ((randomNumber + IQRange) - (randomNumber - IQRange)) + (randomNumber - IQRange));
+  while (botGuessValue > 100 || botGuessValue < 0 || botGuessValue > maxGuess || botGuessValue < minGuess) {
     botGuessValue = Math.floor(
-      Math.random() * (randomNumber - IQRange + (randomNumber + IQRange)) + 0
-    );
+      Math.random() * ((randomNumber + IQRange) - (randomNumber - IQRange)) + (randomNumber - IQRange));
+  }
+
+  if (chosenBots[index] === 'Gadget' && (minGuess + 5) > randomNumber || (maxGuess - 5) < randomNumber) {
+    botGuessValue = randomNumber;
   }
 }
 
 function checkWhichBot(index: number) {
-  if (chosenBots[index] === "Bolt") {
-    return 25;
-  } else if (chosenBots[index] === "Gadget") {
-    return 50;
+  if (chosenBots[index] === "Gadget") {
+    let x = Math.floor(Math.random() * (15 - 3) + 3);
+    return x;
   } else if (chosenBots[index] === "Clank") {
-    return 75;
+    let x = Math.floor(Math.random() * (60 - 30) + 30);
+    return x;
+  } else if (chosenBots[index] === "Bolt") {
+    let x = Math.floor(Math.random() * (90 - 70) + 70);
+    return x;
   }
 }
+
+
+
 
 //compares the answers that both bots and player gives
 function compareAnswer(answer: number, randomNumber: number) {
@@ -314,9 +345,9 @@ function playerGuess() {
   submitBtn.onclick = () => {
     hideAnswerBubbles();
     guessValue = parseInt(slider.value);
-    console.log("Guess: " + guessValue);
-    console.log("number: " + randomNumber);
     compareAnswer(guessValue, randomNumber);
+
+    lastAnswerGiven = guessValue;
     document.getElementById('answer2').style.backgroundImage = `url("../assets/imgs/answerBubble.png")`;
     updateAnswers("answer2", String(guessValue));
     clearInterval(timer);
@@ -330,7 +361,7 @@ function playerGuess() {
     //draws timer with -one sec to get correct time
     drawTimer(timeLeft - 1);
     timeLeft--;
-    console.log("time left: " + timeLeft);
+
 
     if (timeLeft <= 0) {
       guessValue = parseInt(slider.value);
@@ -339,6 +370,7 @@ function playerGuess() {
       document.getElementById(
         "answer2"
       ).style.backgroundImage = `url("../assets/imgs/bubbleTR.png")`;
+      lastAnswerGiven = guessValue;
       updateAnswers("answer2", String(guessValue));
       gameRound();
       clearInterval(timer);
