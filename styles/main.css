@@ -23,6 +23,10 @@ p {
   letter-spacing: 2%;
 }
 
+.dnone {
+  display: none;
+}
+
 /* text inside bubbles */
 
 #textTL, #textTR {
@@ -342,7 +346,7 @@ lottie-player {
   height: 4.5rem;
   background-position: center;
   /* background-color: hotpink; */
-  background-image: url(../assets/imgs/bubbleTR.png);
+  background-image: url(../assets/imgs/thinkBubble.png);
   background-size: contain;
   background-repeat: no-repeat;
   display:flex;
