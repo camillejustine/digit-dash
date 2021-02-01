@@ -392,6 +392,8 @@ lottie-player {
 #winnerModal {
   opacity: 0;
   transition: all 0.35s;
+  height:90%;
+  width:80%;
 }
 
 .winnerScreen {
@@ -419,25 +421,43 @@ lottie-player {
 
 .winnerContent {
   margin: 1% auto; /* 1% from the top and centered */
-  padding: 20px;
-  width: 70%; /* Could be more or less, depending on screen size */
+
+  padding: 1rem; 
+  width: 90%; /* Could be more or less, depending on screen size */
+  height: 90%;
   color: white;
   text-align: center;
-  font-size: 2rem;
-  display: flex;
+  display:flex;
+
   flex-direction: column;
   justify-content: center;
   align-items: center;
 }
 
-#winner {
-  display: none;
+
+.winnerContent > p {
+  font-size: 2rem;
+  margin:0;
+  padding: 0;
 }
+
+.winnerContent > h6 {
+  font-size: 1.5rem;
+  padding: 0;
+  margin: 0;
+}
+
+ #winner {
+   display:none;
+   height: 15rem;
+ }
+
 
 #playerWinner {
   height: 10rem;
   width: 10rem;
   background-color: black;
+  margin:1rem;
   display: none;
 }
 /* REUSABLE CLASSES */
