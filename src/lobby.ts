@@ -22,6 +22,11 @@ function lobby() {
   playerBolt.onclick = () => {
     // add or remove bot to array and set img (grey or color)
     checkBotArray("Bolt", playerBolt);
+    if (
+      playerBolt.style.backgroundImage !==
+      `url("../assets/imgs/playerBolt-grey.png")`
+    )
+      playSound(0.2, "./assets/sound/bolt-chosen.mp3");
   };
   document.getElementById("botWrapper").appendChild(playerBolt);
 
@@ -30,6 +35,11 @@ function lobby() {
   playerClank.onclick = () => {
     // add or remove bot to array and set img (grey or color)
     checkBotArray("Clank", playerClank);
+    if (
+      playerClank.style.backgroundImage !==
+      `url("../assets/imgs/playerClank-grey.png")`
+    )
+      playSound(0.15, "./assets/sound/clank-chosen.mp3");
   };
   document.getElementById("botWrapper").appendChild(playerClank);
 
@@ -38,6 +48,11 @@ function lobby() {
   playerGadget.onclick = () => {
     // add or remove bot to array and set img (grey or color)
     checkBotArray("Gadget", playerGadget);
+    if (
+      playerGadget.style.backgroundImage !==
+      `url("../assets/imgs/playerGadget-grey.png")`
+    )
+      playSound(0.1, "./assets/sound/gadget-chosen.mp3");
   };
   document.getElementById("botWrapper").appendChild(playerGadget);
 
@@ -49,6 +64,7 @@ function lobby() {
 
     botModal.style.opacity = "1";
     botModal.style.visibility = "visible";
+    playSound(0.2, "./assets/sound/load.mp3");
 
     const botClose: HTMLElement | null = document.getElementById("botClose");
 
