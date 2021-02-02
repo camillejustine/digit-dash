@@ -131,14 +131,16 @@ function initVolumeControl(){
   let noVolIcon = document.getElementById('noVolIcon');
 
   volIcon.onclick = () => {
+    // set icon
     volIcon.classList.add('hideVolIcon');
     noVolIcon.classList.remove('hideVolIcon');
+
+    soundOn = false;
   }
   noVolIcon.onclick = () => {
     noVolIcon.classList.add('hideVolIcon');
     volIcon.classList.remove('hideVolIcon');
-  }
-}
-function setGlobalVolume(){
 
+    soundOn = true;
+  }
 }

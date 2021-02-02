@@ -6,7 +6,7 @@ class BotObjct {
   gamesPlayed: number;
 }
 
-const soundOn: boolean = true;
+let soundOn: boolean = true;
 
 const gameMaster: any = document.getElementById("gameMaster");
 
