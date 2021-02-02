@@ -121,15 +121,15 @@ var correctGuessMade;
 // the logic for how the rounds works----
 function gameRound() {
     console.log(botGuessValue);
-    console.log('maxguess: ' + maxGuess);
-    console.log('minguess: ' + minGuess);
+    console.log("maxguess: " + maxGuess);
+    console.log("minguess: " + minGuess);
     //If someone wins the gameround breaks/ends
     if (correctGuessMade === true) {
         return;
     }
     //sets a random number between 2000-4000 to use as timeout time.
     answerTime = Math.floor(Math.random() * (6000 - 3000 + 1000) + 3000);
-    //bot 1 
+    //bot 1
     if (!firstAnswerMade && !playerAnswerMade && !thirdAnswerMade) {
         slider.disabled = true;
         submitBtn.disabled = true;
@@ -142,7 +142,7 @@ function gameRound() {
         }, 1500);
         setTimeout(function () {
             lastAnswerGiven = botGuessValue;
-            document.getElementById('answer1').style.backgroundImage = "url(\"../assets/imgs/answerBubble.png\")";
+            document.getElementById("answer1").style.backgroundImage = "url(\"../assets/imgs/answerBubble.png\")";
             botAnswer(0);
             firstAnswerMade = true;
             compareAnswer(botGuessValue, randomNumber);
@@ -174,7 +174,7 @@ function gameRound() {
             updateAnswers("answer3", bubblePhrases[getRandomNumb]);
         }, 1500);
         setTimeout(function () {
-            document.getElementById('answer3').style.backgroundImage = "url(\"../assets/imgs/answerBubble.png\")";
+            document.getElementById("answer3").style.backgroundImage = "url(\"../assets/imgs/answerBubble.png\")";
             botAnswer(2);
             thirdAnswerMade = true;
             compareAnswer(botGuessValue, randomNumber);
@@ -208,11 +208,17 @@ function botAnswer(index) {
     else if (lastAnswerGiven < randomNumber) {
         minGuess = lastAnswerGiven + 1;
     }
-    botGuessValue = Math.floor(Math.random() * ((randomNumber + IQRange) - (randomNumber - IQRange)) + (randomNumber - IQRange));
-    while (botGuessValue > 100 || botGuessValue < 0 || botGuessValue > maxGuess || botGuessValue < minGuess) {
-        botGuessValue = Math.floor(Math.random() * ((randomNumber + IQRange) - (randomNumber - IQRange)) + (randomNumber - IQRange));
+    botGuessValue = Math.floor(Math.random() * (randomNumber + IQRange - (randomNumber - IQRange)) +
+        (randomNumber - IQRange));
+    while (botGuessValue > 100 ||
+        botGuessValue < 0 ||
+        botGuessValue > maxGuess ||
+        botGuessValue < minGuess) {
+        botGuessValue = Math.floor(Math.random() * (randomNumber + IQRange - (randomNumber - IQRange)) +
+            (randomNumber - IQRange));
     }
-    if (chosenBots[index] === 'Gadget' && (minGuess + 5) > randomNumber || (maxGuess - 5) < randomNumber) {
+    if ((chosenBots[index] === "Gadget" && minGuess + 5 > randomNumber) ||
+        maxGuess - 5 < randomNumber) {
         botGuessValue = randomNumber;
     }
 }
@@ -241,24 +247,28 @@ function compareAnswer(answer, randomNumber) {
         setElementContent(bubbleTextID[1], gpPhrases[1]);
         checkWhoWon();
         correctGuessMade = true;
+        backgroundMusic.pause();
+        playSound(0.3, "./assets/sound/kitt-happy.mp3", "kittHappy");
     }
     else if (answer > randomNumber) {
-        // guess is too low
+        // guess is too high
         document.getElementById(bubbleID[0]).style.visibility = "hidden";
         document.getElementById(bubbleID[1]).style.visibility = "hidden";
         document.getElementById(bubbleID[3]).style.visibility = "hidden";
         document.getElementById(bubbleID[2]).style.visibility = "visible";
+        playSound(0.3, "./assets/sound/kitt-sad.mp3", "kittSad");
         setElementContent(bubbleTextID[2], gpPhrases[2]);
         setTimeout(function () {
             document.getElementById(bubbleID[2]).style.visibility = "hidden";
         }, 2000);
     }
     else if (answer < randomNumber) {
-        // guess is too high
+        // guess is too low
         document.getElementById(bubbleID[0]).style.visibility = "hidden";
         document.getElementById(bubbleID[1]).style.visibility = "hidden";
         document.getElementById(bubbleID[2]).style.visibility = "hidden";
         document.getElementById(bubbleID[3]).style.visibility = "visible";
+        playSound(0.3, "./assets/sound/kitt-surprised.mp3", "kittSurprised");
         setElementContent(bubbleTextID[3], gpPhrases[3]);
         setTimeout(function () {
             document.getElementById(bubbleID[3]).style.visibility = "hidden";
@@ -290,7 +300,7 @@ function playerGuess() {
         guessValue = parseInt(slider.value);
         compareAnswer(guessValue, randomNumber);
         lastAnswerGiven = guessValue;
-        document.getElementById('answer2').style.backgroundImage = "url(\"../assets/imgs/answerBubble.png\")";
+        document.getElementById("answer2").style.backgroundImage = "url(\"../assets/imgs/answerBubble.png\")";
         updateAnswers("answer2", String(guessValue));
         clearInterval(timer);
         gameRound();
@@ -327,6 +337,7 @@ var PlayerObjct = /** @class */ (function () {
     }
     return PlayerObjct;
 }());
+var soundOn = true;
 var gameMaster = document.getElementById("gameMaster");
 var players = [];
 var bots;
@@ -424,6 +435,7 @@ function lobby() {
         playerClank.remove();
         playerGadget.remove();
         removeBubbles();
+        playSound(0.2, "./assets/sound/load.mp3");
         drawGame();
     };
 }
@@ -480,11 +492,14 @@ function drawBotWins() {
             " wins.";
 }
 var mainText = ["", "High Scores", "How to play", "Play"];
+var backgroundMusic = new Audio("./assets/sound/AcidJazz.mp3");
 // let gameState: string = 'main', 'nameChoice', 'lobby', 'gamePlay', 'highScore'
 /**
  * First edition of the welcomeScreen, feel free to change it as you like!
  */
 function welcomeScreen() {
+    // init volume control
+    initVolumeControl();
     saveBotWinsToLS();
     removeBubbles();
     document.body.style.background =
@@ -497,6 +512,18 @@ function welcomeScreen() {
     //To be added:
     //"DIGIT DASH" text
     // More smooth transition to next screen(?)s
+}
+// Use playSound() to add soundeffects
+function playSound(volume, path, id) {
+    var sound = new Audio(path);
+    soundOn ? (sound.volume = volume) : (sound.volume = 0);
+    // sound.volume = volume;
+    sound.play();
+    sound.id = id;
+}
+function stopSound(path) {
+    var sound = new Audio(path);
+    sound.pause();
 }
 function loadMain() {
     //setTimeout(drawWinnerScreen, 2000)
@@ -514,6 +541,7 @@ function loadMain() {
                 "url(../assets/imgs/bubbleBL-button.png)";
             ruleBubble.onclick = function () {
                 var modal = document.getElementById("ruleModal");
+                playSound(0.2, "./assets/sound/load.mp3", "load");
                 modal.style.opacity = "1";
                 modal.style.visibility = "visible";
                 var close = document.getElementById("close");
@@ -530,6 +558,9 @@ function loadMain() {
                 "url(../assets/imgs/bubbleBR-button.png)";
             playBubble.onclick = function () {
                 console.log("nameChoice");
+                playSound(0.2, "./assets/sound/load.mp3", "PlayLoad");
+                backgroundMusic.volume = 0.1;
+                backgroundMusic.play();
                 removeBubbles();
                 nameChoice();
                 //gameState = 'nameChoice';
@@ -545,8 +576,13 @@ function loadMain() {
                 var modal = document.getElementById("highScoresModal");
                 modal.style.opacity = "1";
                 modal.style.visibility = "visible";
-                console.log('High score');
                 drawHighscoreList();
+                playSound(0.2, "./assets/sound/load.mp3", "highscoreLoad");
+                var playerHighScores1 = document.createElement("div");
+                playerHighScores1.id = "playerHighScores1";
+                document
+                    .getElementById("playerHighScores")
+                    .appendChild(playerHighScores1);
                 var closeHighScores = document.getElementById("closeHighScores");
                 closeHighScores.onclick = function () {
                     modal.style.opacity = "0";
@@ -569,9 +605,9 @@ function drawHighscoreList() {
     }
     else {
         // GET THE ARRAY FROM LS
-        var players_1 = JSON.parse(localStorage.getItem("players"));
+        var playersLS = JSON.parse(localStorage.getItem("players"));
         //DELETES THE PLAYERS WITH 0 AMOUNT OF GUESSES (meaning they did not win)
-        var highscoreList = players_1.filter(function (item) { return item.amountOfGuesses !== 0; });
+        var highscoreList = players.filter(function (item) { return item.amountOfGuesses !== 0; });
         //SORTS THE ARRAY WITH LOWEST AMOUNT OF GUESSES FIRST
         highscoreList.sort(function (a, b) {
             return a.amountOfGuesses - b.amountOfGuesses;
@@ -608,6 +644,27 @@ function drawHighscoreList() {
     }
 }
 // Function showTot() { SHOW TEXT /VIDEO  
+// Function showTot() { SHOW TEXT /VIDEO
+function initVolumeControl() {
+    var volIcon = document.getElementById('volIcon');
+    var noVolIcon = document.getElementById('noVolIcon');
+    volIcon.onclick = function () {
+        // set icon
+        volIcon.classList.add('hideVolIcon');
+        noVolIcon.classList.remove('hideVolIcon');
+        // set sound off
+        soundOn = false;
+        backgroundMusic.volume = 0;
+    };
+    noVolIcon.onclick = function () {
+        // set icon
+        noVolIcon.classList.add('hideVolIcon');
+        volIcon.classList.remove('hideVolIcon');
+        //set sound on
+        soundOn = true;
+        backgroundMusic.volume = 0.1;
+    };
+}
 var nameInput = document.createElement("input");
 var lastPlayer;
 function nameChoice() {
@@ -619,8 +676,9 @@ function nameChoice() {
     document.getElementById("userInput").addEventListener("keydown", function (event) {
         if (event.key === "Enter") {
             var name_1 = nameInput.value;
-            var players_2 = JSON.parse(localStorage.getItem("players"));
-            if (players_2 === null) {
+            lastPlayer = name_1;
+            var players_1 = JSON.parse(localStorage.getItem("players"));
+            if (players_1 === null) {
                 var player = {
                     name: name_1,
                     amountOfGuesses: 0,
@@ -629,8 +687,8 @@ function nameChoice() {
                 addToLS(player);
             }
             else {
-                for (var i = 0; i < players_2.length; i++) {
-                    if (players_2[i].name === name_1) {
+                for (var i = 0; i < players_1.length; i++) {
+                    if (players_1[i].name === name_1) {
                         playerExists = true;
                     }
                 }
@@ -683,9 +741,9 @@ function getLastPlayersName() {
         return "";
     }
     else {
-        var players_3 = JSON.parse(localStorage.getItem("players"));
-        var number = players_3.length - 1; //-1 to get the right indexnumber
-        return players_3[number].name; //Looks like an error but works fine
+        var players_2 = JSON.parse(localStorage.getItem("players"));
+        var number = players_2.length - 1; //-1 to get the right indexnumber
+        return players_2[number].name; //Looks like an error but works fine
     }
 }
 /** Checks which answer was the right one */
@@ -696,13 +754,16 @@ function checkWhoWon() {
     else if (firstAnswerMade && playerAnswerMade && !thirdAnswerMade) {
         setTimeout(drawWinnerScreen, 1500, chosenBots[1]);
     }
-    else if (chosenBots.length > 2 && firstAnswerMade && playerAnswerMade && thirdAnswerMade) {
+    else if (chosenBots.length > 2 &&
+        firstAnswerMade &&
+        playerAnswerMade &&
+        thirdAnswerMade) {
         setTimeout(drawWinnerScreen, 1500, chosenBots[2]);
     }
 }
 /** Draws winnermodal and the right lottie-animation */
 function drawWinnerScreen(winner) {
-    players[-1].gamesPlayed++;
+    updatePlayerGamesPlayed();
     document.getElementById("winner").style.display = "none";
     document.getElementById("playerWinner").style.display = "none";
     var modal = document.getElementById("winnerModal");
@@ -710,26 +771,33 @@ function drawWinnerScreen(winner) {
     modal.style.visibility = "visible";
     if (winner === "Gadget") {
         document.getElementById("winner").style.display = "block";
-        document.getElementById("winner").load("https://assets6.lottiefiles.com/private_files/lf30_okvpyhqk.json");
+        document
+            .getElementById("winner")
+            .load("https://assets6.lottiefiles.com/private_files/lf30_okvpyhqk.json");
         document.getElementById("winnerName").innerHTML = "GADGET WON!";
         addWinToBotStat(1);
     }
     else if (winner === "Clank") {
         document.getElementById("winner").style.display = "block";
-        document.getElementById("winner").load("https://assets3.lottiefiles.com/private_files/lf30_mvcyn7ao.json");
+        document
+            .getElementById("winner")
+            .load("https://assets3.lottiefiles.com/private_files/lf30_mvcyn7ao.json");
         document.getElementById("winnerName").innerHTML = "CLANK WON!";
         addWinToBotStat(0);
     }
     else if (winner === "Bolt") {
         document.getElementById("winner").style.display = "block";
-        document.getElementById("winner").load("https://assets5.lottiefiles.com/private_files/lf30_skjhneze.json");
+        document
+            .getElementById("winner")
+            .load("https://assets5.lottiefiles.com/private_files/lf30_skjhneze.json");
         document.getElementById("winnerName").innerHTML = "BOLT WON!";
         addWinToBotStat(2);
     }
     else if (winner === "Player") {
         updatePlayerStats();
         document.getElementById("playerWinner").style.display = "block";
-        document.getElementById("playerWinner").style.backgroundImage = ('url("../assets/imgs/playerPlayer.png")');
+        document.getElementById("playerWinner").style.backgroundImage =
+            'url("../assets/imgs/playerPlayer.png")';
         document.getElementById("winnerName").innerHTML =
             getPlayerName() + ", you won!";
     }
@@ -755,7 +823,7 @@ function restartGame() {
     // Loads main-screen
     loadMain();
     //Sets player-counter to 0 again
-    return amountOfGuesses = 0;
+    return (amountOfGuesses = 0);
 }
 /** Hides all element from Gameplay */
 function hideGamePlay() {
@@ -818,11 +886,29 @@ function updateGamesPlayed() {
     }
     localStorage.setItem("bots", JSON.stringify(bots));
 }
+function updatePlayerGamesPlayed() {
+    console.log("Games playedddddd");
+    var playersLS = JSON.parse(localStorage.getItem("players"));
+    for (var i = 0; i < playersLS.length; i++) {
+        if (playersLS[i].name === lastPlayer) {
+            playersLS[i].gamesPlayed++;
+            localStorage.setItem("players", JSON.stringify(playersLS));
+        }
+    }
+}
 function updatePlayerStats() {
-    var players = JSON.parse(localStorage.getItem("players"));
-    var number = players.length - 1; //-1 to get the right indexnumber
-    //Replaces the object with a new object with same name but updated ''amountofGuesses''
-    players.splice(number, 1, { name: getPlayerName(), amountOfGuesses: amountOfGuesses, gamesPlayed: 0 });
-    localStorage.setItem("players", JSON.stringify(players));
+    var playersLS = JSON.parse(localStorage.getItem("players"));
+    for (var i = 0; i < playersLS.length; i++) {
+        if (playersLS[i].name === lastPlayer) {
+            if (playersLS[i].amountOfGuesses > amountOfGuesses || playersLS[i].amountOfGuesses === 0) {
+                playersLS[i].amountOfGuesses = amountOfGuesses;
+                localStorage.setItem("players", JSON.stringify(playersLS));
+            }
+        }
+    }
+    // const number = players.length - 1; //-1 to get the right indexnumber
+    // //Replaces the object with a new object with same name but updated ''amountofGuesses''
+    // players.splice(number, 1, {name: getPlayerName(), amountOfGuesses: amountOfGuesses, gamesPlayed: 0})
+    // localStorage.setItem("players", JSON.stringify(players));
 }
 //# sourceMappingURL=index.js.map

@@ -65,6 +65,7 @@ function lobby() {
     playerClank.remove();
     playerGadget.remove();
     removeBubbles();
+    playSound(0.2, "./assets/sound/load.mp3");
     drawGame();
   };
 }

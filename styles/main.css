@@ -444,6 +444,13 @@ lottie-player {
   background-size: cover;
   display: none;
 }
+
+.volIcon{
+  padding: 1rem;
+}
+.hideVolIcon{
+  display: none;
+}
 /* REUSABLE CLASSES */
 
 .flex {

@@ -1,4 +1,7 @@
 const mainText: string[] = ["", "High Scores", "How to play", "Play"];
+const backgroundMusic: HTMLAudioElement = new Audio(
+  "./assets/sound/AcidJazz.mp3"
+);
 
 // let gameState: string = 'main', 'nameChoice', 'lobby', 'gamePlay', 'highScore'
 
@@ -6,8 +9,12 @@ const mainText: string[] = ["", "High Scores", "How to play", "Play"];
  * First edition of the welcomeScreen, feel free to change it as you like!
  */
 function welcomeScreen() {
+  // init volume control
+  initVolumeControl();
+
   saveBotWinsToLS();
   removeBubbles();
+
   document.body.style.background =
     "linear-gradient(180deg, #FFFFFF 0%, #9B85AD 100%)"; //This needs some adjustment
   document.getElementById("gameMasterWrapper").classList.add("fadeIn");
@@ -19,6 +26,19 @@ function welcomeScreen() {
   //To be added:
   //"DIGIT DASH" text
   // More smooth transition to next screen(?)s
+}
+// Use playSound() to add soundeffects
+function playSound(volume: number, path: string, id: string) {
+  let sound = new Audio(path);
+  soundOn ? (sound.volume = volume) : (sound.volume = 0)
+  // sound.volume = volume;
+  sound.play();
+  sound.id = id;
+}
+
+function stopSound(path: string) {
+  let sound = new Audio(path);
+  sound.pause();
 }
 
 function loadMain(): void {
@@ -39,6 +59,7 @@ function loadMain(): void {
 
       ruleBubble.onclick = () => {
         const modal: HTMLElement | null = document.getElementById("ruleModal");
+        playSound(0.2, "./assets/sound/load.mp3", "load");
         modal.style.opacity = "1";
         modal.style.visibility = "visible";
 
@@ -58,6 +79,9 @@ function loadMain(): void {
         "url(../assets/imgs/bubbleBR-button.png)";
       playBubble.onclick = () => {
         console.log("nameChoice");
+        playSound(0.2, "./assets/sound/load.mp3", "PlayLoad");
+        backgroundMusic.volume = 0.1;
+        backgroundMusic.play();
         removeBubbles();
         nameChoice();
         //gameState = 'nameChoice';
@@ -77,9 +101,17 @@ function loadMain(): void {
         );
         modal.style.opacity = "1";
         modal.style.visibility = "visible";
-        console.log('High score');
+
         drawHighscoreList();
-    
+        playSound(0.2, "./assets/sound/load.mp3", "highscoreLoad");
+
+        let playerHighScores1 = document.createElement("div");
+        playerHighScores1.id = "playerHighScores1";
+        document
+          .getElementById("playerHighScores")
+          .appendChild(playerHighScores1);
+
+
         const closeHighScores: HTMLElement | null = document.getElementById(
           "closeHighScores"
         );
@@ -155,3 +187,27 @@ function drawHighscoreList(){
 
 }
     // Function showTot() { SHOW TEXT /VIDEO  
+// Function showTot() { SHOW TEXT /VIDEO
+function initVolumeControl(){
+  let volIcon = document.getElementById('volIcon');
+  let noVolIcon = document.getElementById('noVolIcon');
+
+  volIcon.onclick = () => {
+    // set icon
+    volIcon.classList.add('hideVolIcon');
+    noVolIcon.classList.remove('hideVolIcon');
+    
+    // set sound off
+    soundOn = false;
+    backgroundMusic.volume = 0;
+  }
+  noVolIcon.onclick = () => {
+    // set icon
+    noVolIcon.classList.add('hideVolIcon');
+    volIcon.classList.remove('hideVolIcon');
+
+    //set sound on
+    soundOn = true;
+    backgroundMusic.volume = 0.1;
+  }
+}
