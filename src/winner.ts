@@ -36,9 +36,11 @@ function drawWinnerScreen(winner: string) {
   } else if (winner === "Player") {
     updatePlayerStats();
     document.getElementById("playerWinner").style.display = "block";
+    document.getElementById("playerWinner").style.backgroundImage =('url("../assets/imgs/playerPlayer.png")');
     document.getElementById("winnerName").innerHTML =
       getPlayerName() + ", you won!";
   }
+
   setTimeout(restartGame, 3500);
 }
 
