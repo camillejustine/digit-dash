@@ -250,7 +250,6 @@ function compareAnswer(answer: number, randomNumber: number) {
     document.getElementById(bubbleID[3]).style.visibility = "hidden";
     document.getElementById(bubbleID[1]).style.visibility = "visible";
     setElementContent(bubbleTextID[1], gpPhrases[1]);
-    amountOfGuesses++;
     checkWhoWon();
     correctGuessMade = true;
   } else if (answer > randomNumber) {
@@ -260,7 +259,6 @@ function compareAnswer(answer: number, randomNumber: number) {
     document.getElementById(bubbleID[3]).style.visibility = "hidden";
     document.getElementById(bubbleID[2]).style.visibility = "visible";
     setElementContent(bubbleTextID[2], gpPhrases[2]);
-    amountOfGuesses++;
   } else if (answer < randomNumber) {
     // IF GUESS IS LOWER THAN RANDOMNUMB
     document.getElementById(bubbleID[0]).style.visibility = "hidden";
@@ -268,7 +266,6 @@ function compareAnswer(answer: number, randomNumber: number) {
     document.getElementById(bubbleID[2]).style.visibility = "hidden";
     document.getElementById(bubbleID[3]).style.visibility = "visible";
     setElementContent(bubbleTextID[3], gpPhrases[3]);
-    amountOfGuesses++;
   }
 }
 
@@ -322,4 +319,8 @@ function playerGuess() {
     }
   }
   const timer = setInterval(timeCounter, 1000);
+  amountOfGuesses++;
 }
+
+
+

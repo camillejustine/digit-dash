@@ -34,7 +34,7 @@ function drawWinnerScreen(winner: string) {
     document.getElementById("winnerName").innerHTML = "BOLT WON!";
     addWinToBotStat(2);
   } else if (winner === "Player") {
-    // guessesMade
+    updatePlayerStats();
     document.getElementById("playerWinner").style.display = "block";
     document.getElementById("winnerName").innerHTML =
       getPlayerName() + ", you won!";
@@ -64,6 +64,8 @@ function restartGame() {
   
   // Loads main-screen
   loadMain();
+  //Sets player-counter to 0 again
+  return amountOfGuesses = 0;
 }
 
 /** Hides all element from Gameplay */
@@ -114,13 +116,10 @@ function updateGamesPlayed(){
 
    if (chosenBots[0] === "Bolt"){
      index1 = 2;
-     console.log("Bolt va med o spela!")
    } else if (chosenBots[0] === "Gadget"){
      index1 = 1;
-     console.log("Gadget va med o spela!")
    } else if (chosenBots[0] === "Clank"){
      index1 = 0;
-     console.log("Clank va med o spela!")
    }
 
    localStorage.removeItem("bots");
@@ -129,4 +128,14 @@ function updateGamesPlayed(){
    bots[index2].gamesPlayed++;
   }
    localStorage.setItem("bots", JSON.stringify(bots));
+}
+
+function updatePlayerStats() {
+const players: Array<PlayerObjct> = JSON.parse(localStorage.getItem("players"));
+const number = players.length - 1; //-1 to get the right indexnumber
+
+//Replaces the object with a new object with same name but updated ''amountofGuesses''
+players.splice(number, 1, {name: getPlayerName(), amountOfGuesses: amountOfGuesses})
+localStorage.setItem("players", JSON.stringify(players));
+
 }

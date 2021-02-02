@@ -1,3 +1,5 @@
+
+
 const nameInput: HTMLInputElement = document.createElement("input");
 let lastPlayer: string;
 
@@ -9,10 +11,9 @@ function nameChoice() {
   document.getElementById("userInput").addEventListener("keydown", (event) => {
     if (event.key === "Enter") {
       let name: string = nameInput.value;
-      let player = {
+       let player:PlayerObjct = {
         name: name,
-        highScore: 0,
-        games: 0,
+        amountOfGuesses: 0,
       };
       addToLS(player);
       // render new frame
@@ -45,7 +46,7 @@ function showNameInput() {
 /**
  * Adds objects to an array in LS
  */
-function addToLS(player: Object) {
+function addToLS(player: PlayerObjct) {
   if (localStorage.getItem("players")) {
     players = JSON.parse(localStorage.getItem("players"));
   }
@@ -54,7 +55,7 @@ function addToLS(player: Object) {
 }
 
 /**
- * Gets the latest players name
+ * Gets the latest players name to put as autofill in the
  */
 function getLastPlayersName() {
   if (localStorage.getItem("players") === null) {

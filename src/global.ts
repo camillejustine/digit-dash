@@ -1,11 +1,11 @@
 window.addEventListener('load', welcomeScreen); 
 
 class BotObjct { bot: string; wins: number; gamesPlayed: number;};
-
+class PlayerObjct { name: string; amountOfGuesses: number;}
 
 const gameMaster: any = document.getElementById('gameMaster');
 
-let players: Array<Object> = [];
+let players: Array<PlayerObjct> = [];
 let bots: Array<BotObjct>;
 if (localStorage.getItem('bots') == null) {
     bots = [
