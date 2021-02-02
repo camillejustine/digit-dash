@@ -30,8 +30,8 @@ function welcomeScreen() {
 // Use playSound() to add soundeffects
 function playSound(volume: number, path: string, id: string) {
   let sound = new Audio(path);
-  console.log(sound);
-  sound.volume = volume;
+  soundOn ? (sound.volume = volume) : (sound.volume = 0)
+  // sound.volume = volume;
   sound.play();
   sound.id = id;
 }
@@ -135,13 +135,18 @@ function initVolumeControl(){
     // set icon
     volIcon.classList.add('hideVolIcon');
     noVolIcon.classList.remove('hideVolIcon');
-
+    
+    // set sound off
     soundOn = false;
+    backgroundMusic.volume = 0;
   }
   noVolIcon.onclick = () => {
+    // set icon
     noVolIcon.classList.add('hideVolIcon');
     volIcon.classList.remove('hideVolIcon');
 
+    //set sound on
     soundOn = true;
+    backgroundMusic.volume = 0.1;
   }
 }
