@@ -302,15 +302,14 @@ function compareAnswer(answer: number, randomNumber: number) {
     checkWhoWon();
     correctGuessMade = true;
     backgroundMusic.pause();
-    kittHappy.play();
+    playSound(0.3, "./assets/sound/kitt-happy.mp3", "kittHappy");
   } else if (answer > randomNumber) {
     // guess is too high
     document.getElementById(bubbleID[0]).style.visibility = "hidden";
     document.getElementById(bubbleID[1]).style.visibility = "hidden";
     document.getElementById(bubbleID[3]).style.visibility = "hidden";
     document.getElementById(bubbleID[2]).style.visibility = "visible";
-    kittSad.volume = 0.3;
-    kittSad.play();
+    playSound(0.3, "./assets/sound/kitt-sad.mp3", "kittSad");
     setElementContent(bubbleTextID[2], gpPhrases[2]);
     setTimeout(() => {
       document.getElementById(bubbleID[2]).style.visibility = "hidden";
@@ -322,8 +321,7 @@ function compareAnswer(answer: number, randomNumber: number) {
     document.getElementById(bubbleID[1]).style.visibility = "hidden";
     document.getElementById(bubbleID[2]).style.visibility = "hidden";
     document.getElementById(bubbleID[3]).style.visibility = "visible";
-    kittSurprised.volume = 0.3;
-    kittSurprised.play();
+    playSound(0.3, "./assets/sound/kitt-surprised.mp3", "kittSurprised");
     setElementContent(bubbleTextID[3], gpPhrases[3]);
     setTimeout(() => {
       document.getElementById(bubbleID[3]).style.visibility = "hidden";

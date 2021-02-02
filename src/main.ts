@@ -1,14 +1,7 @@
 const mainText: string[] = ["", "High Scores", "How to play", "Play"];
-const clickSound: HTMLAudioElement = new Audio("./assets/sound/load.mp3");
 const backgroundMusic: HTMLAudioElement = new Audio(
   "./assets/sound/AcidJazz.mp3"
 );
-const winsound: HTMLAudioElement = new Audio("./assets/sound/winsound.mp3");
-const kittSurprised: HTMLAudioElement = new Audio(
-  "./assets/sound/kitt-surprised.mp3"
-);
-const kittHappy: HTMLAudioElement = new Audio("./assets/sound/kitt-happy.mp3");
-const kittSad: HTMLAudioElement = new Audio("./assets/sound/kitt-sad.mp3");
 
 // let gameState: string = 'main', 'nameChoice', 'lobby', 'gamePlay', 'highScore'
 
@@ -31,6 +24,19 @@ function welcomeScreen() {
   //"DIGIT DASH" text
   // More smooth transition to next screen(?)s
 }
+// Use playSound() to add soundeffects
+function playSound(volume: number, path: string, id: string) {
+  let sound = new Audio(path);
+  console.log(sound);
+  sound.volume = volume;
+  sound.play();
+  sound.id = id;
+}
+
+function stopSound(path: string) {
+  let sound = new Audio(path);
+  sound.pause();
+}
 
 function loadMain(): void {
   //setTimeout(drawWinnerScreen, 2000)
@@ -50,8 +56,7 @@ function loadMain(): void {
 
       ruleBubble.onclick = () => {
         const modal: HTMLElement | null = document.getElementById("ruleModal");
-        clickSound.volume = 0.2;
-        clickSound.play();
+        playSound(0.2, "./assets/sound/load.mp3", "load");
         modal.style.opacity = "1";
         modal.style.visibility = "visible";
 
@@ -71,12 +76,9 @@ function loadMain(): void {
         "url(../assets/imgs/bubbleBR-button.png)";
       playBubble.onclick = () => {
         console.log("nameChoice");
-        clickSound.volume = 0.2;
-        clickSound.play();
+        playSound(0.2, "./assets/sound/load.mp3", "PlayLoad");
         backgroundMusic.volume = 0.1;
         backgroundMusic.play();
-        kittHappy.volume = 0.3;
-        kittHappy.play();
         removeBubbles();
         nameChoice();
         //gameState = 'nameChoice';
@@ -97,8 +99,7 @@ function loadMain(): void {
         modal.style.opacity = "1";
         modal.style.visibility = "visible";
         console.log("High score");
-        clickSound.volume = 0.2;
-        clickSound.play();
+        playSound(0.2, "./assets/sound/load.mp3", "highscoreLoad");
 
         let playerHighScores1 = document.createElement("div");
         playerHighScores1.id = "playerHighScores1";
