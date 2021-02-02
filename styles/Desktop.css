@@ -1,4 +1,4 @@
-@media only screen and (min-width: 700px) {
+@media only screen and (min-width: 600px) {
   body {
     max-width: 100%;
     display: flex;
@@ -26,14 +26,14 @@
   }
 
   #textTL, #textTR {
-    padding-bottom: 1.5rem;
+    padding-bottom: 1rem;
     font-size: 1rem;
     letter-spacing: 6%;
     color: white;
   }
 
   #textBL, #textBR {
-    padding-top: 1rem;
+    padding-top: .5rem;
     font-size: 1rem;
     letter-spacing: 6%;
     color: white;
@@ -67,34 +67,23 @@
   }
 
   .rules {
-    top: 1rem;
-    width: 30rem;
-    height: 75%;
-    margin: auto;
-    max-width: 100%;
-    max-height: 55rem;
-    /* left: 25vw; */
+    max-width: 35rem!important;
+    padding-bottom: 10rem;
+  }
+
+  .rulesContent > p {
+    padding: 0 2rem 0 2rem;
+    letter-spacing: 2%;
   }
 
   .botModal {
-    top: 1rem;
-    width: 30rem;
-    height: 75%;
-    /* margin-left: auto; */
-    display: flex;
-    max-width: 100%;
-    max-height: 55rem;
-    /* left: 25vw; */
+    max-width: 35rem!important;
   }
 
   .botModalContent {
-    /* margin:  auto; 10% from the top and centered */
     padding: 20px;
     max-width: 80%; /* Could be more or less, depending on screen size */
     text-align: center;
-    /* margin-top: 20%; */
-    display: flex;
-    flex-direction: column;
   }
 
   .answerContainer {
@@ -118,6 +107,7 @@
   #winnerModal{
     width: 70%;
   }
+
    .winnerScreen{
     top: 1rem;
     width: 90%;
@@ -135,4 +125,18 @@
   .winnerContent > p{
     font-size: 2.8rem;
   }
+}
+
+#userInput, #inputField {
+  height: 2.8rem;
+}
+
+.botWrapper img {
+  width: 10rem;
+  height: 10rem;
+}
+
+.botTextWrapper p {
+  font-size: 1rem;
+  letter-spacing: 1%;
 }
