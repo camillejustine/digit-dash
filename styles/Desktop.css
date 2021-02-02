@@ -1,4 +1,4 @@
-@media only screen and (min-width: 700px) {
+@media only screen and (min-width: 600px) {
   body {
     max-width: 100%;
     display: flex;
@@ -67,29 +67,23 @@
   }
 
   .rules {
-    width: 30rem;
-    height: 75%;
-    margin: auto;
-    max-width: 100%;
+    max-width: 35rem!important;
+    padding-bottom: 10rem;
+  }
+
+  .rulesContent > p {
+    padding: 0 2rem 0 2rem;
+    letter-spacing: 2%;
   }
 
   .botModal {
-    top: 1rem;
-    width: 30rem;
-    height: 75%;
-    display: flex;
-    max-width: 100%;
-    max-height: 55rem;
+    max-width: 35rem!important;
   }
 
   .botModalContent {
-    /* margin:  auto; 10% from the top and centered */
     padding: 20px;
     max-width: 80%; /* Could be more or less, depending on screen size */
     text-align: center;
-    /* margin-top: 20%; */
-    display: flex;
-    flex-direction: column;
   }
 
   .answerContainer {
@@ -113,7 +107,7 @@
   #winnerModal{
     width: 70%;
   }
-  
+
    .winnerScreen{
     top: 1rem;
     width: 90%;
@@ -137,6 +131,12 @@
   height: 2.8rem;
 }
 
-#ruleModal {
-  height: auto;
+.botWrapper img {
+  width: 10rem;
+  height: 10rem;
+}
+
+.botTextWrapper p {
+  font-size: 1rem;
+  letter-spacing: 1%;
 }
