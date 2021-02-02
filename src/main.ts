@@ -9,6 +9,9 @@ const backgroundMusic: HTMLAudioElement = new Audio(
  * First edition of the welcomeScreen, feel free to change it as you like!
  */
 function welcomeScreen() {
+  // init volume control
+  initVolumeControl();
+
   saveBotWinsToLS();
   removeBubbles();
 
@@ -124,3 +127,21 @@ function loadMain(): void {
 }
 
 // Function showTot() { SHOW TEXT /VIDEO
+function initVolumeControl(){
+  let volIcon = document.getElementById('volIcon');
+  let noVolIcon = document.getElementById('noVolIcon');
+
+  volIcon.onclick = () => {
+    // set icon
+    volIcon.classList.add('hideVolIcon');
+    noVolIcon.classList.remove('hideVolIcon');
+
+    soundOn = false;
+  }
+  noVolIcon.onclick = () => {
+    noVolIcon.classList.add('hideVolIcon');
+    volIcon.classList.remove('hideVolIcon');
+
+    soundOn = true;
+  }
+}

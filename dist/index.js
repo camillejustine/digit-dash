@@ -2,6 +2,8 @@
 //Variables
 //The number you have to guess
 var randomNumber;
+var lastAnswerGiven;
+var answerIsHigher;
 //Gamemaster pharases
 var gpPhrases = [
     "Lets make a guess!",
@@ -30,6 +32,8 @@ var submitBtn = document.createElement("button");
 //number of guesses the players has made
 var amountOfGuesses = 0;
 function drawGame() {
+    minGuess = 0;
+    maxGuess = 100;
     correctGuessMade = false;
     chosenBots.splice(1, 0, "Player");
     drawSlider();
@@ -116,39 +120,47 @@ var answerTime;
 var correctGuessMade;
 // the logic for how the rounds works----
 function gameRound() {
+    console.log(botGuessValue);
+    console.log("maxguess: " + maxGuess);
+    console.log("minguess: " + minGuess);
     //If someone wins the gameround breaks/ends
     if (correctGuessMade === true) {
         return;
     }
     //sets a random number between 2000-4000 to use as timeout time.
     answerTime = Math.floor(Math.random() * (6000 - 3000 + 1000) + 3000);
-    //if stat for whos turn it is
+    //bot 1
     if (!firstAnswerMade && !playerAnswerMade && !thirdAnswerMade) {
         slider.disabled = true;
         submitBtn.disabled = true;
         submitBtn.style;
+        document.getElementById("answer1").style.backgroundImage = "url(\"../assets/imgs/thinkBubble.png\")";
         setTimeout(function () {
+            document.getElementById("answer2").style.backgroundImage = "url(\"../assets/imgs/thinkBubble.png\")";
             var getRandomNumb = Math.floor(Math.random() * (0 + bubblePhrases.length) + 0);
-            document.getElementById("answer1").style.backgroundImage = "url(\"../assets/imgs/thinkBubble.png\")";
             updateAnswers("answer1", bubblePhrases[getRandomNumb]);
         }, 1500);
         setTimeout(function () {
-            document.getElementById("answer1").style.backgroundImage = "url(\"../assets/imgs/bubbleTR.png\")";
+            lastAnswerGiven = botGuessValue;
+            document.getElementById("answer1").style.backgroundImage = "url(\"../assets/imgs/answerBubble.png\")";
             botAnswer(0);
             firstAnswerMade = true;
             compareAnswer(botGuessValue, randomNumber);
             botOneAnswer = botGuessValue;
             hideAnswerBubbles();
-            // console.log('Answer from bot 1');
             updateAnswers("answer1", String(botOneAnswer));
             gameRound();
         }, answerTime);
+        // spelare tur
     }
     else if (firstAnswerMade && !playerAnswerMade && !thirdAnswerMade) {
+        document.getElementById("answer2").style.backgroundImage = "url(\"../assets/imgs/thinkBubble.png\")";
+        updateAnswers("answer2", slider.value);
         slider.disabled = false;
         submitBtn.disabled = false;
         playerGuess();
         playerAnswerMade = true;
+        //bot 2
     }
     else if (chosenBots.length > 2 &&
         firstAnswerMade &&
@@ -156,22 +168,22 @@ function gameRound() {
         !thirdAnswerMade) {
         slider.disabled = true;
         submitBtn.disabled = true;
+        document.getElementById("answer3").style.backgroundImage = "url(\"../assets/imgs/thinkBubble.png\")";
         setTimeout(function () {
             var getRandomNumb = Math.floor(Math.random() * (0 + bubblePhrases.length) + 0);
-            document.getElementById("answer3").style.backgroundImage = "url(\"../assets/imgs/thinkBubble.png\")";
             updateAnswers("answer3", bubblePhrases[getRandomNumb]);
         }, 1500);
         setTimeout(function () {
-            document.getElementById("answer3").style.backgroundImage = "url(\"../assets/imgs/bubbleTR.png\")";
+            document.getElementById("answer3").style.backgroundImage = "url(\"../assets/imgs/answerBubble.png\")";
             botAnswer(2);
             thirdAnswerMade = true;
             compareAnswer(botGuessValue, randomNumber);
             botTwoAnswer = botGuessValue;
+            lastAnswerGiven = botGuessValue;
             hideAnswerBubbles();
             updateAnswers("answer3", String(botTwoAnswer));
             gameRound();
         }, answerTime);
-        // console.log('Asnwer from bot 2')
     }
     else {
         firstAnswerMade = false;
@@ -186,29 +198,48 @@ function drawTimer(time) {
     setElementContent(bubbleTextID[0], String(time));
 }
 // Answers from bots
+var minGuess;
+var maxGuess;
 function botAnswer(index) {
     var IQRange = checkWhichBot(index);
-    //   console.log("IQRange: " + IQRange);
-    botGuessValue = Math.floor(Math.random() * (randomNumber - IQRange + (randomNumber + IQRange)) + 0);
-    while (botGuessValue > 100 || botGuessValue < 0) {
-        botGuessValue = Math.floor(Math.random() * (randomNumber - IQRange + (randomNumber + IQRange)) + 0);
+    if (lastAnswerGiven > randomNumber) {
+        maxGuess = lastAnswerGiven - 1;
+    }
+    else if (lastAnswerGiven < randomNumber) {
+        minGuess = lastAnswerGiven + 1;
+    }
+    botGuessValue = Math.floor(Math.random() * (randomNumber + IQRange - (randomNumber - IQRange)) +
+        (randomNumber - IQRange));
+    while (botGuessValue > 100 ||
+        botGuessValue < 0 ||
+        botGuessValue > maxGuess ||
+        botGuessValue < minGuess) {
+        botGuessValue = Math.floor(Math.random() * (randomNumber + IQRange - (randomNumber - IQRange)) +
+            (randomNumber - IQRange));
+    }
+    if ((chosenBots[index] === "Gadget" && minGuess + 5 > randomNumber) ||
+        maxGuess - 5 < randomNumber) {
+        botGuessValue = randomNumber;
     }
 }
 function checkWhichBot(index) {
-    if (chosenBots[index] === "Bolt") {
-        return 25;
-    }
-    else if (chosenBots[index] === "Gadget") {
-        return 50;
+    if (chosenBots[index] === "Gadget") {
+        var x = Math.floor(Math.random() * (15 - 3) + 3);
+        return x;
     }
     else if (chosenBots[index] === "Clank") {
-        return 75;
+        var x = Math.floor(Math.random() * (60 - 30) + 30);
+        return x;
+    }
+    else if (chosenBots[index] === "Bolt") {
+        var x = Math.floor(Math.random() * (90 - 70) + 70);
+        return x;
     }
 }
 //compares the answers that both bots and player gives
 function compareAnswer(answer, randomNumber) {
     if (answer === randomNumber) {
-        // IF GUESS IS CORRECT
+        // correct answer
         document.getElementById(bubbleID[0]).style.visibility = "hidden";
         document.getElementById(bubbleID[2]).style.visibility = "hidden";
         document.getElementById(bubbleID[3]).style.visibility = "hidden";
@@ -217,23 +248,35 @@ function compareAnswer(answer, randomNumber) {
         amountOfGuesses++;
         checkWhoWon();
         correctGuessMade = true;
+        backgroundMusic.pause();
+        kittHappy.play();
     }
     else if (answer > randomNumber) {
-        //IF GUESST IS HIGHER THAN RANDOMNUMB
+        // guess is too high
         document.getElementById(bubbleID[0]).style.visibility = "hidden";
         document.getElementById(bubbleID[1]).style.visibility = "hidden";
         document.getElementById(bubbleID[3]).style.visibility = "hidden";
         document.getElementById(bubbleID[2]).style.visibility = "visible";
+        kittSad.volume = 0.3;
+        kittSad.play();
         setElementContent(bubbleTextID[2], gpPhrases[2]);
+        setTimeout(function () {
+            document.getElementById(bubbleID[2]).style.visibility = "hidden";
+        }, 2000);
         amountOfGuesses++;
     }
     else if (answer < randomNumber) {
-        // IF GUESS IS LOWER THAN RANDOMNUMB
+        // guess is too low
         document.getElementById(bubbleID[0]).style.visibility = "hidden";
         document.getElementById(bubbleID[1]).style.visibility = "hidden";
         document.getElementById(bubbleID[2]).style.visibility = "hidden";
         document.getElementById(bubbleID[3]).style.visibility = "visible";
+        kittSurprised.volume = 0.3;
+        kittSurprised.play();
         setElementContent(bubbleTextID[3], gpPhrases[3]);
+        setTimeout(function () {
+            document.getElementById(bubbleID[3]).style.visibility = "hidden";
+        }, 2000);
         amountOfGuesses++;
     }
 }
@@ -255,18 +298,14 @@ function setRandomNumber() {
     console.log("number:" + randomNumber);
 }
 function playerGuess() {
-    // if randomNumber = inputValue, then correct! if randomNumber >/< inputValue, give corresponding response
-    // setTimeout(() => {
     document.getElementById("answer2").style.backgroundImage = "url(\"../assets/imgs/thinkBubble.png\")";
     updateAnswers("answer2", slider.value);
-    // }, 1000);
     submitBtn.onclick = function () {
         hideAnswerBubbles();
         guessValue = parseInt(slider.value);
-        console.log("Guess: " + guessValue);
-        console.log("number: " + randomNumber);
         compareAnswer(guessValue, randomNumber);
-        document.getElementById("answer2").style.backgroundImage = "url(\"../assets/imgs/bubbleTR.png\")";
+        lastAnswerGiven = guessValue;
+        document.getElementById("answer2").style.backgroundImage = "url(\"../assets/imgs/answerBubble.png\")";
         updateAnswers("answer2", String(guessValue));
         clearInterval(timer);
         gameRound();
@@ -277,12 +316,12 @@ function playerGuess() {
         //draws timer with -one sec to get correct time
         drawTimer(timeLeft - 1);
         timeLeft--;
-        console.log("time left: " + timeLeft);
         if (timeLeft <= 0) {
             guessValue = parseInt(slider.value);
             compareAnswer(guessValue, randomNumber);
             hideAnswerBubbles();
             document.getElementById("answer2").style.backgroundImage = "url(\"../assets/imgs/bubbleTR.png\")";
+            lastAnswerGiven = guessValue;
             updateAnswers("answer2", String(guessValue));
             gameRound();
             clearInterval(timer);
@@ -296,6 +335,7 @@ var BotObjct = /** @class */ (function () {
     }
     return BotObjct;
 }());
+var soundOn = true;
 var gameMaster = document.getElementById("gameMaster");
 var players = [];
 var bots;
@@ -393,6 +433,7 @@ function lobby() {
         playerClank.remove();
         playerGadget.remove();
         removeBubbles();
+        clickSound.play();
         drawGame();
     };
 }
@@ -449,11 +490,19 @@ function drawBotWins() {
             " wins.";
 }
 var mainText = ["", "High Scores", "How to play", "Play"];
+var clickSound = new Audio("./assets/sound/load.mp3");
+var backgroundMusic = new Audio("./assets/sound/AcidJazz.mp3");
+var winsound = new Audio("./assets/sound/winsound.mp3");
+var kittSurprised = new Audio("./assets/sound/kitt-surprised.mp3");
+var kittHappy = new Audio("./assets/sound/kitt-happy.mp3");
+var kittSad = new Audio("./assets/sound/kitt-sad.mp3");
 // let gameState: string = 'main', 'nameChoice', 'lobby', 'gamePlay', 'highScore'
 /**
  * First edition of the welcomeScreen, feel free to change it as you like!
  */
 function welcomeScreen() {
+    // init volume control
+    initVolumeControl();
     saveBotWinsToLS();
     removeBubbles();
     document.body.style.background =
@@ -483,6 +532,8 @@ function loadMain() {
                 "url(../assets/imgs/bubbleBL-button.png)";
             ruleBubble.onclick = function () {
                 var modal = document.getElementById("ruleModal");
+                clickSound.volume = 0.2;
+                clickSound.play();
                 modal.style.opacity = "1";
                 modal.style.visibility = "visible";
                 var close = document.getElementById("close");
@@ -499,6 +550,12 @@ function loadMain() {
                 "url(../assets/imgs/bubbleBR-button.png)";
             playBubble.onclick = function () {
                 console.log("nameChoice");
+                clickSound.volume = 0.2;
+                clickSound.play();
+                backgroundMusic.volume = 0.1;
+                backgroundMusic.play();
+                kittHappy.volume = 0.3;
+                kittHappy.play();
                 removeBubbles();
                 nameChoice();
                 //gameState = 'nameChoice';
@@ -515,6 +572,8 @@ function loadMain() {
                 modal.style.opacity = "1";
                 modal.style.visibility = "visible";
                 console.log("High score");
+                clickSound.volume = 0.2;
+                clickSound.play();
                 var playerHighScores1 = document.createElement("div");
                 playerHighScores1.id = "playerHighScores1";
                 document
@@ -532,6 +591,20 @@ function loadMain() {
     }
 }
 // Function showTot() { SHOW TEXT /VIDEO
+function initVolumeControl() {
+    var volIcon = document.getElementById('volIcon');
+    var noVolIcon = document.getElementById('noVolIcon');
+    volIcon.onclick = function () {
+        volIcon.classList.add('hideVolIcon');
+        noVolIcon.classList.remove('hideVolIcon');
+    };
+    noVolIcon.onclick = function () {
+        noVolIcon.classList.add('hideVolIcon');
+        volIcon.classList.remove('hideVolIcon');
+    };
+}
+function setGlobalVolume() {
+}
 var nameInput = document.createElement("input");
 var lastPlayer;
 function nameChoice() {
@@ -601,7 +674,10 @@ function checkWhoWon() {
     else if (firstAnswerMade && playerAnswerMade && !thirdAnswerMade) {
         setTimeout(drawWinnerScreen, 1500, chosenBots[1]);
     }
-    else if (chosenBots.length > 2 && firstAnswerMade && playerAnswerMade && thirdAnswerMade) {
+    else if (chosenBots.length > 2 &&
+        firstAnswerMade &&
+        playerAnswerMade &&
+        thirdAnswerMade) {
         setTimeout(drawWinnerScreen, 1500, chosenBots[2]);
     }
 }
@@ -614,25 +690,33 @@ function drawWinnerScreen(winner) {
     modal.style.visibility = "visible";
     if (winner === "Gadget") {
         document.getElementById("winner").style.display = "block";
-        document.getElementById("winner").load("https://assets6.lottiefiles.com/private_files/lf30_okvpyhqk.json");
+        document
+            .getElementById("winner")
+            .load("https://assets6.lottiefiles.com/private_files/lf30_okvpyhqk.json");
         document.getElementById("winnerName").innerHTML = "GADGET WON!";
         addWinToBotStat(1);
     }
     else if (winner === "Clank") {
         document.getElementById("winner").style.display = "block";
-        document.getElementById("winner").load("https://assets3.lottiefiles.com/private_files/lf30_mvcyn7ao.json");
+        document
+            .getElementById("winner")
+            .load("https://assets3.lottiefiles.com/private_files/lf30_mvcyn7ao.json");
         document.getElementById("winnerName").innerHTML = "CLANK WON!";
         addWinToBotStat(0);
     }
     else if (winner === "Bolt") {
         document.getElementById("winner").style.display = "block";
-        document.getElementById("winner").load("https://assets5.lottiefiles.com/private_files/lf30_skjhneze.json");
+        document
+            .getElementById("winner")
+            .load("https://assets5.lottiefiles.com/private_files/lf30_skjhneze.json");
         document.getElementById("winnerName").innerHTML = "BOLT WON!";
         addWinToBotStat(2);
     }
     else if (winner === "Player") {
         // guessesMade
         document.getElementById("playerWinner").style.display = "block";
+        document.getElementById("playerWinner").style.backgroundImage =
+            'url("../assets/imgs/playerPlayer.png")';
         document.getElementById("winnerName").innerHTML =
             getPlayerName() + ", you won!";
     }
