@@ -11,6 +11,7 @@ function checkWhoWon() {
 
 /** Draws winnermodal and the right lottie-animation */
 function drawWinnerScreen(winner: string) {
+  players[-1].gamesPlayed++;
   document.getElementById("winner").style.display = "none";
   document.getElementById("playerWinner").style.display = "none";
 
@@ -137,7 +138,7 @@ const players: Array<PlayerObjct> = JSON.parse(localStorage.getItem("players"));
 const number = players.length - 1; //-1 to get the right indexnumber
 
 //Replaces the object with a new object with same name but updated ''amountofGuesses''
-players.splice(number, 1, {name: getPlayerName(), amountOfGuesses: amountOfGuesses})
+players.splice(number, 1, {name: getPlayerName(), amountOfGuesses: amountOfGuesses, gamesPlayed: 0})
 localStorage.setItem("players", JSON.stringify(players));
 
 }

@@ -2,6 +2,8 @@
 //Variables
 //The number you have to guess
 var randomNumber;
+var lastAnswerGiven;
+var answerIsHigher;
 //Gamemaster pharases
 var gpPhrases = [
     "Lets make a guess!",
@@ -30,6 +32,8 @@ var submitBtn = document.createElement("button");
 //number of guesses the players has made
 var amountOfGuesses = 0;
 function drawGame() {
+    minGuess = 0;
+    maxGuess = 100;
     correctGuessMade = false;
     chosenBots.splice(1, 0, "Player");
     drawSlider();
@@ -116,39 +120,47 @@ var answerTime;
 var correctGuessMade;
 // the logic for how the rounds works----
 function gameRound() {
+    console.log(botGuessValue);
+    console.log('maxguess: ' + maxGuess);
+    console.log('minguess: ' + minGuess);
     //If someone wins the gameround breaks/ends
     if (correctGuessMade === true) {
         return;
     }
     //sets a random number between 2000-4000 to use as timeout time.
     answerTime = Math.floor(Math.random() * (6000 - 3000 + 1000) + 3000);
-    //if stat for whos turn it is
+    //bot 1 
     if (!firstAnswerMade && !playerAnswerMade && !thirdAnswerMade) {
         slider.disabled = true;
         submitBtn.disabled = true;
         submitBtn.style;
+        document.getElementById("answer1").style.backgroundImage = "url(\"../assets/imgs/thinkBubble.png\")";
         setTimeout(function () {
+            document.getElementById("answer2").style.backgroundImage = "url(\"../assets/imgs/thinkBubble.png\")";
             var getRandomNumb = Math.floor(Math.random() * (0 + bubblePhrases.length) + 0);
-            document.getElementById("answer1").style.backgroundImage = "url(\"../assets/imgs/thinkBubble.png\")";
             updateAnswers("answer1", bubblePhrases[getRandomNumb]);
         }, 1500);
         setTimeout(function () {
-            document.getElementById("answer1").style.backgroundImage = "url(\"../assets/imgs/bubbleTR.png\")";
+            lastAnswerGiven = botGuessValue;
+            document.getElementById('answer1').style.backgroundImage = "url(\"../assets/imgs/answerBubble.png\")";
             botAnswer(0);
             firstAnswerMade = true;
             compareAnswer(botGuessValue, randomNumber);
             botOneAnswer = botGuessValue;
             hideAnswerBubbles();
-            // console.log('Answer from bot 1');
             updateAnswers("answer1", String(botOneAnswer));
             gameRound();
         }, answerTime);
+        // spelare tur
     }
     else if (firstAnswerMade && !playerAnswerMade && !thirdAnswerMade) {
+        document.getElementById("answer2").style.backgroundImage = "url(\"../assets/imgs/thinkBubble.png\")";
+        updateAnswers("answer2", slider.value);
         slider.disabled = false;
         submitBtn.disabled = false;
         playerGuess();
         playerAnswerMade = true;
+        //bot 2
     }
     else if (chosenBots.length > 2 &&
         firstAnswerMade &&
@@ -156,22 +168,22 @@ function gameRound() {
         !thirdAnswerMade) {
         slider.disabled = true;
         submitBtn.disabled = true;
+        document.getElementById("answer3").style.backgroundImage = "url(\"../assets/imgs/thinkBubble.png\")";
         setTimeout(function () {
             var getRandomNumb = Math.floor(Math.random() * (0 + bubblePhrases.length) + 0);
-            document.getElementById("answer3").style.backgroundImage = "url(\"../assets/imgs/thinkBubble.png\")";
             updateAnswers("answer3", bubblePhrases[getRandomNumb]);
         }, 1500);
         setTimeout(function () {
-            document.getElementById("answer3").style.backgroundImage = "url(\"../assets/imgs/bubbleTR.png\")";
+            document.getElementById('answer3').style.backgroundImage = "url(\"../assets/imgs/answerBubble.png\")";
             botAnswer(2);
             thirdAnswerMade = true;
             compareAnswer(botGuessValue, randomNumber);
             botTwoAnswer = botGuessValue;
+            lastAnswerGiven = botGuessValue;
             hideAnswerBubbles();
             updateAnswers("answer3", String(botTwoAnswer));
             gameRound();
         }, answerTime);
-        // console.log('Asnwer from bot 2')
     }
     else {
         firstAnswerMade = false;
@@ -186,55 +198,71 @@ function drawTimer(time) {
     setElementContent(bubbleTextID[0], String(time));
 }
 // Answers from bots
+var minGuess;
+var maxGuess;
 function botAnswer(index) {
     var IQRange = checkWhichBot(index);
-    //   console.log("IQRange: " + IQRange);
-    botGuessValue = Math.floor(Math.random() * (randomNumber - IQRange + (randomNumber + IQRange)) + 0);
-    while (botGuessValue > 100 || botGuessValue < 0) {
-        botGuessValue = Math.floor(Math.random() * (randomNumber - IQRange + (randomNumber + IQRange)) + 0);
+    if (lastAnswerGiven > randomNumber) {
+        maxGuess = lastAnswerGiven - 1;
+    }
+    else if (lastAnswerGiven < randomNumber) {
+        minGuess = lastAnswerGiven + 1;
+    }
+    botGuessValue = Math.floor(Math.random() * ((randomNumber + IQRange) - (randomNumber - IQRange)) + (randomNumber - IQRange));
+    while (botGuessValue > 100 || botGuessValue < 0 || botGuessValue > maxGuess || botGuessValue < minGuess) {
+        botGuessValue = Math.floor(Math.random() * ((randomNumber + IQRange) - (randomNumber - IQRange)) + (randomNumber - IQRange));
+    }
+    if (chosenBots[index] === 'Gadget' && (minGuess + 5) > randomNumber || (maxGuess - 5) < randomNumber) {
+        botGuessValue = randomNumber;
     }
 }
 function checkWhichBot(index) {
-    if (chosenBots[index] === "Bolt") {
-        return 25;
-    }
-    else if (chosenBots[index] === "Gadget") {
-        return 50;
+    if (chosenBots[index] === "Gadget") {
+        var x = Math.floor(Math.random() * (15 - 3) + 3);
+        return x;
     }
     else if (chosenBots[index] === "Clank") {
-        return 75;
+        var x = Math.floor(Math.random() * (60 - 30) + 30);
+        return x;
+    }
+    else if (chosenBots[index] === "Bolt") {
+        var x = Math.floor(Math.random() * (90 - 70) + 70);
+        return x;
     }
 }
 //compares the answers that both bots and player gives
 function compareAnswer(answer, randomNumber) {
     if (answer === randomNumber) {
-        // IF GUESS IS CORRECT
+        // correct answer
         document.getElementById(bubbleID[0]).style.visibility = "hidden";
         document.getElementById(bubbleID[2]).style.visibility = "hidden";
         document.getElementById(bubbleID[3]).style.visibility = "hidden";
         document.getElementById(bubbleID[1]).style.visibility = "visible";
         setElementContent(bubbleTextID[1], gpPhrases[1]);
-        amountOfGuesses++;
         checkWhoWon();
         correctGuessMade = true;
     }
     else if (answer > randomNumber) {
-        //IF GUESST IS HIGHER THAN RANDOMNUMB
+        // guess is too low
         document.getElementById(bubbleID[0]).style.visibility = "hidden";
         document.getElementById(bubbleID[1]).style.visibility = "hidden";
         document.getElementById(bubbleID[3]).style.visibility = "hidden";
         document.getElementById(bubbleID[2]).style.visibility = "visible";
         setElementContent(bubbleTextID[2], gpPhrases[2]);
-        amountOfGuesses++;
+        setTimeout(function () {
+            document.getElementById(bubbleID[2]).style.visibility = "hidden";
+        }, 2000);
     }
     else if (answer < randomNumber) {
-        // IF GUESS IS LOWER THAN RANDOMNUMB
+        // guess is too high
         document.getElementById(bubbleID[0]).style.visibility = "hidden";
         document.getElementById(bubbleID[1]).style.visibility = "hidden";
         document.getElementById(bubbleID[2]).style.visibility = "hidden";
         document.getElementById(bubbleID[3]).style.visibility = "visible";
         setElementContent(bubbleTextID[3], gpPhrases[3]);
-        amountOfGuesses++;
+        setTimeout(function () {
+            document.getElementById(bubbleID[3]).style.visibility = "hidden";
+        }, 2000);
     }
 }
 function drawBubbles() {
@@ -255,18 +283,14 @@ function setRandomNumber() {
     console.log("number:" + randomNumber);
 }
 function playerGuess() {
-    // if randomNumber = inputValue, then correct! if randomNumber >/< inputValue, give corresponding response
-    // setTimeout(() => {
     document.getElementById("answer2").style.backgroundImage = "url(\"../assets/imgs/thinkBubble.png\")";
     updateAnswers("answer2", slider.value);
-    // }, 1000);
     submitBtn.onclick = function () {
         hideAnswerBubbles();
         guessValue = parseInt(slider.value);
-        console.log("Guess: " + guessValue);
-        console.log("number: " + randomNumber);
         compareAnswer(guessValue, randomNumber);
-        document.getElementById("answer2").style.backgroundImage = "url(\"../assets/imgs/bubbleTR.png\")";
+        lastAnswerGiven = guessValue;
+        document.getElementById('answer2').style.backgroundImage = "url(\"../assets/imgs/answerBubble.png\")";
         updateAnswers("answer2", String(guessValue));
         clearInterval(timer);
         gameRound();
@@ -277,24 +301,31 @@ function playerGuess() {
         //draws timer with -one sec to get correct time
         drawTimer(timeLeft - 1);
         timeLeft--;
-        console.log("time left: " + timeLeft);
         if (timeLeft <= 0) {
             guessValue = parseInt(slider.value);
             compareAnswer(guessValue, randomNumber);
             hideAnswerBubbles();
             document.getElementById("answer2").style.backgroundImage = "url(\"../assets/imgs/bubbleTR.png\")";
+            lastAnswerGiven = guessValue;
             updateAnswers("answer2", String(guessValue));
             gameRound();
             clearInterval(timer);
         }
     }
     var timer = setInterval(timeCounter, 1000);
+    amountOfGuesses++;
 }
-window.addEventListener("load", welcomeScreen);
+window.addEventListener('load', welcomeScreen);
 var BotObjct = /** @class */ (function () {
     function BotObjct() {
     }
     return BotObjct;
+}());
+;
+var PlayerObjct = /** @class */ (function () {
+    function PlayerObjct() {
+    }
+    return PlayerObjct;
 }());
 var gameMaster = document.getElementById("gameMaster");
 var players = [];
@@ -514,12 +545,8 @@ function loadMain() {
                 var modal = document.getElementById("highScoresModal");
                 modal.style.opacity = "1";
                 modal.style.visibility = "visible";
-                console.log("High score");
-                var playerHighScores1 = document.createElement("div");
-                playerHighScores1.id = "playerHighScores1";
-                document
-                    .getElementById("playerHighScores")
-                    .appendChild(playerHighScores1);
+                console.log('High score');
+                drawHighscoreList();
                 var closeHighScores = document.getElementById("closeHighScores");
                 closeHighScores.onclick = function () {
                     modal.style.opacity = "0";
@@ -531,10 +558,60 @@ function loadMain() {
         document.getElementById(bubbleID[0]).style.visibility = "hidden";
     }
 }
-// Function showTot() { SHOW TEXT /VIDEO
+function drawHighscoreList() {
+    var player1 = document.getElementById('player1');
+    var player2 = document.getElementById('player2');
+    var player3 = document.getElementById('player3');
+    if (localStorage.getItem("players") == null) {
+        player1.innerHTML = "Sorry, we have nothing to display here yet!";
+        player2.innerHTML = "";
+        player3.innerHTML = "";
+    }
+    else {
+        // GET THE ARRAY FROM LS
+        var players_1 = JSON.parse(localStorage.getItem("players"));
+        //DELETES THE PLAYERS WITH 0 AMOUNT OF GUESSES (meaning they did not win)
+        var highscoreList = players_1.filter(function (item) { return item.amountOfGuesses !== 0; });
+        //SORTS THE ARRAY WITH LOWEST AMOUNT OF GUESSES FIRST
+        highscoreList.sort(function (a, b) {
+            return a.amountOfGuesses - b.amountOfGuesses;
+        });
+        // IF SAME PLAYER APPEARS MULTIPLE TIMES ON THE HIGHSCORE LIST, ONLY SHOW THEIR BEST SCORE
+        //NEEDS THE CHECKS TO NOT THROW ERRORS
+        //    if (highscoreList.length > 1) {
+        //    if (highscoreList[0].name === highscoreList[1].name){
+        //     highscoreList.splice(0,1)}
+        //    }
+        //     if (highscoreList.length > 2){
+        //    if(highscoreList[1].name === highscoreList[2].name || highscoreList[0].name === highscoreList[2].name){
+        //     highscoreList.splice(1,1) || highscoreList.splice(2,1)
+        //   } 
+        // }
+        //DRAW OUT PLAYER NAME + SCORE
+        player1.innerHTML = highscoreList[0].name + " " + highscoreList[0].amountOfGuesses;
+        //IF THERE IS ONLY 1 OR 2 PLAYER THAT HAVE PLAYED
+        if (highscoreList.length > 1) {
+            player2.innerHTML = highscoreList[1].name + " " + highscoreList[1].amountOfGuesses;
+        }
+        else {
+            player2.innerHTML = "";
+            player3.innerHTML = "";
+        }
+        //IF THERE IS ONLY 2 OR 3  PLAYERS THAT HAVE PLAYED
+        if (highscoreList.length > 2) {
+            player3.innerHTML = highscoreList[2].name + " " + highscoreList[2].amountOfGuesses;
+        }
+        else {
+            player3.innerHTML = "";
+        }
+        console.log(highscoreList);
+    }
+}
+// Function showTot() { SHOW TEXT /VIDEO  
 var nameInput = document.createElement("input");
 var lastPlayer;
 function nameChoice() {
+    var playerExists = false;
     getLastPlayersName();
     showGreeting();
     showNameInput();
@@ -542,12 +619,30 @@ function nameChoice() {
     document.getElementById("userInput").addEventListener("keydown", function (event) {
         if (event.key === "Enter") {
             var name_1 = nameInput.value;
-            var player = {
-                name: name_1,
-                highScore: 0,
-                games: 0,
-            };
-            addToLS(player);
+            var players_2 = JSON.parse(localStorage.getItem("players"));
+            if (players_2 === null) {
+                var player = {
+                    name: name_1,
+                    amountOfGuesses: 0,
+                    gamesPlayed: 0,
+                };
+                addToLS(player);
+            }
+            else {
+                for (var i = 0; i < players_2.length; i++) {
+                    if (players_2[i].name === name_1) {
+                        playerExists = true;
+                    }
+                }
+                if (!playerExists) {
+                    var player = {
+                        name: name_1,
+                        amountOfGuesses: 0,
+                        gamesPlayed: 0,
+                    };
+                    addToLS(player);
+                }
+            }
             // render new frame
             removeBubbles();
             nameInput.remove();
@@ -581,16 +676,16 @@ function addToLS(player) {
     localStorage.setItem("players", JSON.stringify(players));
 }
 /**
- * Gets the latest players name
+ * Gets the latest players name to put as autofill in the
  */
 function getLastPlayersName() {
     if (localStorage.getItem("players") === null) {
         return "";
     }
     else {
-        var players_1 = JSON.parse(localStorage.getItem("players"));
-        var number = players_1.length - 1; //-1 to get the right indexnumber
-        return players_1[number].name; //Looks like an error but works fine
+        var players_3 = JSON.parse(localStorage.getItem("players"));
+        var number = players_3.length - 1; //-1 to get the right indexnumber
+        return players_3[number].name; //Looks like an error but works fine
     }
 }
 /** Checks which answer was the right one */
@@ -607,6 +702,7 @@ function checkWhoWon() {
 }
 /** Draws winnermodal and the right lottie-animation */
 function drawWinnerScreen(winner) {
+    players[-1].gamesPlayed++;
     document.getElementById("winner").style.display = "none";
     document.getElementById("playerWinner").style.display = "none";
     var modal = document.getElementById("winnerModal");
@@ -631,8 +727,9 @@ function drawWinnerScreen(winner) {
         addWinToBotStat(2);
     }
     else if (winner === "Player") {
-        // guessesMade
+        updatePlayerStats();
         document.getElementById("playerWinner").style.display = "block";
+        document.getElementById("playerWinner").style.backgroundImage = ('url("../assets/imgs/playerPlayer.png")');
         document.getElementById("winnerName").innerHTML =
             getPlayerName() + ", you won!";
     }
@@ -657,6 +754,8 @@ function restartGame() {
     thirdAnswerMade = false;
     // Loads main-screen
     loadMain();
+    //Sets player-counter to 0 again
+    return amountOfGuesses = 0;
 }
 /** Hides all element from Gameplay */
 function hideGamePlay() {
@@ -705,15 +804,12 @@ function updateGamesPlayed() {
     }
     if (chosenBots[0] === "Bolt") {
         index1 = 2;
-        console.log("Bolt va med o spela!");
     }
     else if (chosenBots[0] === "Gadget") {
         index1 = 1;
-        console.log("Gadget va med o spela!");
     }
     else if (chosenBots[0] === "Clank") {
         index1 = 0;
-        console.log("Clank va med o spela!");
     }
     localStorage.removeItem("bots");
     bots[index1].gamesPlayed++;
@@ -721,5 +817,12 @@ function updateGamesPlayed() {
         bots[index2].gamesPlayed++;
     }
     localStorage.setItem("bots", JSON.stringify(bots));
+}
+function updatePlayerStats() {
+    var players = JSON.parse(localStorage.getItem("players"));
+    var number = players.length - 1; //-1 to get the right indexnumber
+    //Replaces the object with a new object with same name but updated ''amountofGuesses''
+    players.splice(number, 1, { name: getPlayerName(), amountOfGuesses: amountOfGuesses, gamesPlayed: 0 });
+    localStorage.setItem("players", JSON.stringify(players));
 }
 //# sourceMappingURL=index.js.map

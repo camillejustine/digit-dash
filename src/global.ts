@@ -1,7 +1,7 @@
 window.addEventListener('load', welcomeScreen); 
 
 class BotObjct { bot: string; wins: number; gamesPlayed: number;};
-class PlayerObjct { name: string; amountOfGuesses: number;}
+class PlayerObjct { name: string; amountOfGuesses: number; gamesPlayed: number;}
 
 const gameMaster: any = document.getElementById("gameMaster");
 

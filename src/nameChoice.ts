@@ -1,9 +1,8 @@
-
-
 const nameInput: HTMLInputElement = document.createElement("input");
 let lastPlayer: string;
 
 function nameChoice() {
+  let playerExists: boolean = false;
   getLastPlayersName();
   showGreeting();
   showNameInput();
@@ -11,11 +10,30 @@ function nameChoice() {
   document.getElementById("userInput").addEventListener("keydown", (event) => {
     if (event.key === "Enter") {
       let name: string = nameInput.value;
-       let player:PlayerObjct = {
-        name: name,
-        amountOfGuesses: 0,
-      };
-      addToLS(player);
+      let players = JSON.parse(localStorage.getItem("players"));
+      if (players === null) {
+        let player: PlayerObjct = {
+          name: name,
+          amountOfGuesses: 0,
+          gamesPlayed: 0,
+        };
+        addToLS(player);
+      } else {
+        for (let i = 0; i < players.length; i++) {
+          if (players[i].name === name) {
+            playerExists = true;
+          }
+        }
+
+        if (!playerExists) {
+          let player: PlayerObjct = {
+            name: name,
+            amountOfGuesses: 0,
+            gamesPlayed: 0,
+          };
+          addToLS(player);
+        }
+      }
       // render new frame
       removeBubbles();
       nameInput.remove();
@@ -30,8 +48,9 @@ const greeting: string = "What's your name?";
 function showGreeting() {
   document.getElementById(bubbleID[0]).style.visibility = "visible";
   setElementContent(bubbleTextID[0], greeting);
-  gameMaster.load("https://assets2.lottiefiles.com/private_files/lf30_bqqaxg5n.json");
-
+  gameMaster.load(
+    "https://assets2.lottiefiles.com/private_files/lf30_bqqaxg5n.json"
+  );
 }
 
 function showNameInput() {
