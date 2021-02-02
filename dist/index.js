@@ -249,7 +249,7 @@ function compareAnswer(answer, randomNumber) {
         checkWhoWon();
         correctGuessMade = true;
         backgroundMusic.pause();
-        kittHappy.play();
+        playSound(0.3, "./assets/sound/kitt-happy.mp3", "kittHappy");
     }
     else if (answer > randomNumber) {
         // guess is too high
@@ -257,8 +257,7 @@ function compareAnswer(answer, randomNumber) {
         document.getElementById(bubbleID[1]).style.visibility = "hidden";
         document.getElementById(bubbleID[3]).style.visibility = "hidden";
         document.getElementById(bubbleID[2]).style.visibility = "visible";
-        kittSad.volume = 0.3;
-        kittSad.play();
+        playSound(0.3, "./assets/sound/kitt-sad.mp3", "kittSad");
         setElementContent(bubbleTextID[2], gpPhrases[2]);
         setTimeout(function () {
             document.getElementById(bubbleID[2]).style.visibility = "hidden";
@@ -271,8 +270,7 @@ function compareAnswer(answer, randomNumber) {
         document.getElementById(bubbleID[1]).style.visibility = "hidden";
         document.getElementById(bubbleID[2]).style.visibility = "hidden";
         document.getElementById(bubbleID[3]).style.visibility = "visible";
-        kittSurprised.volume = 0.3;
-        kittSurprised.play();
+        playSound(0.3, "./assets/sound/kitt-surprised.mp3", "kittSurprised");
         setElementContent(bubbleTextID[3], gpPhrases[3]);
         setTimeout(function () {
             document.getElementById(bubbleID[3]).style.visibility = "hidden";
@@ -433,7 +431,7 @@ function lobby() {
         playerClank.remove();
         playerGadget.remove();
         removeBubbles();
-        clickSound.play();
+        playSound(0.2, "./assets/sound/load.mp3");
         drawGame();
     };
 }
@@ -490,12 +488,7 @@ function drawBotWins() {
             " wins.";
 }
 var mainText = ["", "High Scores", "How to play", "Play"];
-var clickSound = new Audio("./assets/sound/load.mp3");
 var backgroundMusic = new Audio("./assets/sound/AcidJazz.mp3");
-var winsound = new Audio("./assets/sound/winsound.mp3");
-var kittSurprised = new Audio("./assets/sound/kitt-surprised.mp3");
-var kittHappy = new Audio("./assets/sound/kitt-happy.mp3");
-var kittSad = new Audio("./assets/sound/kitt-sad.mp3");
 // let gameState: string = 'main', 'nameChoice', 'lobby', 'gamePlay', 'highScore'
 /**
  * First edition of the welcomeScreen, feel free to change it as you like!
@@ -516,6 +509,18 @@ function welcomeScreen() {
     //"DIGIT DASH" text
     // More smooth transition to next screen(?)s
 }
+// Use playSound() to add soundeffects
+function playSound(volume, path, id) {
+    var sound = new Audio(path);
+    soundOn ? (sound.volume = volume) : (sound.volume = 0);
+    // sound.volume = volume;
+    sound.play();
+    sound.id = id;
+}
+function stopSound(path) {
+    var sound = new Audio(path);
+    sound.pause();
+}
 function loadMain() {
     //setTimeout(drawWinnerScreen, 2000)
     document.body.style.background = "white";
@@ -532,8 +537,7 @@ function loadMain() {
                 "url(../assets/imgs/bubbleBL-button.png)";
             ruleBubble.onclick = function () {
                 var modal = document.getElementById("ruleModal");
-                clickSound.volume = 0.2;
-                clickSound.play();
+                playSound(0.2, "./assets/sound/load.mp3", "load");
                 modal.style.opacity = "1";
                 modal.style.visibility = "visible";
                 var close = document.getElementById("close");
@@ -550,12 +554,9 @@ function loadMain() {
                 "url(../assets/imgs/bubbleBR-button.png)";
             playBubble.onclick = function () {
                 console.log("nameChoice");
-                clickSound.volume = 0.2;
-                clickSound.play();
+                playSound(0.2, "./assets/sound/load.mp3", "PlayLoad");
                 backgroundMusic.volume = 0.1;
                 backgroundMusic.play();
-                kittHappy.volume = 0.3;
-                kittHappy.play();
                 removeBubbles();
                 nameChoice();
                 //gameState = 'nameChoice';
@@ -572,8 +573,7 @@ function loadMain() {
                 modal.style.opacity = "1";
                 modal.style.visibility = "visible";
                 console.log("High score");
-                clickSound.volume = 0.2;
-                clickSound.play();
+                playSound(0.2, "./assets/sound/load.mp3", "highscoreLoad");
                 var playerHighScores1 = document.createElement("div");
                 playerHighScores1.id = "playerHighScores1";
                 document
@@ -595,15 +595,21 @@ function initVolumeControl() {
     var volIcon = document.getElementById('volIcon');
     var noVolIcon = document.getElementById('noVolIcon');
     volIcon.onclick = function () {
+        // set icon
         volIcon.classList.add('hideVolIcon');
         noVolIcon.classList.remove('hideVolIcon');
+        // set sound off
+        soundOn = false;
+        backgroundMusic.volume = 0;
     };
     noVolIcon.onclick = function () {
+        // set icon
         noVolIcon.classList.add('hideVolIcon');
         volIcon.classList.remove('hideVolIcon');
+        //set sound on
+        soundOn = true;
+        backgroundMusic.volume = 0.1;
     };
-}
-function setGlobalVolume() {
 }
 var nameInput = document.createElement("input");
 var lastPlayer;
