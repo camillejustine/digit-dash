@@ -1,9 +1,69 @@
-/* LOBBY MODAL */
+
+
+/*#region RULES MODAL*/
+
+#ruleModal {
+  opacity: 0;
+  transition: all 0.35s;
+  width: 22rem;
+}
+
+.rules {
+  visibility: hidden;
+  position: fixed;
+  z-index: 10;
+  margin: 0 .7rem 0 .7rem;
+  top: 1rem;
+  overflow: auto;
+  background: linear-gradient(
+    180deg,
+    rgba(212, 206, 220, 0.6) 0%,
+    rgba(23, 38, 77, 0.6) 100%
+  );
+  backdrop-filter: blur(1rem);
+  transition: block 4s;
+  position: fixed;
+  border-radius: 2rem;
+}
+
+.close {
+  color: white;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+  cursor: pointer;
+  opacity: 1;
+}
+
+.rulesContent, .rulesContent > p {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 80%; /* Could be more or less, depending on screen size */
+  color: white;
+  text-align: center;
+  font-size: 1.2rem;
+  height: 40rem;
+}
+
+.ruleTitle {
+  display: flex;
+  flex-direction: row;
+  font-size: 1.1rem;
+}
+
+/*#endregion */
+
+
+/*region LOBBY MODAL BOT INFORMATION */
 
 #botModal {
   opacity: 0;
   transition: all 0.35s;
+  width: 22rem;
 }
+
 .botModal {
   visibility: hidden;
   z-index: 10;
@@ -18,27 +78,14 @@
   backdrop-filter: blur(1rem);
   transition: block 4s;
   position: absolute;
-  border-radius: 4rem;
-  /* left: 10%; */
-  margin: 0 2.5rem 0 2.5rem;
-
+  border-radius: 2rem;
+  margin: 0 .7rem 0 .7rem;
   display: flex;
   justify-content: center;
 }
 
 #botClose {
-  margin-top: 2rem;
-}
-.botModalContent {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-
-  /* margin:  auto; 10% from the top and centered */
-  width: 80%; /* Could be more or less, depending on screen size */
-  color: white;
-  text-align: center;
-  padding-top: 0;
+  margin-top: 1rem;
 }
 
 .modalTop {
@@ -46,9 +93,20 @@
   flex-direction: row-reverse;
 }
 
+.botModalContent {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 80%; /* Could be more or less, depending on screen size */
+  color: white;
+  text-align: center;
+  padding-top: 1rem;
+  height: 45rem;
+}
+
 .botListWrapper {
   padding-top: 0rem;
-  padding-bottom: 1rem;
+  padding-bottom: 4rem;
 }
 
 .botWrapper {
@@ -87,3 +145,5 @@
   padding: 0.3rem 0 0 0;
   letter-spacing: 0.1;
 }
+
+/*#endregion */

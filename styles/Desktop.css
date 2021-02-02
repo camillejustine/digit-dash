@@ -26,14 +26,14 @@
   }
 
   #textTL, #textTR {
-    padding-bottom: 1.5rem;
+    padding-bottom: 1rem;
     font-size: 1rem;
     letter-spacing: 6%;
     color: white;
   }
 
   #textBL, #textBR {
-    padding-top: 1rem;
+    padding-top: .5rem;
     font-size: 1rem;
     letter-spacing: 6%;
     color: white;
@@ -67,24 +67,19 @@
   }
 
   .rules {
-    top: 1rem;
     width: 30rem;
     height: 75%;
     margin: auto;
     max-width: 100%;
-    max-height: 55rem;
-    /* left: 25vw; */
   }
 
   .botModal {
     top: 1rem;
     width: 30rem;
     height: 75%;
-    /* margin-left: auto; */
     display: flex;
     max-width: 100%;
     max-height: 55rem;
-    /* left: 25vw; */
   }
 
   .botModalContent {
@@ -118,6 +113,7 @@
   #winnerModal{
     width: 70%;
   }
+  
    .winnerScreen{
     top: 1rem;
     width: 90%;
@@ -135,4 +131,12 @@
   .winnerContent > p{
     font-size: 2.8rem;
   }
+}
+
+#userInput, #inputField {
+  height: 2.8rem;
+}
+
+#ruleModal {
+  height: auto;
 }
