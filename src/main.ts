@@ -16,6 +16,9 @@ const kittSad: HTMLAudioElement = new Audio("./assets/sound/kitt-sad.mp3");
  * First edition of the welcomeScreen, feel free to change it as you like!
  */
 function welcomeScreen() {
+  // init volume control
+  initVolumeControl();
+
   saveBotWinsToLS();
   removeBubbles();
 
@@ -123,3 +126,19 @@ function loadMain(): void {
 }
 
 // Function showTot() { SHOW TEXT /VIDEO
+function initVolumeControl(){
+  let volIcon = document.getElementById('volIcon');
+  let noVolIcon = document.getElementById('noVolIcon');
+
+  volIcon.onclick = () => {
+    volIcon.classList.add('hideVolIcon');
+    noVolIcon.classList.remove('hideVolIcon');
+  }
+  noVolIcon.onclick = () => {
+    noVolIcon.classList.add('hideVolIcon');
+    volIcon.classList.remove('hideVolIcon');
+  }
+}
+function setGlobalVolume(){
+
+}

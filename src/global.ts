@@ -6,6 +6,8 @@ class BotObjct {
   gamesPlayed: number;
 }
 
+const soundOn: boolean = true;
+
 const gameMaster: any = document.getElementById("gameMaster");
 
 let players: Array<Object> = [];
