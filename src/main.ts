@@ -1,4 +1,14 @@
 const mainText: string[] = ["", "High Scores", "How to play", "Play"];
+const clickSound: HTMLAudioElement = new Audio("./assets/sound/load.mp3");
+const backgroundMusic: HTMLAudioElement = new Audio(
+  "./assets/sound/AcidJazz.mp3"
+);
+const winsound: HTMLAudioElement = new Audio("./assets/sound/winsound.mp3");
+const kittSurprised: HTMLAudioElement = new Audio(
+  "./assets/sound/kitt-surprised.mp3"
+);
+const kittHappy: HTMLAudioElement = new Audio("./assets/sound/kitt-happy.mp3");
+const kittSad: HTMLAudioElement = new Audio("./assets/sound/kitt-sad.mp3");
 
 // let gameState: string = 'main', 'nameChoice', 'lobby', 'gamePlay', 'highScore'
 
@@ -8,6 +18,7 @@ const mainText: string[] = ["", "High Scores", "How to play", "Play"];
 function welcomeScreen() {
   saveBotWinsToLS();
   removeBubbles();
+
   document.body.style.background =
     "linear-gradient(180deg, #FFFFFF 0%, #9B85AD 100%)"; //This needs some adjustment
   document.getElementById("gameMasterWrapper").classList.add("fadeIn");
@@ -39,6 +50,8 @@ function loadMain(): void {
 
       ruleBubble.onclick = () => {
         const modal: HTMLElement | null = document.getElementById("ruleModal");
+        clickSound.volume = 0.2;
+        clickSound.play();
         modal.style.opacity = "1";
         modal.style.visibility = "visible";
 
@@ -58,6 +71,12 @@ function loadMain(): void {
         "url(../assets/imgs/bubbleBR-button.png)";
       playBubble.onclick = () => {
         console.log("nameChoice");
+        clickSound.volume = 0.2;
+        clickSound.play();
+        backgroundMusic.volume = 0.1;
+        backgroundMusic.play();
+        kittHappy.volume = 0.3;
+        kittHappy.play();
         removeBubbles();
         nameChoice();
         //gameState = 'nameChoice';
@@ -78,6 +97,8 @@ function loadMain(): void {
         modal.style.opacity = "1";
         modal.style.visibility = "visible";
         console.log("High score");
+        clickSound.volume = 0.2;
+        clickSound.play();
 
         let playerHighScores1 = document.createElement("div");
         playerHighScores1.id = "playerHighScores1";

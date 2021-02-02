@@ -4,7 +4,12 @@ function checkWhoWon() {
     setTimeout(drawWinnerScreen, 1500, chosenBots[0]);
   } else if (firstAnswerMade && playerAnswerMade && !thirdAnswerMade) {
     setTimeout(drawWinnerScreen, 1500, chosenBots[1]);
-  } else if (chosenBots.length > 2 && firstAnswerMade && playerAnswerMade && thirdAnswerMade) {
+  } else if (
+    chosenBots.length > 2 &&
+    firstAnswerMade &&
+    playerAnswerMade &&
+    thirdAnswerMade
+  ) {
     setTimeout(drawWinnerScreen, 1500, chosenBots[2]);
   }
 }
@@ -20,23 +25,30 @@ function drawWinnerScreen(winner: string) {
 
   if (winner === "Gadget") {
     document.getElementById("winner").style.display = "block";
-    document.getElementById("winner").load("https://assets6.lottiefiles.com/private_files/lf30_okvpyhqk.json");
+    document
+      .getElementById("winner")
+      .load("https://assets6.lottiefiles.com/private_files/lf30_okvpyhqk.json");
     document.getElementById("winnerName").innerHTML = "GADGET WON!";
     addWinToBotStat(1);
   } else if (winner === "Clank") {
     document.getElementById("winner").style.display = "block";
-    document.getElementById("winner").load("https://assets3.lottiefiles.com/private_files/lf30_mvcyn7ao.json");
+    document
+      .getElementById("winner")
+      .load("https://assets3.lottiefiles.com/private_files/lf30_mvcyn7ao.json");
     document.getElementById("winnerName").innerHTML = "CLANK WON!";
     addWinToBotStat(0);
   } else if (winner === "Bolt") {
     document.getElementById("winner").style.display = "block";
-    document.getElementById("winner").load("https://assets5.lottiefiles.com/private_files/lf30_skjhneze.json");
+    document
+      .getElementById("winner")
+      .load("https://assets5.lottiefiles.com/private_files/lf30_skjhneze.json");
     document.getElementById("winnerName").innerHTML = "BOLT WON!";
     addWinToBotStat(2);
   } else if (winner === "Player") {
     // guessesMade
     document.getElementById("playerWinner").style.display = "block";
-    document.getElementById("playerWinner").style.backgroundImage =('url("../assets/imgs/playerPlayer.png")');
+    document.getElementById("playerWinner").style.backgroundImage =
+      'url("../assets/imgs/playerPlayer.png")';
     document.getElementById("winnerName").innerHTML =
       getPlayerName() + ", you won!";
   }
@@ -58,12 +70,12 @@ function restartGame() {
   const modal: HTMLElement | null = document.getElementById("winnerModal");
   modal.style.opacity = "0";
   modal.style.visibility = "hidden";
-  
+
   //Resets answer round
-   firstAnswerMade = false;
-   playerAnswerMade = false;
-   thirdAnswerMade = false;
-  
+  firstAnswerMade = false;
+  playerAnswerMade = false;
+  thirdAnswerMade = false;
+
   // Loads main-screen
   loadMain();
 }
@@ -72,7 +84,7 @@ function restartGame() {
 function hideGamePlay() {
   updateGamesPlayed();
   removeBubbles();
-  removeBubble(bubbleID[0] , bubbleTextID[0])
+  removeBubble(bubbleID[0], bubbleTextID[0]);
   //Hides inputfield and button
   let inputAndButton = document.getElementById("inputField");
   while (inputAndButton.firstChild)
@@ -100,35 +112,35 @@ function saveBotWinsToLS() {
 /**
  * Updates gamesplayed(in LS) for the bots that was chosen for the round
  */
-function updateGamesPlayed(){
+function updateGamesPlayed() {
   let index1;
   let index2;
 
-   if (chosenBots.length > 2){
-     if (chosenBots[2] === "Bolt"){
-       index2 = 2;
-     }else if (chosenBots[2] === "Gadget"){
-       index2 = 1;
-     }else if (chosenBots[2] === "Clank"){
-       index2 = 0;
-     }
-   }
-
-   if (chosenBots[0] === "Bolt"){
-     index1 = 2;
-     console.log("Bolt va med o spela!")
-   } else if (chosenBots[0] === "Gadget"){
-     index1 = 1;
-     console.log("Gadget va med o spela!")
-   } else if (chosenBots[0] === "Clank"){
-     index1 = 0;
-     console.log("Clank va med o spela!")
-   }
-
-   localStorage.removeItem("bots");
-   bots[index1].gamesPlayed++;
-   if (chosenBots.length > 2){
-   bots[index2].gamesPlayed++;
+  if (chosenBots.length > 2) {
+    if (chosenBots[2] === "Bolt") {
+      index2 = 2;
+    } else if (chosenBots[2] === "Gadget") {
+      index2 = 1;
+    } else if (chosenBots[2] === "Clank") {
+      index2 = 0;
+    }
   }
-   localStorage.setItem("bots", JSON.stringify(bots));
+
+  if (chosenBots[0] === "Bolt") {
+    index1 = 2;
+    console.log("Bolt va med o spela!");
+  } else if (chosenBots[0] === "Gadget") {
+    index1 = 1;
+    console.log("Gadget va med o spela!");
+  } else if (chosenBots[0] === "Clank") {
+    index1 = 0;
+    console.log("Clank va med o spela!");
+  }
+
+  localStorage.removeItem("bots");
+  bots[index1].gamesPlayed++;
+  if (chosenBots.length > 2) {
+    bots[index2].gamesPlayed++;
+  }
+  localStorage.setItem("bots", JSON.stringify(bots));
 }
