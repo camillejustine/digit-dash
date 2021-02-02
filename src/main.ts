@@ -107,7 +107,7 @@ function drawHighscoreList(){
     player3.innerHTML = "";
   } else {
   // GET THE ARRAY FROM LS
-  const players: Array<PlayerObjct> = JSON.parse(localStorage.getItem("players"));
+  const playersLS: Array<PlayerObjct> = JSON.parse(localStorage.getItem("players"));
 
   //DELETES THE PLAYERS WITH 0 AMOUNT OF GUESSES (meaning they did not win)
   const highscoreList = players.filter(item => item.amountOfGuesses !== 0);

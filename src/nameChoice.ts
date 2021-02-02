@@ -1,6 +1,7 @@
 const nameInput: HTMLInputElement = document.createElement("input");
 let lastPlayer: string;
 
+
 function nameChoice() {
   let playerExists: boolean = false;
   getLastPlayersName();
@@ -10,6 +11,7 @@ function nameChoice() {
   document.getElementById("userInput").addEventListener("keydown", (event) => {
     if (event.key === "Enter") {
       let name: string = nameInput.value;
+      lastPlayer = name;
       let players = JSON.parse(localStorage.getItem("players"));
       if (players === null) {
         let player: PlayerObjct = {
