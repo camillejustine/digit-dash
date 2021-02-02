@@ -447,10 +447,16 @@ lottie-player {
 }
 
 .volIcon{
-  padding: 1rem;
+  padding: 1rem 1rem 1rem 0.2rem;
 }
 .hideVolIcon{
   display: none;
+}
+.homeIcon{
+  padding: 1rem 0.2rem 1rem 1rem;
+}
+.volIcon:hover, .homeIcon:hover{
+  cursor: pointer;
 }
 /* REUSABLE CLASSES */
 

@@ -496,6 +496,7 @@ var backgroundMusic = new Audio("./assets/sound/AcidJazz.mp3");
 function welcomeScreen() {
     // init volume control
     initVolumeControl();
+    initHomeButton();
     saveBotWinsToLS();
     removeBubbles();
     document.body.style.background =
@@ -609,6 +610,12 @@ function initVolumeControl() {
         //set sound on
         soundOn = true;
         backgroundMusic.volume = 0.1;
+    };
+}
+function initHomeButton() {
+    var homeIcon = document.getElementById('homeIcon');
+    homeIcon.onclick = function () {
+        location.reload();
     };
 }
 var nameInput = document.createElement("input");

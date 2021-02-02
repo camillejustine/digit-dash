@@ -11,6 +11,7 @@ const backgroundMusic: HTMLAudioElement = new Audio(
 function welcomeScreen() {
   // init volume control
   initVolumeControl();
+  initHomeButton();
 
   saveBotWinsToLS();
   removeBubbles();
@@ -148,5 +149,12 @@ function initVolumeControl(){
     //set sound on
     soundOn = true;
     backgroundMusic.volume = 0.1;
+  }
+}
+
+function initHomeButton(){
+  let homeIcon = document.getElementById('homeIcon');
+  homeIcon.onclick = () => {
+    location.reload();
   }
 }
