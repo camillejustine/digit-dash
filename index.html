@@ -8,7 +8,7 @@
     <script defer src="./dist/index.js"></script>
 
     <link rel="stylesheet" href="./styles/main.css" />
-    <link rel="stylesheet" href="./styles/lobby.css" />
+    <link rel="stylesheet" href="./styles/modals.css" />
     <link rel="stylesheet" href="./styles/desktop.css" />
     <link rel="preconnect" href="https://fonts.gstatic.com" />
     <link
@@ -19,6 +19,19 @@
   </head>
   <body>
     <div id="quizzWrapper">
+      <svg id="homeIcon" class="homeIcon" height="20" width="20" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+          viewBox="0 0 477.846 477.846" style="enable-background:new 0 0 477.846 477.846;" xml:space="preserve">
+        <g>
+	        <g>
+		        <path d="M472.847,226.846l-34.116-34.116L250.998,4.997c-6.664-6.663-17.468-6.663-24.132,0L39.132,192.73L4.999,226.864
+              c-6.548,6.78-6.361,17.584,0.419,24.132c6.614,6.388,17.099,6.388,23.713,0l4.983-5.018v214.801
+              c0,9.426,7.641,17.067,17.067,17.067h375.467c9.426,0,17.067-7.641,17.067-17.067V245.978l5,5.001
+              c6.78,6.548,17.584,6.36,24.132-0.419C479.235,243.946,479.235,233.46,472.847,226.846z M290.115,443.713h-102.4V307.179h102.4
+              V443.713z M409.581,443.713h-85.333v-153.6c0-9.426-7.641-17.067-17.067-17.067H170.648c-9.426,0-17.067,7.641-17.067,17.067
+              v153.6H68.248V211.845L238.914,41.178l170.667,170.667V443.713z"/>
+          </g>
+        </g>
+      </svg>
       <svg class="volIcon" id="volIcon" enable-background="new 0 0 512 512" height="20" viewBox="0 0 512 512" width="20" xmlns="http://www.w3.org/2000/svg"><path d="m44 352h67.876l129.546 99.064c4.185 3.202 9.308 4.936 14.578 4.936h24c13.255 0 24-10.745 24-24v-352c0-13.255-10.745-24-24-24h-24c-5.27 0-10.393 1.734-14.579 4.936l-129.545 99.064h-67.876c-24.262 0-44 19.738-44 44v104c0 24.262 19.738 44 44 44zm212-241.787v291.574l-112-85.647v-120.28zm-208 97.787h48v96h-48z"/><path d="m341.634 360.55c4.618 4.276 10.466 6.391 16.3 6.391 6.452 0 12.886-2.586 17.616-7.693 26.084-28.171 40.45-64.839 40.45-103.248s-14.366-75.077-40.45-103.247c-9.006-9.724-24.19-10.31-33.916-1.303-9.726 9.005-10.31 24.19-1.304 33.916 17.843 19.27 27.67 44.355 27.67 70.634s-9.827 51.364-27.67 70.634c-9.006 9.725-8.422 24.911 1.304 33.916z"/><path d="m422.19 438.59c6.131 0 12.263-2.335 16.947-7.006 46.987-46.859 72.863-109.216 72.863-175.584s-25.876-128.725-72.863-175.584c-9.386-9.359-24.582-9.34-33.941.047-9.36 9.385-9.339 24.581.046 33.94 37.891 37.788 58.758 88.075 58.758 141.597s-20.867 103.809-58.758 141.597c-9.385 9.359-9.406 24.556-.046 33.94 4.689 4.701 10.841 7.053 16.994 7.053z"/></svg>
       <svg class="volIcon hideVolIcon" id="noVolIcon" enable-background="new 0 0 512 512" height="20" viewBox="0 0 512 512" width="20" xmlns="http://www.w3.org/2000/svg"><path d="m111.875 352 129.546 99.064c4.186 3.202 9.309 4.936 14.579 4.936h24c13.255 0 24-10.745 24-24v-352c0-13.255-10.745-24-24-24h-24c-5.27 0-10.393 1.734-14.579 4.936l-129.546 99.064h-67.875c-24.262 0-44 19.738-44 44v104c0 24.262 19.738 44 44 44zm144.125-241.787v291.574l-112-85.647v-120.28zm-208 97.787h48v96h-48z"/><path d="m504.971 175.029c-9.373-9.373-24.568-9.373-33.941 0l-47.03 47.03-47.029-47.029c-9.373-9.373-24.568-9.373-33.941 0-9.372 9.373-9.372 24.568 0 33.941l47.029 47.029-47.029 47.029c-9.372 9.373-9.372 24.568 0 33.941 4.686 4.687 10.827 7.03 16.97 7.03s12.284-2.343 16.971-7.029l47.029-47.03 47.029 47.029c4.687 4.687 10.828 7.03 16.971 7.03s12.284-2.343 16.971-7.029c9.372-9.373 9.372-24.568 0-33.941l-47.03-47.03 47.029-47.029c9.373-9.373 9.373-24.569.001-33.942z"/></svg>
       <!-- CODE INJECTED BY JS -->
@@ -64,17 +77,16 @@
 
     <div id="botWrapper" class="botContainer"></div>
 
-    <div id="buttonWrapper" class="buttonContainer"></div>
-
     <div id="ruleModal" class="rules">
       <div class="rulesContent">
+        <div class="modalTop">
         <span class="close" id="close">&times;</span>
-        <br><br>
         <h2 class="ruleTitle">Welcome to Digit Dash!</h2>
+      </div>
         <p>
           In this fun game each contestant takes turn guessing for a number
-          between 1 and 25 that the game master (Kitt) has in mind.<br><br>
-          Kitt will tell you if the number she is thinking of is higher or lower than your
+          between 1 and 100 that the game master (Kit) has in mind.<br><br>
+          Kit will tell you if the number she is thinking of is higher or lower than your
           guess. You only have 10 seconds to pick a number, so act fast.<br /><br />
           The first contestant to guess the correct number is named the winner!
         </p>
@@ -127,8 +139,9 @@
 
     <div id="highScoresModal" class="highScores">
       <div class="highScoresContent">
-          <span class="close" id="closeHighScores">&times;</span>
-          <br><br>
+        <div class="modalTop">
+        <span class="close" id="closeHighScores">&times;</span>
+        <br><br>
           <h2 class="ruleTitle">High Scores</h2>
         <div id="playerHighScores">
           <div id="player1"> </div>

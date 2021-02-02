@@ -11,6 +11,7 @@ const backgroundMusic: HTMLAudioElement = new Audio(
 function welcomeScreen() {
   // init volume control
   initVolumeControl();
+  initHomeButton();
 
   saveBotWinsToLS();
   removeBubbles();
@@ -28,17 +29,11 @@ function welcomeScreen() {
   // More smooth transition to next screen(?)s
 }
 // Use playSound() to add soundeffects
-function playSound(volume: number, path: string, id: string) {
+function playSound(volume: number, path: string) {
   let sound = new Audio(path);
   soundOn ? (sound.volume = volume) : (sound.volume = 0)
   // sound.volume = volume;
   sound.play();
-  sound.id = id;
-}
-
-function stopSound(path: string) {
-  let sound = new Audio(path);
-  sound.pause();
 }
 
 function loadMain(): void {
@@ -59,7 +54,7 @@ function loadMain(): void {
 
       ruleBubble.onclick = () => {
         const modal: HTMLElement | null = document.getElementById("ruleModal");
-        playSound(0.2, "./assets/sound/load.mp3", "load");
+        playSound(0.2, "./assets/sound/load.mp3");
         modal.style.opacity = "1";
         modal.style.visibility = "visible";
 
@@ -79,7 +74,7 @@ function loadMain(): void {
         "url(../assets/imgs/bubbleBR-button.png)";
       playBubble.onclick = () => {
         console.log("nameChoice");
-        playSound(0.2, "./assets/sound/load.mp3", "PlayLoad");
+        playSound(0.2, "./assets/sound/load.mp3");
         backgroundMusic.volume = 0.1;
         backgroundMusic.play();
         removeBubbles();
@@ -103,7 +98,9 @@ function loadMain(): void {
         modal.style.visibility = "visible";
 
         drawHighscoreList();
-        playSound(0.2, "./assets/sound/load.mp3", "highscoreLoad");
+      
+        console.log("High score");
+        playSound(0.2, "./assets/sound/load.mp3");
 
         let playerHighScores1 = document.createElement("div");
         playerHighScores1.id = "playerHighScores1";
@@ -209,5 +206,12 @@ function initVolumeControl(){
     //set sound on
     soundOn = true;
     backgroundMusic.volume = 0.1;
+  }
+}
+
+function initHomeButton(){
+  let homeIcon = document.getElementById('homeIcon');
+  homeIcon.onclick = () => {
+    location.reload();
   }
 }
