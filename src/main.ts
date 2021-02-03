@@ -26,6 +26,7 @@ function welcomeScreen() {
   enterBtn.style.textAlign = 'center';
   enterBtn.style.backgroundImage =
     "url(../assets/imgs/bubbleBR-button.png)";
+    enterBtn.classList.add('cursorPointer');
   setElementContent(bubbleTextID[3], "Enter");
 
   enterBtn.onclick = () => {
