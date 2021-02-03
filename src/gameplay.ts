@@ -24,7 +24,7 @@ const bubblePhrases: string[] = [
 ];
 // slider and its value
 const slider: HTMLInputElement = document.createElement("input");
-let sliderValue: HTMLParagraphElement = document.createElement("p");
+
 //submit button
 const submitBtn: HTMLButtonElement = document.createElement("button");
 //number of guesses the players has made
@@ -65,9 +65,9 @@ function drawSlider() {
 
   // Adds the elements to the wrapper
   inputWrapper.appendChild(slider);
-  inputWrapper.appendChild(sliderValue);
+  
   inputWrapper.appendChild(submitBtn);
-  inputWrapper.style.height = "8rem";
+  inputWrapper.style.height = "5rem";
 
   //updates the value when you move the slider
   slider.oninput = () => {

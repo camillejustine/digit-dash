@@ -10,8 +10,6 @@ function welcomeScreen() {
   saveBotWinsToLS();
   removeBubbles();
 
-  document.body.style.background =
-    "linear-gradient(180deg, #FFFFFF 0%, #9B85AD 100%)";
   document.getElementById("gameMasterWrapper").classList.add("fadeIn");
   document.getElementById(bubbleID[0]).style.visibility = "visible";
   document.getElementById(bubbleID[0]).style.textAlign = "center";
@@ -44,7 +42,7 @@ function loadMain(): void {
   backgroundMusic.volume = backgroundVol;
   backgroundMusic.play();
 
-  document.body.style.background = "white";
+  
   for (let index = 0; index < mainText.length; index++) {
     setElementContent(bubbleTextID[index], mainText[index]);
     document.getElementById(bubbleID[index]).style.visibility = "visible";
