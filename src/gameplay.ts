@@ -137,9 +137,9 @@ let correctGuessMade: boolean;
 
 // the logic for how the rounds works----
 function gameRound() {
-  console.log(botGuessValue);
-  console.log("maxguess: " + maxGuess);
-  console.log("minguess: " + minGuess);
+  // console.log(botGuessValue);
+  // console.log("maxguess: " + maxGuess);
+  // console.log("minguess: " + minGuess);
   //If someone wins the gameround breaks/ends
   if (correctGuessMade === true) {
     return;
@@ -298,11 +298,10 @@ function compareAnswer(answer: number, randomNumber: number) {
     document.getElementById(bubbleID[3]).style.visibility = "hidden";
     document.getElementById(bubbleID[1]).style.visibility = "visible";
     setElementContent(bubbleTextID[1], gpPhrases[1]);
-    amountOfGuesses++;
-    checkWhoWon();
-    correctGuessMade = true;
     backgroundMusic.pause();
     playSound(0.3, "./assets/sound/kitt-happy.mp3");
+    checkWhoWon();
+    correctGuessMade = true;
   } else if (answer > randomNumber) {
     // guess is too high
     document.getElementById(bubbleID[0]).style.visibility = "hidden";
@@ -314,7 +313,6 @@ function compareAnswer(answer: number, randomNumber: number) {
     setTimeout(() => {
       document.getElementById(bubbleID[2]).style.visibility = "hidden";
     }, 2000);
-    amountOfGuesses++;
   } else if (answer < randomNumber) {
     // guess is too low
     document.getElementById(bubbleID[0]).style.visibility = "hidden";
@@ -326,7 +324,7 @@ function compareAnswer(answer: number, randomNumber: number) {
     setTimeout(() => {
       document.getElementById(bubbleID[3]).style.visibility = "hidden";
     }, 2000);
-    amountOfGuesses++;
+    
   }
 }
 
@@ -391,4 +389,8 @@ function playerGuess() {
     }
   }
   const timer = setInterval(timeCounter, 1000);
+  amountOfGuesses++;
 }
+
+
+

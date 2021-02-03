@@ -97,6 +97,33 @@
   font-size: 1.2rem;
 }
 
+#heading {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+}
+
+#heading > p {
+ /* Här kan man styla rubrikeeeen */
+}
+
+.player {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.player > p {
+  /* Här stylar man spelarnas teeext */
+}
+
+#emptyHighscore {
+  /* Det här är texten som visas om det ej finns några highscore att visa upp */
+  display:none;
+}
+
 /*#endregion */
 
 /*region LOBBY MODAL BOT INFORMATION */

@@ -3,8 +3,6 @@ const backgroundMusic: HTMLAudioElement = new Audio(
   "./assets/sound/AcidJazz.mp3"
 );
 
-// let gameState: string = 'main', 'nameChoice', 'lobby', 'gamePlay', 'highScore'
-
 /**
  * First edition of the welcomeScreen, feel free to change it as you like!
  */
@@ -12,7 +10,6 @@ function welcomeScreen() {
   // init volume control
   initVolumeControl();
   initHomeButton();
-
   saveBotWinsToLS();
   removeBubbles();
 
@@ -31,15 +28,13 @@ function welcomeScreen() {
 // Use playSound() to add soundeffects
 function playSound(volume: number, path: string) {
   let sound = new Audio(path);
-  soundOn ? (sound.volume = volume) : (sound.volume = 0)
+  soundOn ? (sound.volume = volume) : (sound.volume = 0);
   // sound.volume = volume;
   sound.play();
 }
 
 function loadMain(): void {
-  //setTimeout(drawWinnerScreen, 2000)
   document.body.style.background = "white";
-  // gameState = 'main';
   for (let index = 0; index < mainText.length; index++) {
     setElementContent(bubbleTextID[index], mainText[index]);
     document.getElementById(bubbleID[index]).style.visibility = "visible";
@@ -73,13 +68,11 @@ function loadMain(): void {
       playBubble.style.backgroundImage =
         "url(../assets/imgs/bubbleBR-button.png)";
       playBubble.onclick = () => {
-        console.log("nameChoice");
         playSound(0.2, "./assets/sound/load.mp3");
         backgroundMusic.volume = 0.1;
         backgroundMusic.play();
         removeBubbles();
         nameChoice();
-        //gameState = 'nameChoice';
       };
     }
 
@@ -96,23 +89,15 @@ function loadMain(): void {
         );
         modal.style.opacity = "1";
         modal.style.visibility = "visible";
-        console.log("High score");
+
+        drawHighscoreList();
         playSound(0.2, "./assets/sound/load.mp3");
 
-        let playerHighScores1 = document.createElement("div");
-        playerHighScores1.id = "playerHighScores1";
-        document
-          .getElementById("playerHighScores")
-          .appendChild(playerHighScores1);
-
-        const closeHighScores: HTMLElement | null = document.getElementById(
-          "closeHighScores"
-        );
+        const closeHighScores: HTMLElement | null = document.getElementById("closeHighScores");
 
         closeHighScores.onclick = () => {
           modal.style.opacity = "0";
           modal.style.visibility = "hidden";
-          console.log("close High Score");
         };
       };
     }
@@ -121,34 +106,68 @@ function loadMain(): void {
   }
 }
 
-// Function showTot() { SHOW TEXT /VIDEO
-function initVolumeControl(){
-  let volIcon = document.getElementById('volIcon');
-  let noVolIcon = document.getElementById('noVolIcon');
+function drawHighscoreList() {
+  if (localStorage.getItem("players") == null) {
+    document.getElementById("emptyHighscore").style.display = "block";
+  } else {
+    document.getElementById("emptyHighscore").style.display = "none";
+    // GET THE ARRAY FROM LS
+    const playersLS: Array<PlayerObjct> = JSON.parse(
+      localStorage.getItem("players")
+    );
+
+    //DELETES THE PLAYERS WITH 0 AMOUNT OF GUESSES (meaning they did not win)
+    let highscoreList = playersLS.filter((item) => item.amountOfGuesses !== 0);
+
+    //SORTS THE ARRAY WITH LOWEST AMOUNT OF GUESSES FIRST
+    highscoreList.sort((a, b) => {
+      return a.amountOfGuesses - b.amountOfGuesses;
+    });
+
+    //DRAW OUT THE PLAYER INFO
+    for (let i = 0; i < highscoreList.length; i++) {
+      if (i === 3) {
+        break;
+      }
+      document.getElementById(`player${i}Name`).innerHTML =
+        highscoreList[i].name;
+      document.getElementById(`player${i}Amount`).innerHTML = highscoreList[
+        i
+      ].amountOfGuesses.toString();
+      document.getElementById(`player${i}Played`).innerHTML = highscoreList[
+        i
+      ].gamesPlayed.toString();
+    }
+  }
+}
+
+function initVolumeControl() {
+  let volIcon = document.getElementById("volIcon");
+  let noVolIcon = document.getElementById("noVolIcon");
 
   volIcon.onclick = () => {
     // set icon
-    volIcon.classList.add('hideVolIcon');
-    noVolIcon.classList.remove('hideVolIcon');
-    
+    volIcon.classList.add("hideVolIcon");
+    noVolIcon.classList.remove("hideVolIcon");
+
     // set sound off
     soundOn = false;
     backgroundMusic.volume = 0;
-  }
+  };
   noVolIcon.onclick = () => {
     // set icon
-    noVolIcon.classList.add('hideVolIcon');
-    volIcon.classList.remove('hideVolIcon');
+    noVolIcon.classList.add("hideVolIcon");
+    volIcon.classList.remove("hideVolIcon");
 
     //set sound on
     soundOn = true;
     backgroundMusic.volume = 0.1;
-  }
+  };
 }
 
-function initHomeButton(){
-  let homeIcon = document.getElementById('homeIcon');
+function initHomeButton() {
+  let homeIcon = document.getElementById("homeIcon");
   homeIcon.onclick = () => {
     location.reload();
-  }
+  };
 }
