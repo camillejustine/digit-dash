@@ -246,9 +246,9 @@ let maxGuess: number;
 function botAnswer(index: number) {
   let IQRange: number = checkWhichBot(index);
 
-  if (lastAnswerGiven > randomNumber) {
+  if (lastAnswerGiven > randomNumber && lastAnswerGiven < maxGuess) {
     maxGuess = lastAnswerGiven - 1;
-  } else if (lastAnswerGiven < randomNumber) {
+  } else if (lastAnswerGiven < randomNumber && lastAnswerGiven > minGuess) {
     minGuess = lastAnswerGiven + 1;
   }
 
@@ -269,8 +269,8 @@ function botAnswer(index: number) {
   }
 
   if (
-    (chosenBots[index] === "Gadget" && minGuess + 5 > randomNumber) ||
-    maxGuess - 5 < randomNumber
+    (chosenBots[index] === "Gadget" && minGuess + 2 > randomNumber) ||
+    maxGuess - 2 < randomNumber
   ) {
     botGuessValue = randomNumber;
   }
@@ -278,10 +278,10 @@ function botAnswer(index: number) {
 
 function checkWhichBot(index: number) {
   if (chosenBots[index] === "Gadget") {
-    let x = Math.floor(Math.random() * (15 - 3) + 3);
+    let x = Math.floor(Math.random() * (20 - 10) + 10);
     return x;
   } else if (chosenBots[index] === "Clank") {
-    let x = Math.floor(Math.random() * (60 - 30) + 30);
+    let x = Math.floor(Math.random() * (60 - 40) + 40);
     return x;
   } else if (chosenBots[index] === "Bolt") {
     let x = Math.floor(Math.random() * (90 - 70) + 70);
@@ -375,7 +375,7 @@ function playerGuess() {
     drawTimer(timeLeft - 1);
     timeLeft--;
 
-    
+
     if (timeLeft <= 0) {
       guessValue = parseInt(slider.value);
       compareAnswer(guessValue, randomNumber);
