@@ -65,7 +65,7 @@ function drawSlider() {
     inputWrapper.appendChild(slider);
     inputWrapper.appendChild(sliderValue);
     inputWrapper.appendChild(submitBtn);
-    inputWrapper.style.height = "10rem";
+    inputWrapper.style.height = "8rem";
     //updates the value when you move the slider
     slider.oninput = function () {
         document.getElementById("answer2").innerText = slider.value;
@@ -338,6 +338,7 @@ var PlayerObjct = /** @class */ (function () {
     return PlayerObjct;
 }());
 var soundOn = true;
+var backgroundVol = 0.1;
 var gameMaster = document.getElementById("gameMaster");
 var players = [];
 var bots;
@@ -503,7 +504,18 @@ function welcomeScreen() {
     document.getElementById(bubbleID[0]).style.visibility = "visible";
     document.getElementById(bubbleID[0]).style.textAlign = "center";
     setElementContent(bubbleTextID[0], "Welcome");
-    setTimeout(loadMain, 4000);
+    var enterBtn = document.getElementById(bubbleID[3]);
+    enterBtn.style.visibility = "visible";
+    enterBtn.style.textAlign = 'center';
+    enterBtn.style.backgroundImage =
+        "url(../assets/imgs/bubbleBR-button.png)";
+    enterBtn.classList.add('cursorPointer');
+    setElementContent(bubbleTextID[3], "Enter");
+    enterBtn.onclick = function () {
+        loadMain();
+        playSound(0.2, "./assets/sound/load.mp3");
+    };
+    // setTimeout(loadMain, 4000);
     //To be added:
     //"DIGIT DASH" text
     // More smooth transition to next screen(?)s
@@ -516,6 +528,8 @@ function playSound(volume, path) {
     sound.play();
 }
 function loadMain() {
+    backgroundMusic.volume = backgroundVol;
+    backgroundMusic.play();
     document.body.style.background = "white";
     for (var index = 0; index < mainText.length; index++) {
         setElementContent(bubbleTextID[index], mainText[index]);
@@ -546,8 +560,6 @@ function loadMain() {
                 "url(../assets/imgs/bubbleBR-button.png)";
             playBubble.onclick = function () {
                 playSound(0.2, "./assets/sound/load.mp3");
-                backgroundMusic.volume = 0.1;
-                backgroundMusic.play();
                 removeBubbles();
                 nameChoice();
             };
@@ -609,7 +621,8 @@ function initVolumeControl() {
         noVolIcon.classList.remove("hideVolIcon");
         // set sound off
         soundOn = false;
-        backgroundMusic.volume = 0;
+        backgroundVol = 0;
+        backgroundMusic.volume = backgroundVol;
     };
     noVolIcon.onclick = function () {
         // set icon
@@ -617,7 +630,8 @@ function initVolumeControl() {
         volIcon.classList.remove("hideVolIcon");
         //set sound on
         soundOn = true;
-        backgroundMusic.volume = 0.1;
+        backgroundVol = 0.1;
+        backgroundMusic.volume = backgroundVol;
     };
 }
 function initHomeButton() {

@@ -4,6 +4,7 @@ class BotObjct { bot: string; wins: number; gamesPlayed: number;};
 class PlayerObjct { name: string; amountOfGuesses: number; gamesPlayed: number;}
 
 let soundOn: boolean = true;
+let backgroundVol: number = 0.1;
 
 const gameMaster: any = document.getElementById("gameMaster");
 
