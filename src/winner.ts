@@ -42,7 +42,7 @@ function drawWinnerScreen(winner: string) {
     updatePlayerStats();
     document.getElementById("playerWinner").style.display = "block";
     document.getElementById("playerWinner").style.backgroundImage ='url("../assets/imgs/playerPlayer.png")';
-    document.getElementById("winnerName").innerHTML = lastPlayer + ", you won!";
+    document.getElementById("winnerName").innerHTML = localStorage.getItem("lastPlayer") + ", you won!";
   }
   setTimeout(restartGame, 3500);
   updatePlayerGamesPlayed();

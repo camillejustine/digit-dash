@@ -1,10 +1,8 @@
 const nameInput: HTMLInputElement = document.createElement("input");
 let lastPlayer: string;
 
-
 function nameChoice() {
   let playerExists: boolean = false;
-  getLastPlayersName();
   showGreeting();
   showNameInput();
   // init onclick event
@@ -12,6 +10,8 @@ function nameChoice() {
     if (event.key === "Enter") {
       let name: string = nameInput.value;
       lastPlayer = name;
+      localStorage.setItem("lastPlayer", lastPlayer)
+
       let players = JSON.parse(localStorage.getItem("players"));
       if (players === null) {
         let player: PlayerObjct = {
@@ -61,7 +61,7 @@ function showNameInput() {
   nameInput.autocomplete = "off";
   inputWrapper.appendChild(nameInput);
   nameInput.focus();
-  nameInput.value = getLastPlayersName(); //Autofills the inputfield with the latest players name
+  nameInput.value = localStorage.getItem("lastPlayer") //Autofills the inputfield with the latest players name
 }
 
 /**
@@ -73,18 +73,4 @@ function addToLS(player: PlayerObjct) {
   }
   players.push(player);
   localStorage.setItem("players", JSON.stringify(players));
-}
-
-
-
-/**
- * Gets the latest players name to put as autofill in the inputfield.
- * ONLY WORKS IF YOU DONT RELOAD THE PAGE/ PRESS HOME BUTTON
- */
-function getLastPlayersName() {
-  if (lastPlayer === undefined) {
-    return "";
-  } else {
-    return lastPlayer;
-  }
 }
