@@ -44,7 +44,7 @@ function drawWinnerScreen(winner: string) {
     document.getElementById("playerWinner").style.backgroundImage ='url("../assets/imgs/playerPlayer.png")';
     document.getElementById("winnerName").innerHTML = localStorage.getItem("lastPlayer") + ", you won!";
   }
-  setTimeout(restartGame, 3500);
+  setTimeout(restartGame, 35000);
   updatePlayerGamesPlayed();
 }
 
