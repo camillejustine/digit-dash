@@ -3,15 +3,13 @@
 }
 
 html {
-  height: 100%;
+  height: 100vh;
 }
 
 body {
   margin: 0;
   box-sizing: border-box;
-  height: 100vh;
   overflow: hidden;
-
 }
 
 h1,
@@ -44,7 +42,7 @@ p {
 
 #textBL,
 #textBR {
-  padding-top: .7rem;
+  padding-top: 0.7rem;
   font-size: 1rem;
   letter-spacing: 6%;
   width: 8rem;
@@ -76,7 +74,6 @@ p {
   height: 8rem;
   width: 12rem;
 }
-
 
 lottie-player {
   width: 200px;
@@ -155,8 +152,10 @@ lottie-player {
 }
 
 /* player styles */
-#playerBolt:hover,#playerClank:hover,#playerGadget:hover{
-  cursor:pointer;
+#playerBolt:hover,
+#playerClank:hover,
+#playerGadget:hover {
+  cursor: pointer;
 }
 
 #playerBolt,
@@ -237,7 +236,6 @@ lottie-player {
   width: 15rem;
 }
 
-
 .answerContainer {
   display: flex;
   flex-direction: row;
@@ -261,9 +259,9 @@ lottie-player {
   transition: all 500ms;
 }
 
-.guessBtn{
-  padding-bottom: .3rem;
-  border:none;
+.guessBtn {
+  padding-bottom: 0.3rem;
+  border: none;
   background: none;
   background-image: url("../assets/imgs/guessButton.png");
   width: 10rem;
@@ -291,12 +289,12 @@ lottie-player {
 #winnerModal {
   opacity: 0;
   transition: all 0.35s;
-  height:90%;
-  width:80%;
+  height: 90%;
+  width: 80%;
 }
 
 .winnerScreen {
-   visibility: hidden; 
+  visibility: hidden;
   position: fixed;
   z-index: 10;
   margin: 0 2.5rem 0 2.5rem;
@@ -319,22 +317,21 @@ lottie-player {
 
 .winnerContent {
   margin: 1% auto; /* 1% from the top and centered */
-  padding: 1rem; 
+  padding: 1rem;
   width: 90%; /* Could be more or less, depending on screen size */
   height: 90%;
   color: white;
   text-align: center;
-  display:flex;
+  display: flex;
 
   flex-direction: column;
   justify-content: center;
   align-items: center;
 }
 
-
 .winnerContent > p {
   font-size: 2rem;
-  margin:0;
+  margin: 0;
   padding: 0;
 }
 
@@ -344,30 +341,30 @@ lottie-player {
   margin: 0.5rem;
 }
 
- #winner {
-   display:none;
-   height: 15rem;
- }
-
+#winner {
+  display: none;
+  height: 15rem;
+}
 
 #playerWinner {
   height: 20rem;
   width: 20rem;
-  background-image: url('../assets/imgs/playerPlayer.png');
+  background-image: url("../assets/imgs/playerPlayer.png");
   background-size: cover;
   display: none;
 }
 
-.volIcon{
+.volIcon {
   padding: 1rem 1rem 1rem 0.2rem;
 }
-.hideVolIcon{
+.hideVolIcon {
   display: none;
 }
-.homeIcon{
+.homeIcon {
   padding: 1rem 0.2rem 1rem 1rem;
 }
-.volIcon:hover, .homeIcon:hover{
+.volIcon:hover,
+.homeIcon:hover {
   cursor: pointer;
 }
 /* REUSABLE CLASSES */
