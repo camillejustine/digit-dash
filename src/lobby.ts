@@ -8,6 +8,7 @@ const bubbleText = [
 let chosenBots: Array<string> = [];
 
 function lobby() {
+  console.log( "lobby" + lastPlayer)
   // display bubbles
   showBubble(bubbleID[0], bubbleTextID[0], bubbleText[0]);
   showBubble(bubbleID[3], bubbleTextID[3], bubbleText[1]);

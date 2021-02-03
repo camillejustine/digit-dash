@@ -33,6 +33,7 @@ const submitBtn: HTMLButtonElement = document.createElement("button");
 let amountOfGuesses: number = 0;
 
 function drawGame() {
+  console.log( "Gameplay" + lastPlayer)
   minGuess = 0;
   maxGuess = 100;
   correctGuessMade = false;
@@ -298,10 +299,10 @@ function compareAnswer(answer: number, randomNumber: number) {
     document.getElementById(bubbleID[3]).style.visibility = "hidden";
     document.getElementById(bubbleID[1]).style.visibility = "visible";
     setElementContent(bubbleTextID[1], gpPhrases[1]);
-    checkWhoWon();
-    correctGuessMade = true;
     backgroundMusic.pause();
     playSound(0.3, "./assets/sound/kitt-happy.mp3");
+    checkWhoWon();
+    correctGuessMade = true;
   } else if (answer > randomNumber) {
     // guess is too high
     document.getElementById(bubbleID[0]).style.visibility = "hidden";

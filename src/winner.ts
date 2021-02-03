@@ -1,5 +1,6 @@
 /** Checks which answer was the right one */
 function checkWhoWon() {
+  console.log(chosenBots)
   if (firstAnswerMade && !playerAnswerMade && !thirdAnswerMade) {
     setTimeout(drawWinnerScreen, 1500, chosenBots[0]);
   } else if (firstAnswerMade && playerAnswerMade && !thirdAnswerMade) {
@@ -16,7 +17,7 @@ function checkWhoWon() {
 
 /** Draws winnermodal and the right lottie-animation */
 function drawWinnerScreen(winner: string) {
-  updatePlayerGamesPlayed();
+  console.log( "winner" + lastPlayer)
   document.getElementById("winner").style.display = "none";
   document.getElementById("playerWinner").style.display = "none";
 
@@ -26,35 +27,27 @@ function drawWinnerScreen(winner: string) {
 
   if (winner === "Gadget") {
     document.getElementById("winner").style.display = "block";
-    document
-      .getElementById("winner")
-      .load("https://assets6.lottiefiles.com/private_files/lf30_okvpyhqk.json");
+    document.getElementById("winner").load("https://assets6.lottiefiles.com/private_files/lf30_okvpyhqk.json");
     document.getElementById("winnerName").innerHTML = "GADGET WON!";
     addWinToBotStat(1);
   } else if (winner === "Clank") {
     document.getElementById("winner").style.display = "block";
-    document
-      .getElementById("winner")
-      .load("https://assets3.lottiefiles.com/private_files/lf30_mvcyn7ao.json");
+    document.getElementById("winner").load("https://assets3.lottiefiles.com/private_files/lf30_mvcyn7ao.json");
     document.getElementById("winnerName").innerHTML = "CLANK WON!";
     addWinToBotStat(0);
   } else if (winner === "Bolt") {
     document.getElementById("winner").style.display = "block";
-    document
-      .getElementById("winner")
-      .load("https://assets5.lottiefiles.com/private_files/lf30_skjhneze.json");
+    document.getElementById("winner").load("https://assets5.lottiefiles.com/private_files/lf30_skjhneze.json");
     document.getElementById("winnerName").innerHTML = "BOLT WON!";
     addWinToBotStat(2);
   } else if (winner === "Player") {
     updatePlayerStats();
     document.getElementById("playerWinner").style.display = "block";
-    document.getElementById("playerWinner").style.backgroundImage =
-      'url("../assets/imgs/playerPlayer.png")';
-    document.getElementById("winnerName").innerHTML =
-      getPlayerName() + ", you won!";
+    document.getElementById("playerWinner").style.backgroundImage ='url("../assets/imgs/playerPlayer.png")';
+    document.getElementById("winnerName").innerHTML = lastPlayer + ", you won!";
   }
-
   setTimeout(restartGame, 3500);
+  updatePlayerGamesPlayed();
 }
 
 //Adds statistics to bot that wins.
@@ -88,25 +81,30 @@ function hideGamePlay() {
   updateGamesPlayed();
   removeBubbles();
   removeBubble(bubbleID[0], bubbleTextID[0]);
+  
   //Hides inputfield and button
   let inputAndButton = document.getElementById("inputField");
-  while (inputAndButton.firstChild)
-    inputAndButton.removeChild(inputAndButton.firstChild);
+  while (inputAndButton.firstChild){
+  inputAndButton.removeChild(inputAndButton.firstChild);}
+  
   // hides the bots
   let bots = document.getElementById("botWrapper");
-  while (bots.firstChild) bots.removeChild(bots.firstChild);
+  while (bots.firstChild){
+    bots.removeChild(bots.firstChild);}
   chosenBots = [];
   //hides the answer-bubbles
   let answers = document.getElementById("answerWrapper");
-  while (answers.firstChild) answers.removeChild(answers.firstChild);
+
+  while (answers.firstChild){
+     answers.removeChild(answers.firstChild);}
 }
 
 /** Gets most recent player from localStorage */
-function getPlayerName() {
-  const players: Array<Object> = JSON.parse(localStorage.getItem("players"));
-  const number = players.length - 1; //-1 to get the right indexnumber
-  return players[number].name; //Looks like an error but works fine
-}
+// function getPlayerName() {
+//   const players: Array<Object> = JSON.parse(localStorage.getItem("players"));
+//   const number = players.length - 1; //-1 to get the right indexnumber
+//   return players[number].name; //Looks like an error but works fine
+// }
 
 function saveBotWinsToLS() {
   localStorage.setItem("bots", JSON.stringify(bots));
@@ -147,9 +145,7 @@ function updateGamesPlayed() {
 
 function updatePlayerGamesPlayed() {
   console.log("Games playedddddd")
-  const playersLS: Array<PlayerObjct> = JSON.parse(
-    localStorage.getItem("players")
-  );
+  const playersLS: Array<PlayerObjct> = JSON.parse(localStorage.getItem("players"));
   for (let i = 0; i < playersLS.length; i++) {
     if (playersLS[i].name === lastPlayer) {
       playersLS[i].gamesPlayed++;

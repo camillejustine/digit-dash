@@ -37,6 +37,7 @@ function playSound(volume: number, path: string) {
 }
 
 function loadMain(): void {
+  console.log( "main" + lastPlayer)
   //setTimeout(drawWinnerScreen, 2000)
   document.body.style.background = "white";
   // gameState = 'main';
@@ -126,60 +127,50 @@ function loadMain(): void {
 }
 
 function drawHighscoreList(){
-  let player1 = document.getElementById('player1')
-  let player2 = document.getElementById('player2')
-  let player3 = document.getElementById('player3')
-  
-  if (localStorage.getItem("players") == null) { 
-    player1.innerHTML = "Sorry, we have nothing to display here yet!";
-    player2.innerHTML = "";
-    player3.innerHTML = "";
-  } else {
-  // GET THE ARRAY FROM LS
-  const playersLS: Array<PlayerObjct> = JSON.parse(localStorage.getItem("players"));
 
-  //DELETES THE PLAYERS WITH 0 AMOUNT OF GUESSES (meaning they did not win)
-  const highscoreList = players.filter(item => item.amountOfGuesses !== 0);
+   let player1 = document.getElementById('player1')
+   let player2 = document.getElementById('player2')
+   let player3 = document.getElementById('player3')
+  
+   if (localStorage.getItem("players") == null) { 
+     player1.innerHTML = "Sorry, we have nothing to display here yet!";
+     player2.innerHTML = "";
+     player3.innerHTML = "";
+   } else {
+   // GET THE ARRAY FROM LS
+   const playersLS: Array<PlayerObjct> = JSON.parse(localStorage.getItem("players"));
+
+   //DELETES THE PLAYERS WITH 0 AMOUNT OF GUESSES (meaning they did not win)
+    playersLS.filter(item => item.amountOfGuesses !== 0);
 
   //SORTS THE ARRAY WITH LOWEST AMOUNT OF GUESSES FIRST
-  highscoreList.sort((a, b) => {
-    return a.amountOfGuesses - b.amountOfGuesses;
-  });
+      playersLS.sort((a, b) => {
+     return a.amountOfGuesses - b.amountOfGuesses;
+   });
 
-   // IF SAME PLAYER APPEARS MULTIPLE TIMES ON THE HIGHSCORE LIST, ONLY SHOW THEIR BEST SCORE
-   //NEEDS THE CHECKS TO NOT THROW ERRORS
-//    if (highscoreList.length > 1) {
-//    if (highscoreList[0].name === highscoreList[1].name){
-//     highscoreList.splice(0,1)}
-//    }
 
-//     if (highscoreList.length > 2){
-//    if(highscoreList[1].name === highscoreList[2].name || highscoreList[0].name === highscoreList[2].name){
-//     highscoreList.splice(1,1) || highscoreList.splice(2,1)
-//   } 
-// }
-  //DRAW OUT PLAYER NAME + SCORE
-  player1.innerHTML = highscoreList[0].name + " " +  highscoreList[0].amountOfGuesses;
+//   //DRAW OUT PLAYER NAME + SCORE
+//   player1.innerHTML = highscoreList[0].name + " " +  highscoreList[0].amountOfGuesses;
   
-  //IF THERE IS ONLY 1 OR 2 PLAYER THAT HAVE PLAYED
-  if (highscoreList.length > 1){
-    player2.innerHTML = highscoreList[1].name + " " +  highscoreList[1].amountOfGuesses;
-  } else {
-    player2.innerHTML = "";
-    player3.innerHTML = "";
-  } 
+//   //IF THERE IS ONLY 1 OR 2 PLAYER THAT HAVE PLAYED
+//   if (highscoreList.length > 1){
+//     player2.innerHTML = highscoreList[1].name + " " +  highscoreList[1].amountOfGuesses;
+//   } else {
+//     player2.innerHTML = "";
+//     player3.innerHTML = "";
+//   } 
 
-//IF THERE IS ONLY 2 OR 3  PLAYERS THAT HAVE PLAYED
-  if (highscoreList.length > 2) {
-    player3.innerHTML = highscoreList[2].name + " " +  highscoreList[2].amountOfGuesses;
-  } else {
-    player3.innerHTML = "";
-  }
+// //IF THERE IS ONLY 2 OR 3  PLAYERS THAT HAVE PLAYED
+//   if (highscoreList.length > 2) {
+//     player3.innerHTML = highscoreList[2].name + " " +  highscoreList[2].amountOfGuesses;
+//   } else {
+//     player3.innerHTML = "";
+//   }
 
-  console.log (highscoreList)
+  console.log ("highscoreList")
 
  
-}
+// }
 
 
 }

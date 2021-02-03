@@ -291,11 +291,10 @@ lottie-player {
 }
 
 .winnerScreen {
-  visibility: hidden;
+   visibility: hidden; 
   position: fixed;
   z-index: 10;
   margin: 0 2.5rem 0 2.5rem;
-  height: 90%;
   top: 1rem;
   overflow: auto;
   background: linear-gradient(
@@ -315,7 +314,6 @@ lottie-player {
 
 .winnerContent {
   margin: 1% auto; /* 1% from the top and centered */
-
   padding: 1rem; 
   width: 90%; /* Could be more or less, depending on screen size */
   height: 90%;

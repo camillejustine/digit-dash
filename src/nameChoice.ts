@@ -3,6 +3,7 @@ let lastPlayer: string;
 
 
 function nameChoice() {
+  console.log( "namechoice" + lastPlayer)
   let playerExists: boolean = false;
   getLastPlayersName();
   showGreeting();
@@ -75,15 +76,16 @@ function addToLS(player: PlayerObjct) {
   localStorage.setItem("players", JSON.stringify(players));
 }
 
+
+
+//OBS Nedan funkar endast om man ej laddar om sidan/klickar på hemknappen.
 /**
- * Gets the latest players name to put as autofill in the
+ * Gets the latest players name to put as autofill in the inputfield
  */
 function getLastPlayersName() {
-  if (localStorage.getItem("players") === null) {
+  if (lastPlayer === undefined) {
     return "";
   } else {
-    const players: Array<Object> = JSON.parse(localStorage.getItem("players"));
-    const number = players.length - 1; //-1 to get the right indexnumber
-    return players[number].name; //Looks like an error but works fine
+    return lastPlayer;
   }
 }
