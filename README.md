@@ -21,8 +21,12 @@ The first contestant to guess the correct number is named the winner!
 ## For developers
 
 The project is written in Typescript.
+
 To install all dependencies, write <em style="color: orange">npm install.</em>
+
 To compile, write <em style="color: orange">tsc</em>
+
 To start compiler in watch-mode, write <em style="color: orange">tsc -w.</em>
+
 
 </p>
