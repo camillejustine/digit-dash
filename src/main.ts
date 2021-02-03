@@ -3,9 +3,6 @@ const backgroundMusic: HTMLAudioElement = new Audio(
   "./assets/sound/AcidJazz.mp3"
 );
 
-/**
- * First edition of the welcomeScreen, feel free to change it as you like!
- */
 function welcomeScreen() {
   // init volume control
   initVolumeControl();
@@ -14,7 +11,7 @@ function welcomeScreen() {
   removeBubbles();
 
   document.body.style.background =
-    "linear-gradient(180deg, #FFFFFF 0%, #9B85AD 100%)"; //This needs some adjustment
+    "linear-gradient(180deg, #FFFFFF 0%, #9B85AD 100%)";
   document.getElementById("gameMasterWrapper").classList.add("fadeIn");
   document.getElementById(bubbleID[0]).style.visibility = "visible";
   document.getElementById(bubbleID[0]).style.textAlign = "center";
@@ -34,18 +31,12 @@ function welcomeScreen() {
 
     playSound(0.2, "./assets/sound/load.mp3");
   }
-
-  // setTimeout(loadMain, 4000);
-
-  //To be added:
-  //"DIGIT DASH" text
-  // More smooth transition to next screen(?)s
 }
-// Use playSound() to add soundeffects
+
+
 function playSound(volume: number, path: string) {
   let sound = new Audio(path);
   soundOn ? (sound.volume = volume) : (sound.volume = 0);
-  // sound.volume = volume;
   sound.play();
 }
 
@@ -128,7 +119,7 @@ function drawHighscoreList() {
     document.getElementById("emptyHighscore").style.display = "block";
   } else {
     document.getElementById("emptyHighscore").style.display = "none";
-    // GET THE ARRAY FROM LS
+
     const playersLS: Array<PlayerObjct> = JSON.parse(
       localStorage.getItem("players")
     );
