@@ -50,7 +50,7 @@ function playSound(volume: number, path: string) {
 }
 
 function loadMain(): void {
-  backgroundMusic.volume = 0.1;
+  backgroundMusic.volume = backgroundVol;
   backgroundMusic.play();
 
   document.body.style.background = "white";
@@ -169,7 +169,8 @@ function initVolumeControl() {
 
     // set sound off
     soundOn = false;
-    backgroundMusic.volume = 0;
+    backgroundVol = 0;
+    backgroundMusic.volume = backgroundVol;
   };
   noVolIcon.onclick = () => {
     // set icon
@@ -178,7 +179,8 @@ function initVolumeControl() {
 
     //set sound on
     soundOn = true;
-    backgroundMusic.volume = 0.1;
+    backgroundVol = 0.1;
+    backgroundMusic.volume = backgroundVol;
   };
 }
 
