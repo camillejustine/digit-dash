@@ -375,6 +375,7 @@ function playerGuess() {
     drawTimer(timeLeft - 1);
     timeLeft--;
 
+    
     if (timeLeft <= 0) {
       guessValue = parseInt(slider.value);
       compareAnswer(guessValue, randomNumber);
