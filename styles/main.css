@@ -63,22 +63,18 @@ p {
 
 #bubbleTR {
   background-image: url("../assets/imgs/bubbleTR.png");
-
 }
 
 #bubbleTL {
   background-image: url("../assets/imgs/bubbleTL.png");
-
 }
 
 #bubbleBR {
   background-image: url("../assets/imgs/bubbleBR.png");
-
 }
 
 #bubbleBL {
   background-image: url("../assets/imgs/bubbleBL.png");
-  
 }
 
 lottie-player {
@@ -306,10 +302,10 @@ lottie-player {
   margin: 0 2.5rem 0 2.5rem;
   top: 1rem;
   overflow: auto;
-  background: linear-gradient(
-    180deg,
-    rgba(212, 206, 220, 0.6) 0%,
-    rgba(23, 38, 77, 0.6) 100%
+  background: radial-gradient(
+    circle,
+    rgba(238, 174, 202, 0.623) 0%,
+    rgba(148, 187, 233, 0.623) 100%
   );
   backdrop-filter: blur(1rem);
   transition: block 4s;

@@ -14,11 +14,10 @@
   z-index: 10;
   top: 1rem;
   overflow: auto;
-  background: rgb(238, 174, 202);
   background: radial-gradient(
     circle,
-    rgba(238, 174, 202, 1) 0%,
-    rgba(148, 187, 233, 1) 100%
+    rgba(238, 174, 202, 0.9) 0%,
+    rgba(148, 187, 233, 0.623) 100%
   );
   backdrop-filter: blur(1rem);
   transition: block 4s;
@@ -67,11 +66,10 @@
   z-index: 10;
   top: 1rem;
   overflow: auto;
-  background: rgb(238, 174, 202);
   background: radial-gradient(
     circle,
-    rgba(238, 174, 202, 1) 0%,
-    rgba(148, 187, 233, 1) 100%
+    rgba(238, 174, 202, 0.9) 0%,
+    rgba(148, 187, 233, 0.623) 100%
   );
 
   backdrop-filter: blur(1rem);
@@ -136,11 +134,10 @@
   z-index: 10;
   top: 1rem;
   overflow: auto;
-  background: rgb(238, 174, 202);
   background: radial-gradient(
     circle,
-    rgba(238, 174, 202, 1) 0%,
-    rgba(148, 187, 233, 1) 100%
+    rgba(238, 174, 202, 0.9) 0%,
+    rgba(148, 187, 233, 0.623) 100%
   );
   backdrop-filter: blur(1rem);
   transition: block 4s;
