@@ -1,15 +1,25 @@
 * {
   font-family: "Montserrat", sans-serif;
+  /* border: 1px solid red; */
 }
 
 html {
+  margin: 0;
+  padding: 0;
   height: 100vh;
+  width: 100vw;
 }
 
 body {
   margin: 0;
   box-sizing: border-box;
-  overflow: hidden;
+  background: rgb(223, 212, 232);
+  background: linear-gradient(
+    172deg,
+    rgba(223, 212, 232, 1) 50%,
+    rgba(255, 255, 255, 1) 100%
+  );
+  background-repeat: no-repeat;
 }
 
 h1,
@@ -53,26 +63,22 @@ p {
 
 #bubbleTR {
   background-image: url("../assets/imgs/bubbleTR.png");
-  height: 8rem;
-  width: 12rem;
+
 }
 
 #bubbleTL {
   background-image: url("../assets/imgs/bubbleTL.png");
-  height: 8rem;
-  width: 12rem;
+
 }
 
 #bubbleBR {
   background-image: url("../assets/imgs/bubbleBR.png");
-  height: 8rem;
-  width: 12rem;
+
 }
 
 #bubbleBL {
   background-image: url("../assets/imgs/bubbleBL.png");
-  height: 8rem;
-  width: 12rem;
+  
 }
 
 lottie-player {
@@ -123,8 +129,8 @@ lottie-player {
   align-items: center;
   cursor: default;
 
-  width: 8rem;
-  height: 6rem;
+  width: 10rem;
+  height: 8rem;
 }
 
 .bubble > p {
