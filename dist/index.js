@@ -120,9 +120,9 @@ var answerTime;
 var correctGuessMade;
 // the logic for how the rounds works----
 function gameRound() {
-    console.log(botGuessValue);
-    console.log("maxguess: " + maxGuess);
-    console.log("minguess: " + minGuess);
+    // console.log(botGuessValue);
+    // console.log("maxguess: " + maxGuess);
+    // console.log("minguess: " + minGuess);
     //If someone wins the gameround breaks/ends
     if (correctGuessMade === true) {
         return;
@@ -245,10 +245,10 @@ function compareAnswer(answer, randomNumber) {
         document.getElementById(bubbleID[3]).style.visibility = "hidden";
         document.getElementById(bubbleID[1]).style.visibility = "visible";
         setElementContent(bubbleTextID[1], gpPhrases[1]);
+        backgroundMusic.pause();
+        playSound(0.3, "./assets/sound/kitt-happy.mp3");
         checkWhoWon();
         correctGuessMade = true;
-        backgroundMusic.pause();
-        playSound(0.3, "./assets/sound/kitt-happy.mp3", "kittHappy");
     }
     else if (answer > randomNumber) {
         // guess is too high
@@ -256,7 +256,7 @@ function compareAnswer(answer, randomNumber) {
         document.getElementById(bubbleID[1]).style.visibility = "hidden";
         document.getElementById(bubbleID[3]).style.visibility = "hidden";
         document.getElementById(bubbleID[2]).style.visibility = "visible";
-        playSound(0.3, "./assets/sound/kitt-sad.mp3", "kittSad");
+        playSound(0.3, "./assets/sound/kitt-sad.mp3");
         setElementContent(bubbleTextID[2], gpPhrases[2]);
         setTimeout(function () {
             document.getElementById(bubbleID[2]).style.visibility = "hidden";
@@ -268,7 +268,7 @@ function compareAnswer(answer, randomNumber) {
         document.getElementById(bubbleID[1]).style.visibility = "hidden";
         document.getElementById(bubbleID[2]).style.visibility = "hidden";
         document.getElementById(bubbleID[3]).style.visibility = "visible";
-        playSound(0.3, "./assets/sound/kitt-surprised.mp3", "kittSurprised");
+        playSound(0.3, "./assets/sound/kitt-surprised.mp3");
         setElementContent(bubbleTextID[3], gpPhrases[3]);
         setTimeout(function () {
             document.getElementById(bubbleID[3]).style.visibility = "hidden";
@@ -399,6 +399,9 @@ function lobby() {
     playerBolt.onclick = function () {
         // add or remove bot to array and set img (grey or color)
         checkBotArray("Bolt", playerBolt);
+        if (playerBolt.style.backgroundImage !==
+            "url(\"../assets/imgs/playerBolt-grey.png\")")
+            playSound(0.2, "./assets/sound/bolt-chosen.mp3");
     };
     document.getElementById("botWrapper").appendChild(playerBolt);
     var playerClank = document.createElement("div");
@@ -406,6 +409,9 @@ function lobby() {
     playerClank.onclick = function () {
         // add or remove bot to array and set img (grey or color)
         checkBotArray("Clank", playerClank);
+        if (playerClank.style.backgroundImage !==
+            "url(\"../assets/imgs/playerClank-grey.png\")")
+            playSound(0.15, "./assets/sound/clank-chosen.mp3");
     };
     document.getElementById("botWrapper").appendChild(playerClank);
     var playerGadget = document.createElement("div");
@@ -413,6 +419,9 @@ function lobby() {
     playerGadget.onclick = function () {
         // add or remove bot to array and set img (grey or color)
         checkBotArray("Gadget", playerGadget);
+        if (playerGadget.style.backgroundImage !==
+            "url(\"../assets/imgs/playerGadget-grey.png\")")
+            playSound(0.1, "./assets/sound/gadget-chosen.mp3");
     };
     document.getElementById("botWrapper").appendChild(playerGadget);
     // bot info click event (show modal)
@@ -422,6 +431,7 @@ function lobby() {
         var botModal = document.getElementById("botModal");
         botModal.style.opacity = "1";
         botModal.style.visibility = "visible";
+        playSound(0.2, "./assets/sound/load.mp3");
         var botClose = document.getElementById("botClose");
         botClose.onclick = function () {
             botModal.style.opacity = "0";
@@ -472,28 +482,12 @@ function drawBotWins() {
     var clankWinRate = (bots[0].wins / bots[0].gamesPlayed) * 100;
     var gadgetWinRate = (bots[1].wins / bots[1].gamesPlayed) * 100;
     var boltWinRate = (bots[2].wins / bots[2].gamesPlayed) * 100;
-    document.getElementById("clankWins").innerHTML =
-        "Clank has a total win rate of " +
-            clankWinRate.toFixed(1) +
-            "% and currently has " +
-            bots[0].wins +
-            " wins.";
-    document.getElementById("gadgetWins").innerHTML =
-        "Gadget has a total win rate of " +
-            gadgetWinRate.toFixed(1) +
-            "% and currently has " +
-            bots[1].wins +
-            " wins.";
-    document.getElementById("boltWins").innerHTML =
-        "Bolt has a total win rate of " +
-            boltWinRate.toFixed(1) +
-            "% and currently has " +
-            bots[2].wins +
-            " wins.";
+    document.getElementById("clankWins").innerHTML = "Clank has a total win rate of " + clankWinRate.toFixed(1) + "% and currently has " + bots[0].wins + " wins.";
+    document.getElementById("gadgetWins").innerHTML = "Gadget has a total win rate of " + gadgetWinRate.toFixed(1) + "% and currently has " + bots[1].wins + " wins.";
+    document.getElementById("boltWins").innerHTML = "Bolt has a total win rate of " + boltWinRate.toFixed(1) + "% and currently has " + bots[2].wins + " wins.";
 }
 var mainText = ["", "High Scores", "How to play", "Play"];
 var backgroundMusic = new Audio("./assets/sound/AcidJazz.mp3");
-// let gameState: string = 'main', 'nameChoice', 'lobby', 'gamePlay', 'highScore'
 /**
  * First edition of the welcomeScreen, feel free to change it as you like!
  */
@@ -515,21 +509,14 @@ function welcomeScreen() {
     // More smooth transition to next screen(?)s
 }
 // Use playSound() to add soundeffects
-function playSound(volume, path, id) {
+function playSound(volume, path) {
     var sound = new Audio(path);
     soundOn ? (sound.volume = volume) : (sound.volume = 0);
     // sound.volume = volume;
     sound.play();
-    sound.id = id;
-}
-function stopSound(path) {
-    var sound = new Audio(path);
-    sound.pause();
 }
 function loadMain() {
-    //setTimeout(drawWinnerScreen, 2000)
     document.body.style.background = "white";
-    // gameState = 'main';
     for (var index = 0; index < mainText.length; index++) {
         setElementContent(bubbleTextID[index], mainText[index]);
         document.getElementById(bubbleID[index]).style.visibility = "visible";
@@ -542,7 +529,7 @@ function loadMain() {
                 "url(../assets/imgs/bubbleBL-button.png)";
             ruleBubble.onclick = function () {
                 var modal = document.getElementById("ruleModal");
-                playSound(0.2, "./assets/sound/load.mp3", "load");
+                playSound(0.2, "./assets/sound/load.mp3");
                 modal.style.opacity = "1";
                 modal.style.visibility = "visible";
                 var close = document.getElementById("close");
@@ -558,13 +545,11 @@ function loadMain() {
             playBubble.style.backgroundImage =
                 "url(../assets/imgs/bubbleBR-button.png)";
             playBubble.onclick = function () {
-                console.log("nameChoice");
-                playSound(0.2, "./assets/sound/load.mp3", "PlayLoad");
+                playSound(0.2, "./assets/sound/load.mp3");
                 backgroundMusic.volume = 0.1;
                 backgroundMusic.play();
                 removeBubbles();
                 nameChoice();
-                //gameState = 'nameChoice';
             };
         }
         // high score module
@@ -578,17 +563,11 @@ function loadMain() {
                 modal.style.opacity = "1";
                 modal.style.visibility = "visible";
                 drawHighscoreList();
-                playSound(0.2, "./assets/sound/load.mp3", "highscoreLoad");
-                var playerHighScores1 = document.createElement("div");
-                playerHighScores1.id = "playerHighScores1";
-                document
-                    .getElementById("playerHighScores")
-                    .appendChild(playerHighScores1);
+                playSound(0.2, "./assets/sound/load.mp3");
                 var closeHighScores = document.getElementById("closeHighScores");
                 closeHighScores.onclick = function () {
                     modal.style.opacity = "0";
                     modal.style.visibility = "hidden";
-                    console.log("close High Score");
                 };
             };
         }
@@ -596,78 +575,53 @@ function loadMain() {
     }
 }
 function drawHighscoreList() {
-    var player1 = document.getElementById('player1');
-    var player2 = document.getElementById('player2');
-    var player3 = document.getElementById('player3');
     if (localStorage.getItem("players") == null) {
-        player1.innerHTML = "Sorry, we have nothing to display here yet!";
-        player2.innerHTML = "";
-        player3.innerHTML = "";
+        document.getElementById("emptyHighscore").style.display = "block";
     }
     else {
+        document.getElementById("emptyHighscore").style.display = "none";
         // GET THE ARRAY FROM LS
         var playersLS = JSON.parse(localStorage.getItem("players"));
         //DELETES THE PLAYERS WITH 0 AMOUNT OF GUESSES (meaning they did not win)
-        var highscoreList = players.filter(function (item) { return item.amountOfGuesses !== 0; });
+        var highscoreList = playersLS.filter(function (item) { return item.amountOfGuesses !== 0; });
         //SORTS THE ARRAY WITH LOWEST AMOUNT OF GUESSES FIRST
         highscoreList.sort(function (a, b) {
             return a.amountOfGuesses - b.amountOfGuesses;
         });
-        // IF SAME PLAYER APPEARS MULTIPLE TIMES ON THE HIGHSCORE LIST, ONLY SHOW THEIR BEST SCORE
-        //NEEDS THE CHECKS TO NOT THROW ERRORS
-        //    if (highscoreList.length > 1) {
-        //    if (highscoreList[0].name === highscoreList[1].name){
-        //     highscoreList.splice(0,1)}
-        //    }
-        //     if (highscoreList.length > 2){
-        //    if(highscoreList[1].name === highscoreList[2].name || highscoreList[0].name === highscoreList[2].name){
-        //     highscoreList.splice(1,1) || highscoreList.splice(2,1)
-        //   } 
-        // }
-        //DRAW OUT PLAYER NAME + SCORE
-        player1.innerHTML = highscoreList[0].name + " " + highscoreList[0].amountOfGuesses;
-        //IF THERE IS ONLY 1 OR 2 PLAYER THAT HAVE PLAYED
-        if (highscoreList.length > 1) {
-            player2.innerHTML = highscoreList[1].name + " " + highscoreList[1].amountOfGuesses;
+        //DRAW OUT THE PLAYER INFO
+        for (var i = 0; i < highscoreList.length; i++) {
+            if (i === 3) {
+                break;
+            }
+            document.getElementById("player" + i + "Name").innerHTML =
+                highscoreList[i].name;
+            document.getElementById("player" + i + "Amount").innerHTML = highscoreList[i].amountOfGuesses.toString();
+            document.getElementById("player" + i + "Played").innerHTML = highscoreList[i].gamesPlayed.toString();
         }
-        else {
-            player2.innerHTML = "";
-            player3.innerHTML = "";
-        }
-        //IF THERE IS ONLY 2 OR 3  PLAYERS THAT HAVE PLAYED
-        if (highscoreList.length > 2) {
-            player3.innerHTML = highscoreList[2].name + " " + highscoreList[2].amountOfGuesses;
-        }
-        else {
-            player3.innerHTML = "";
-        }
-        console.log(highscoreList);
     }
 }
-// Function showTot() { SHOW TEXT /VIDEO  
-// Function showTot() { SHOW TEXT /VIDEO
 function initVolumeControl() {
-    var volIcon = document.getElementById('volIcon');
-    var noVolIcon = document.getElementById('noVolIcon');
+    var volIcon = document.getElementById("volIcon");
+    var noVolIcon = document.getElementById("noVolIcon");
     volIcon.onclick = function () {
         // set icon
-        volIcon.classList.add('hideVolIcon');
-        noVolIcon.classList.remove('hideVolIcon');
+        volIcon.classList.add("hideVolIcon");
+        noVolIcon.classList.remove("hideVolIcon");
         // set sound off
         soundOn = false;
         backgroundMusic.volume = 0;
     };
     noVolIcon.onclick = function () {
         // set icon
-        noVolIcon.classList.add('hideVolIcon');
-        volIcon.classList.remove('hideVolIcon');
+        noVolIcon.classList.add("hideVolIcon");
+        volIcon.classList.remove("hideVolIcon");
         //set sound on
         soundOn = true;
         backgroundMusic.volume = 0.1;
     };
 }
 function initHomeButton() {
-    var homeIcon = document.getElementById('homeIcon');
+    var homeIcon = document.getElementById("homeIcon");
     homeIcon.onclick = function () {
         location.reload();
     };
@@ -741,16 +695,15 @@ function addToLS(player) {
     localStorage.setItem("players", JSON.stringify(players));
 }
 /**
- * Gets the latest players name to put as autofill in the
+ * Gets the latest players name to put as autofill in the inputfield.
+ * ONLY WORKS IF YOU DONT RELOAD THE PAGE/ PRESS HOME BUTTON
  */
 function getLastPlayersName() {
-    if (localStorage.getItem("players") === null) {
+    if (lastPlayer === undefined) {
         return "";
     }
     else {
-        var players_2 = JSON.parse(localStorage.getItem("players"));
-        var number = players_2.length - 1; //-1 to get the right indexnumber
-        return players_2[number].name; //Looks like an error but works fine
+        return lastPlayer;
     }
 }
 /** Checks which answer was the right one */
@@ -770,7 +723,6 @@ function checkWhoWon() {
 }
 /** Draws winnermodal and the right lottie-animation */
 function drawWinnerScreen(winner) {
-    updatePlayerGamesPlayed();
     document.getElementById("winner").style.display = "none";
     document.getElementById("playerWinner").style.display = "none";
     var modal = document.getElementById("winnerModal");
@@ -778,37 +730,30 @@ function drawWinnerScreen(winner) {
     modal.style.visibility = "visible";
     if (winner === "Gadget") {
         document.getElementById("winner").style.display = "block";
-        document
-            .getElementById("winner")
-            .load("https://assets6.lottiefiles.com/private_files/lf30_okvpyhqk.json");
+        document.getElementById("winner").load("https://assets6.lottiefiles.com/private_files/lf30_okvpyhqk.json");
         document.getElementById("winnerName").innerHTML = "GADGET WON!";
         addWinToBotStat(1);
     }
     else if (winner === "Clank") {
         document.getElementById("winner").style.display = "block";
-        document
-            .getElementById("winner")
-            .load("https://assets3.lottiefiles.com/private_files/lf30_mvcyn7ao.json");
+        document.getElementById("winner").load("https://assets3.lottiefiles.com/private_files/lf30_mvcyn7ao.json");
         document.getElementById("winnerName").innerHTML = "CLANK WON!";
         addWinToBotStat(0);
     }
     else if (winner === "Bolt") {
         document.getElementById("winner").style.display = "block";
-        document
-            .getElementById("winner")
-            .load("https://assets5.lottiefiles.com/private_files/lf30_skjhneze.json");
+        document.getElementById("winner").load("https://assets5.lottiefiles.com/private_files/lf30_skjhneze.json");
         document.getElementById("winnerName").innerHTML = "BOLT WON!";
         addWinToBotStat(2);
     }
     else if (winner === "Player") {
         updatePlayerStats();
         document.getElementById("playerWinner").style.display = "block";
-        document.getElementById("playerWinner").style.backgroundImage =
-            'url("../assets/imgs/playerPlayer.png")';
-        document.getElementById("winnerName").innerHTML =
-            getPlayerName() + ", you won!";
+        document.getElementById("playerWinner").style.backgroundImage = 'url("../assets/imgs/playerPlayer.png")';
+        document.getElementById("winnerName").innerHTML = lastPlayer + ", you won!";
     }
     setTimeout(restartGame, 3500);
+    updatePlayerGamesPlayed();
 }
 //Adds statistics to bot that wins.
 function addWinToBotStat(index) {
@@ -839,23 +784,20 @@ function hideGamePlay() {
     removeBubble(bubbleID[0], bubbleTextID[0]);
     //Hides inputfield and button
     var inputAndButton = document.getElementById("inputField");
-    while (inputAndButton.firstChild)
+    while (inputAndButton.firstChild) {
         inputAndButton.removeChild(inputAndButton.firstChild);
+    }
     // hides the bots
     var bots = document.getElementById("botWrapper");
-    while (bots.firstChild)
+    while (bots.firstChild) {
         bots.removeChild(bots.firstChild);
+    }
     chosenBots = [];
     //hides the answer-bubbles
     var answers = document.getElementById("answerWrapper");
-    while (answers.firstChild)
+    while (answers.firstChild) {
         answers.removeChild(answers.firstChild);
-}
-/** Gets most recent player from localStorage */
-function getPlayerName() {
-    var players = JSON.parse(localStorage.getItem("players"));
-    var number = players.length - 1; //-1 to get the right indexnumber
-    return players[number].name; //Looks like an error but works fine
+    }
 }
 function saveBotWinsToLS() {
     localStorage.setItem("bots", JSON.stringify(bots));
@@ -894,7 +836,6 @@ function updateGamesPlayed() {
     localStorage.setItem("bots", JSON.stringify(bots));
 }
 function updatePlayerGamesPlayed() {
-    console.log("Games playedddddd");
     var playersLS = JSON.parse(localStorage.getItem("players"));
     for (var i = 0; i < playersLS.length; i++) {
         if (playersLS[i].name === lastPlayer) {
@@ -913,9 +854,5 @@ function updatePlayerStats() {
             }
         }
     }
-    // const number = players.length - 1; //-1 to get the right indexnumber
-    // //Replaces the object with a new object with same name but updated ''amountofGuesses''
-    // players.splice(number, 1, {name: getPlayerName(), amountOfGuesses: amountOfGuesses, gamesPlayed: 0})
-    // localStorage.setItem("players", JSON.stringify(players));
 }
 //# sourceMappingURL=index.js.map

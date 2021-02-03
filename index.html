@@ -137,20 +137,27 @@
       </div>
     </div>
 
-    <div id="highScoresModal" class="highScores">
+    <div id="highScoresModal" class="highScores modalTop">
       <div class="highScoresContent">
         <div class="modalTop">
         <span class="close" id="closeHighScores">&times;</span>
         <br><br>
           <h2 class="ruleTitle">High Scores</h2>
+        </div>
         <div id="playerHighScores">
-          <div id="player1"> </div>
-          <div id="player2"> </div>
-          <div id="player3"> </div>
+          <!-- <div id = "heading">
+            <p> Player name</p> <p> Least amount of guesses to win</p> <p> Games played</p>
+          </div> -->
+          <div id = "heading"> <p> Name</p> <p> Amount of guesses</p> <p> Games played</p> </div>
+          <p id = "emptyHighscore"> Nothing to display here yet!</p>
+          <div class = "player"> <p id = "player0Name"></p><p id = "player0Amount"></p><p id = "player0Played"></p> </div>
+          <div class = "player"> <p id = "player1Name"></p><p id = "player1Amount"></p><p id = "player1Played"></p> </div>
+          <div class = "player"> <p id = "player2Name"></p><p id = "player2Amount"></p><p id = "player2Played"></p> </div>
         </div>
         <!-- javascript -->
-      </div>
+       </div> 
     </div>
+    
     
     <div id="winnerModal" class="winnerScreen">
       <div class="winnerContent">

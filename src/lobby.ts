@@ -8,7 +8,6 @@ const bubbleText = [
 let chosenBots: Array<string> = [];
 
 function lobby() {
-  console.log( "lobby" + lastPlayer)
   // display bubbles
   showBubble(bubbleID[0], bubbleTextID[0], bubbleText[0]);
   showBubble(bubbleID[3], bubbleTextID[3], bubbleText[1]);
@@ -123,22 +122,7 @@ function drawBotWins() {
   let gadgetWinRate: number = (bots[1].wins / bots[1].gamesPlayed) * 100;
   let boltWinRate: number = (bots[2].wins / bots[2].gamesPlayed) * 100;
 
-  document.getElementById("clankWins").innerHTML =
-    "Clank has a total win rate of " +
-    clankWinRate.toFixed(1) +
-    "% and currently has " +
-    bots[0].wins +
-    " wins.";
-  document.getElementById("gadgetWins").innerHTML =
-    "Gadget has a total win rate of " +
-    gadgetWinRate.toFixed(1) +
-    "% and currently has " +
-    bots[1].wins +
-    " wins.";
-  document.getElementById("boltWins").innerHTML =
-    "Bolt has a total win rate of " +
-    boltWinRate.toFixed(1) +
-    "% and currently has " +
-    bots[2].wins +
-    " wins.";
+  document.getElementById("clankWins").innerHTML = "Clank has a total win rate of " +clankWinRate.toFixed(1) + "% and currently has " + bots[0].wins + " wins.";
+  document.getElementById("gadgetWins").innerHTML = "Gadget has a total win rate of " + gadgetWinRate.toFixed(1) + "% and currently has " + bots[1].wins + " wins.";
+  document.getElementById("boltWins").innerHTML = "Bolt has a total win rate of " + boltWinRate.toFixed(1) + "% and currently has " + bots[2].wins + " wins.";
 }

@@ -3,7 +3,6 @@ let lastPlayer: string;
 
 
 function nameChoice() {
-  console.log( "namechoice" + lastPlayer)
   let playerExists: boolean = false;
   getLastPlayersName();
   showGreeting();
@@ -78,9 +77,9 @@ function addToLS(player: PlayerObjct) {
 
 
 
-//OBS Nedan funkar endast om man ej laddar om sidan/klickar på hemknappen.
 /**
- * Gets the latest players name to put as autofill in the inputfield
+ * Gets the latest players name to put as autofill in the inputfield.
+ * ONLY WORKS IF YOU DONT RELOAD THE PAGE/ PRESS HOME BUTTON
  */
 function getLastPlayersName() {
   if (lastPlayer === undefined) {

@@ -1,6 +1,5 @@
 /** Checks which answer was the right one */
 function checkWhoWon() {
-  console.log(chosenBots)
   if (firstAnswerMade && !playerAnswerMade && !thirdAnswerMade) {
     setTimeout(drawWinnerScreen, 1500, chosenBots[0]);
   } else if (firstAnswerMade && playerAnswerMade && !thirdAnswerMade) {
@@ -17,7 +16,6 @@ function checkWhoWon() {
 
 /** Draws winnermodal and the right lottie-animation */
 function drawWinnerScreen(winner: string) {
-  console.log( "winner" + lastPlayer)
   document.getElementById("winner").style.display = "none";
   document.getElementById("playerWinner").style.display = "none";
 
@@ -99,13 +97,6 @@ function hideGamePlay() {
      answers.removeChild(answers.firstChild);}
 }
 
-/** Gets most recent player from localStorage */
-// function getPlayerName() {
-//   const players: Array<Object> = JSON.parse(localStorage.getItem("players"));
-//   const number = players.length - 1; //-1 to get the right indexnumber
-//   return players[number].name; //Looks like an error but works fine
-// }
-
 function saveBotWinsToLS() {
   localStorage.setItem("bots", JSON.stringify(bots));
 }
@@ -144,7 +135,6 @@ function updateGamesPlayed() {
 }
 
 function updatePlayerGamesPlayed() {
-  console.log("Games playedddddd")
   const playersLS: Array<PlayerObjct> = JSON.parse(localStorage.getItem("players"));
   for (let i = 0; i < playersLS.length; i++) {
     if (playersLS[i].name === lastPlayer) {
@@ -164,10 +154,4 @@ function updatePlayerStats() {
       }
     }
   }
-
-  // const number = players.length - 1; //-1 to get the right indexnumber
-
-  // //Replaces the object with a new object with same name but updated ''amountofGuesses''
-  // players.splice(number, 1, {name: getPlayerName(), amountOfGuesses: amountOfGuesses, gamesPlayed: 0})
-  // localStorage.setItem("players", JSON.stringify(players));
 }

@@ -33,7 +33,6 @@ const submitBtn: HTMLButtonElement = document.createElement("button");
 let amountOfGuesses: number = 0;
 
 function drawGame() {
-  console.log( "Gameplay" + lastPlayer)
   minGuess = 0;
   maxGuess = 100;
   correctGuessMade = false;
@@ -138,9 +137,9 @@ let correctGuessMade: boolean;
 
 // the logic for how the rounds works----
 function gameRound() {
-  console.log(botGuessValue);
-  console.log("maxguess: " + maxGuess);
-  console.log("minguess: " + minGuess);
+  // console.log(botGuessValue);
+  // console.log("maxguess: " + maxGuess);
+  // console.log("minguess: " + minGuess);
   //If someone wins the gameround breaks/ends
   if (correctGuessMade === true) {
     return;
