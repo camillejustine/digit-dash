@@ -76,7 +76,7 @@ function drawSlider() {
   inputWrapper.appendChild(slider);
   inputWrapper.appendChild(sliderValue);
   inputWrapper.appendChild(submitBtn);
-  inputWrapper.style.height = "10rem";
+  inputWrapper.style.height = "8rem";
 
   //updates the value when you move the slider
   slider.oninput = () => {
