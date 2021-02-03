@@ -19,7 +19,23 @@ function welcomeScreen() {
   document.getElementById(bubbleID[0]).style.visibility = "visible";
   document.getElementById(bubbleID[0]).style.textAlign = "center";
   setElementContent(bubbleTextID[0], "Welcome");
-  setTimeout(loadMain, 4000);
+
+  const enterBtn: HTMLButtonElement = document.getElementById(bubbleID[3]);
+
+  enterBtn.style.visibility = "visible";
+  enterBtn.style.textAlign = 'center';
+  enterBtn.style.backgroundImage =
+  "url(../assets/imgs/bubbleBR-button.png)";
+  setElementContent(bubbleTextID[3], "Enter");
+
+  enterBtn.onclick = ()=> {
+    loadMain();
+    backgroundMusic.volume = 0.1;
+    backgroundMusic.play();
+    playSound(0.2, "./assets/sound/load.mp3");
+  }
+
+  // setTimeout(loadMain, 4000);
 
   //To be added:
   //"DIGIT DASH" text
@@ -69,8 +85,6 @@ function loadMain(): void {
         "url(../assets/imgs/bubbleBR-button.png)";
       playBubble.onclick = () => {
         playSound(0.2, "./assets/sound/load.mp3");
-        backgroundMusic.volume = 0.1;
-        backgroundMusic.play();
         removeBubbles();
         nameChoice();
       };
