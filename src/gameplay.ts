@@ -369,7 +369,7 @@ function playerGuess() {
       hideAnswerBubbles();
       document.getElementById(
         "answer2"
-      ).style.backgroundImage = `url("../assets/imgs/bubbleTR.png")`;
+      ).style.backgroundImage = `url("../assets/imgs/answerBubble.png")`;
       lastAnswerGiven = guessValue;
       updateAnswers("answer2", String(guessValue));
       gameRound();
