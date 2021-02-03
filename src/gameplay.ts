@@ -16,11 +16,11 @@ const bubblePhrases: string[] = [
   "💭💭💭",
   "⚙⚙⚙",
   "🤖🤖🤖",
-  "Beep boop!",
+  "Beep!",
   "Loading...",
-  "Computing...",
+  "Computing.",
   "💾💾💾",
-  "0100100 011011",
+  "011011",
 ];
 // slider and its value
 const slider: HTMLInputElement = document.createElement("input");
