@@ -25,13 +25,13 @@ function welcomeScreen() {
   enterBtn.style.visibility = "visible";
   enterBtn.style.textAlign = 'center';
   enterBtn.style.backgroundImage =
-  "url(../assets/imgs/bubbleBR-button.png)";
+    "url(../assets/imgs/bubbleBR-button.png)";
+    enterBtn.classList.add('cursorPointer');
   setElementContent(bubbleTextID[3], "Enter");
 
-  enterBtn.onclick = ()=> {
+  enterBtn.onclick = () => {
     loadMain();
-    backgroundMusic.volume = 0.1;
-    backgroundMusic.play();
+
     playSound(0.2, "./assets/sound/load.mp3");
   }
 
@@ -50,6 +50,9 @@ function playSound(volume: number, path: string) {
 }
 
 function loadMain(): void {
+  backgroundMusic.volume = 0.1;
+  backgroundMusic.play();
+
   document.body.style.background = "white";
   for (let index = 0; index < mainText.length; index++) {
     setElementContent(bubbleTextID[index], mainText[index]);
