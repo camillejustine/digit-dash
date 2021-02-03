@@ -1,5 +1,3 @@
-//Variables
-
 //The number you have to guess
 let randomNumber: number;
 let lastAnswerGiven: number;
@@ -24,7 +22,7 @@ const bubblePhrases: string[] = [
   "💾💾💾",
   "0100100 011011",
 ];
-// the slider and its value
+// slider and its value
 const slider: HTMLInputElement = document.createElement("input");
 let sliderValue: HTMLParagraphElement = document.createElement("p");
 //submit button
@@ -50,8 +48,6 @@ function drawGame() {
     bubblePhrases[Math.floor(Math.random() * (0 + bubblePhrases.length) + 0)]
   );
   gameRound();
-
-  //   hideAnswerBubbles();
 }
 
 function drawSlider() {
@@ -66,11 +62,6 @@ function drawSlider() {
   submitBtn.textContent = "Guess";
   submitBtn.classList.add("guessBtn");
   submitBtn.disabled = true;
-  //Value from slider
-  //   sliderValue.innerText = slider.value;
-  //   sliderValue.id = "sliderValue";
-
-  // target bubble instead
 
   // Adds the elements to the wrapper
   inputWrapper.appendChild(slider);
@@ -135,12 +126,8 @@ let guessValue: number;
 let answerTime: number;
 let correctGuessMade: boolean;
 
-// the logic for how the rounds works----
+// the logic for how the rounds works
 function gameRound() {
-  // console.log(botGuessValue);
-  // console.log("maxguess: " + maxGuess);
-  // console.log("minguess: " + minGuess);
-  //If someone wins the gameround breaks/ends
   if (correctGuessMade === true) {
     return;
   }
@@ -182,7 +169,7 @@ function gameRound() {
       gameRound();
     }, answerTime);
 
-    // spelare tur
+    //player
   } else if (firstAnswerMade && !playerAnswerMade && !thirdAnswerMade) {
     document.getElementById(
       "answer2"

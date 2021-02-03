@@ -22,7 +22,6 @@ if (localStorage.getItem("bots") == null) {
 
 const bubbleTextID: string[] = ["textTL", "textTR", "textBL", "textBR"];
 const bubbleID: string[] = ["bubbleTL", "bubbleTR", "bubbleBL", "bubbleBR"];
-// const bubbleButtonID: string[] = ['bubbleTL-button', 'bubbleTR-button', 'bubbleBL-button', 'bubbleBR-button'];
 
 const inputWrapper: HTMLElement = document.getElementById("inputField");
 

@@ -5,7 +5,7 @@ function nameChoice() {
   let playerExists: boolean = false;
   showGreeting();
   showNameInput();
-  // init onclick event
+
   document.getElementById("userInput").addEventListener("keydown", (event) => {
     if (event.key === "Enter") {
       let name: string = nameInput.value;
@@ -36,7 +36,8 @@ function nameChoice() {
           addToLS(player);
         }
       }
-      // render new frame
+
+      // render lobby
       removeBubbles();
       nameInput.remove();
       lobby();
