@@ -20,7 +20,7 @@ function welcomeScreen() {
   document.getElementById(bubbleID[0]).style.textAlign = "center";
   setElementContent(bubbleTextID[0], "Welcome");
 
-  const enterBtn: HTMLButtonElement = document.getElementById(bubbleID[3]);
+  const enterBtn: HTMLElement = document.getElementById(bubbleID[3]);
 
   enterBtn.style.visibility = "visible";
   enterBtn.style.textAlign = 'center';

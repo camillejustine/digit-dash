@@ -65,7 +65,7 @@ function drawSlider() {
     inputWrapper.appendChild(slider);
     inputWrapper.appendChild(sliderValue);
     inputWrapper.appendChild(submitBtn);
-    inputWrapper.style.height = "10rem";
+    inputWrapper.style.height = "8rem";
     //updates the value when you move the slider
     slider.oninput = function () {
         document.getElementById("answer2").innerText = slider.value;
@@ -503,7 +503,19 @@ function welcomeScreen() {
     document.getElementById(bubbleID[0]).style.visibility = "visible";
     document.getElementById(bubbleID[0]).style.textAlign = "center";
     setElementContent(bubbleTextID[0], "Welcome");
-    setTimeout(loadMain, 4000);
+    var enterBtn = document.getElementById(bubbleID[3]);
+    enterBtn.style.visibility = "visible";
+    enterBtn.style.textAlign = 'center';
+    enterBtn.style.backgroundImage =
+        "url(../assets/imgs/bubbleBR-button.png)";
+    setElementContent(bubbleTextID[3], "Enter");
+    enterBtn.onclick = function () {
+        loadMain();
+        backgroundMusic.volume = 0.1;
+        backgroundMusic.play();
+        playSound(0.2, "./assets/sound/load.mp3");
+    };
+    // setTimeout(loadMain, 4000);
     //To be added:
     //"DIGIT DASH" text
     // More smooth transition to next screen(?)s
@@ -546,8 +558,6 @@ function loadMain() {
                 "url(../assets/imgs/bubbleBR-button.png)";
             playBubble.onclick = function () {
                 playSound(0.2, "./assets/sound/load.mp3");
-                backgroundMusic.volume = 0.1;
-                backgroundMusic.play();
                 removeBubbles();
                 nameChoice();
             };
@@ -630,7 +640,6 @@ var nameInput = document.createElement("input");
 var lastPlayer;
 function nameChoice() {
     var playerExists = false;
-    getLastPlayersName();
     showGreeting();
     showNameInput();
     // init onclick event
@@ -638,6 +647,7 @@ function nameChoice() {
         if (event.key === "Enter") {
             var name_1 = nameInput.value;
             lastPlayer = name_1;
+            localStorage.setItem("lastPlayer", lastPlayer);
             var players_1 = JSON.parse(localStorage.getItem("players"));
             if (players_1 === null) {
                 var player = {
@@ -682,7 +692,7 @@ function showNameInput() {
     nameInput.autocomplete = "off";
     inputWrapper.appendChild(nameInput);
     nameInput.focus();
-    nameInput.value = getLastPlayersName(); //Autofills the inputfield with the latest players name
+    nameInput.value = localStorage.getItem("lastPlayer"); //Autofills the inputfield with the latest players name
 }
 /**
  * Adds objects to an array in LS
@@ -693,18 +703,6 @@ function addToLS(player) {
     }
     players.push(player);
     localStorage.setItem("players", JSON.stringify(players));
-}
-/**
- * Gets the latest players name to put as autofill in the inputfield.
- * ONLY WORKS IF YOU DONT RELOAD THE PAGE/ PRESS HOME BUTTON
- */
-function getLastPlayersName() {
-    if (lastPlayer === undefined) {
-        return "";
-    }
-    else {
-        return lastPlayer;
-    }
 }
 /** Checks which answer was the right one */
 function checkWhoWon() {
@@ -750,7 +748,7 @@ function drawWinnerScreen(winner) {
         updatePlayerStats();
         document.getElementById("playerWinner").style.display = "block";
         document.getElementById("playerWinner").style.backgroundImage = 'url("../assets/imgs/playerPlayer.png")';
-        document.getElementById("winnerName").innerHTML = lastPlayer + ", you won!";
+        document.getElementById("winnerName").innerHTML = localStorage.getItem("lastPlayer") + ", you won!";
     }
     setTimeout(restartGame, 3500);
     updatePlayerGamesPlayed();
