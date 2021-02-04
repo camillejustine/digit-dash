@@ -3,9 +3,10 @@
 #ruleModal {
   display: flex;
   justify-content: center;
+  align-items: flex-start;
   opacity: 0;
   transition: all 0.35s;
-  max-width: 25rem;
+  height: 40rem;
 }
 
 .rules {
@@ -43,7 +44,6 @@
 }
 
 .ruleTitle {
-  margin-top: 3rem;
   font-size: 1.1rem;
 }
 
@@ -54,10 +54,9 @@
 #highScoresModal {
   display: flex;
   justify-content: center;
+  align-items: flex-start;
   opacity: 0;
   transition: all 0.35s;
-  width: 23rem;
-  max-width: 23rem;
 }
 
 .highScores {
@@ -71,6 +70,12 @@
     rgba(238, 174, 202, 0.9) 0%,
     rgba(148, 187, 233, 0.623) 100%
   );
+
+
+  opacity: 0;
+  transition: all 0.35s;
+  width: 22.8rem;
+  height: 40rem;
 
   backdrop-filter: blur(1rem);
   transition: block 4s;
@@ -96,36 +101,35 @@
   align-items: center;
 }
 
-#heading > p {
-  /* Här kan man styla rubrikeeeen */
-}
 
 .player {
   display: flex;
   flex-direction: row;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
+  text-align: left;
+  padding: 0 1.5rem;
 }
 
-.player > p {
-  /* Här stylar man spelarnas teeext */
-}
 
 #emptyHighscore {
-  /* Det här är texten som visas om det ej finns några highscore att visa upp */
   display: none;
 }
 
 /*#endregion */
 
-/*region LOBBY MODAL BOT INFORMATION */
+/*#region LOBBY MODAL BOT INFORMATION */
+
+
 
 #botModal {
   display: flex;
   justify-content: center;
+  align-items: flex-start;
   opacity: 0;
   transition: all 0.35s;
-  max-width: 25rem;
+  width: 22.8rem;
+  
 }
 
 .botModal {
@@ -143,6 +147,7 @@
   transition: block 4s;
   border-radius: 2rem;
   margin: 0 0.3rem 0 0.3rem;
+  height: 97%;
 }
 
 #botClose {
@@ -157,13 +162,9 @@
   color: white;
   text-align: center;
   padding-top: 1rem;
-  height: 45rem;
 }
 
-.botListWrapper {
-  padding-top: 0rem;
-  padding-bottom: 4rem;
-}
+
 
 .botWrapper {
   display: flex;
@@ -195,12 +196,79 @@
 }
 
 .botTextWrapper p {
-  font-size: 0.2rem;
+  font-size: .9rem;
   margin-block-end: 0rem;
   margin-block-start: 0rem;
   text-align: center;
   padding: 0.3rem 0 0 0;
   letter-spacing: 0.1;
+}
+
+/*#endregion */
+
+/*#region WINNER MODAL */
+#winnerModal {
+  opacity: 0;
+  transition: all 0.35s;
+  width: 22.8rem;
+}
+
+.winnerScreen {
+  visibility: hidden;
+  position: fixed;
+  z-index: 10;
+  margin: 0 .3rem;
+  top: 1rem;
+  overflow: auto;
+  background: radial-gradient(
+    circle,
+    rgba(238, 174, 202, 0.623) 0%,
+    rgba(148, 187, 233, 0.623) 100%
+  );
+  backdrop-filter: blur(1rem);
+  transition: block 4s;
+  border-radius: 1rem;
+
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+}
+
+.winnerContent {
+  /* margin: 1% auto; /* 1% from the top and centered */
+  /* padding: 1rem; */
+  color: white;
+  text-align: center;
+  display: flex;
+
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.winnerContent > p {
+  font-size: 2rem;
+  margin: 0;
+  padding: 0;
+}
+
+.winnerContent > h6 {
+  font-size: 1.5rem;
+  padding: 0rem;
+  margin: 0.5rem;
+}
+
+#winner {
+  display: none;
+  height: 15rem;
+}
+
+#playerWinner {
+  height: 20rem;
+  width: 20rem;
+  background-image: url("../assets/imgs/playerPlayer.png");
+  background-size: cover;
+  display: none;
 }
 
 /*#endregion */
@@ -214,12 +282,12 @@
   font-weight: bold;
   cursor: pointer;
   opacity: 1;
-  margin-bottom: 1rem;
   right: 1;
 }
 
 .modalTop {
   display: flex;
   flex-direction: row-reverse;
-  justify-content: center;
+  justify-content: flex-start;
+  margin: 0 2rem 0 0;
 }
