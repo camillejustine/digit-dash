@@ -246,9 +246,6 @@ function updateMinMax() {
     minGuess = lastAnswerGiven + 1;
   }
 
-  console.log(minGuess);
-  console.log(maxGuess);
-
 }
 function botAnswer(index: number) {
   let IQRange: number = checkWhichBot(index);
@@ -346,7 +343,6 @@ function drawBubbles() {
 //sets the random number that the players and bots tries to guess
 function setRandomNumber() {
   randomNumber = Math.floor(Math.random() * (0 + 100) + 0);
-  console.log("number:" + randomNumber);
 }
 
 function playerGuess() {
