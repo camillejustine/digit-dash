@@ -52,6 +52,9 @@ function drawGame() {
 
 function drawSlider() {
   // Slider
+  maxGuess = 100;
+  minGuess = 0;
+
   slider.type = "range";
   slider.min = "0";
   slider.max = "100";
@@ -65,7 +68,7 @@ function drawSlider() {
 
   // Adds the elements to the wrapper
   inputWrapper.appendChild(slider);
-  
+
   inputWrapper.appendChild(submitBtn);
   inputWrapper.style.height = "5rem";
 
@@ -155,17 +158,18 @@ function gameRound() {
     }, 1500);
 
     setTimeout(() => {
-      lastAnswerGiven = botGuessValue;
 
       document.getElementById(
         "answer1"
       ).style.backgroundImage = `url("../assets/imgs/answerBubble.png")`;
       botAnswer(0);
+      lastAnswerGiven = botGuessValue;
       firstAnswerMade = true;
       compareAnswer(botGuessValue, randomNumber);
       botOneAnswer = botGuessValue;
       hideAnswerBubbles();
       updateAnswers("answer1", String(botOneAnswer));
+      updateMinMax();
       gameRound();
     }, answerTime);
 
@@ -179,6 +183,7 @@ function gameRound() {
     submitBtn.disabled = false;
     playerGuess();
     playerAnswerMade = true;
+    updateMinMax();
 
     //bot 2
   } else if (
@@ -205,13 +210,16 @@ function gameRound() {
         "answer3"
       ).style.backgroundImage = `url("../assets/imgs/answerBubble.png")`;
       botAnswer(2);
+      lastAnswerGiven = botGuessValue;
       thirdAnswerMade = true;
       compareAnswer(botGuessValue, randomNumber);
       botTwoAnswer = botGuessValue;
       lastAnswerGiven = botGuessValue;
       hideAnswerBubbles();
       updateAnswers("answer3", String(botTwoAnswer));
+      updateMinMax();
       gameRound();
+
     }, answerTime);
   } else {
     firstAnswerMade = false;
@@ -230,18 +238,25 @@ function drawTimer(time: number) {
 // Answers from bots
 let minGuess: number;
 let maxGuess: number;
-function botAnswer(index: number) {
-  let IQRange: number = checkWhichBot(index);
 
+function updateMinMax() {
   if (lastAnswerGiven > randomNumber && lastAnswerGiven < maxGuess) {
     maxGuess = lastAnswerGiven - 1;
   } else if (lastAnswerGiven < randomNumber && lastAnswerGiven > minGuess) {
     minGuess = lastAnswerGiven + 1;
   }
 
+  console.log(minGuess);
+  console.log(maxGuess);
+
+}
+function botAnswer(index: number) {
+  let IQRange: number = checkWhichBot(index);
+  updateMinMax();
+
   botGuessValue = Math.floor(
-    Math.random() * (randomNumber + IQRange - (randomNumber - IQRange)) +
-      (randomNumber - IQRange)
+    Math.random() * ((randomNumber + IQRange) - (randomNumber - IQRange)) +
+    (randomNumber - IQRange)
   );
   while (
     botGuessValue > 100 ||
@@ -250,8 +265,8 @@ function botAnswer(index: number) {
     botGuessValue < minGuess
   ) {
     botGuessValue = Math.floor(
-      Math.random() * (randomNumber + IQRange - (randomNumber - IQRange)) +
-        (randomNumber - IQRange)
+      Math.random() * ((randomNumber + IQRange) - (randomNumber - IQRange)) +
+      (randomNumber - IQRange)
     );
   }
 
@@ -311,7 +326,7 @@ function compareAnswer(answer: number, randomNumber: number) {
     setTimeout(() => {
       document.getElementById(bubbleID[3]).style.visibility = "hidden";
     }, 2000);
-    
+
   }
 }
 
@@ -346,6 +361,7 @@ function playerGuess() {
     compareAnswer(guessValue, randomNumber);
 
     lastAnswerGiven = guessValue;
+    updateMinMax();
     document.getElementById(
       "answer2"
     ).style.backgroundImage = `url("../assets/imgs/answerBubble.png")`;
@@ -371,6 +387,7 @@ function playerGuess() {
         "answer2"
       ).style.backgroundImage = `url("../assets/imgs/answerBubble.png")`;
       lastAnswerGiven = guessValue;
+      updateMinMax();
       updateAnswers("answer2", String(guessValue));
       gameRound();
       clearInterval(timer);
