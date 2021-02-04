@@ -356,15 +356,39 @@ lottie-player {
   display: none;
 }
 
-.volIcon {
-  padding: 1rem 1rem 1rem 0.2rem;
+.iconWrapper {
+  justify-content: flex-end;
+  margin: 1rem;
 }
+
+.volIcon {
+  background-image: url("../assets/imgs/volIcon.png");
+  background-size: cover;
+  height: 2rem;
+  width: 2.2rem;
+  margin: 0 .5rem
+}
+
+.noVolIcon {
+  background-image: url("../assets/imgs/noVolIcon.png");
+  background-size: cover;
+  height: 2.2rem;
+  width: 2.2rem;;
+  margin: 0 .5rem;
+}
+
 .hideVolIcon {
   display: none;
 }
+
 .homeIcon {
-  padding: 1rem 0.2rem 1rem 1rem;
+  background-image: url("../assets/imgs/homeIcon.png");
+  background-size: cover;
+  height: 2.2rem;
+  width: 2.2rem;
+  margin: 0 .5rem;
 }
+
 .volIcon:hover,
 .homeIcon:hover {
   cursor: pointer;
