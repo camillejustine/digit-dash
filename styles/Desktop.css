@@ -79,7 +79,8 @@
   }
 
   .botModal {
-    max-width: 35rem !important;
+    height: 55%;
+    width: 30rem;
   }
 
   .botModalContent {
