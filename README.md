@@ -10,6 +10,8 @@ Created by [Andreas Stanggren](https://github.com/stanggren), [Alexander Liljeda
 
 Our task was to create a number guessing game where the player could compete against bots. During the project we worked with agile methods and Scrum.
 
+[Try it out here](https://vibrant-engelbart-e41f91.netlify.app/)
+
 ## Description
 
 The player chooses between 1 or 2 bots to compete against. When the game starts each contestant takes turn guessing for a number between 1 and 100 that the game master (Kitt) has in mind.
