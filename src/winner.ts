@@ -16,7 +16,9 @@ function checkWhoWon() {
 
 /** Draws winnermodal and the right lottie-animation */
 function drawWinnerScreen(winner: string) {
-  document.getElementById("winner").style.display = "none";
+  // since there is no types for lottie player at the moment, this is set to "any"
+  const winnerScreen: any = document.getElementById("winner");
+  winnerScreen.style.display = "none";
   document.getElementById("playerWinner").style.display = "none";
 
   const modal: HTMLElement | null = document.getElementById("winnerModal");
@@ -24,25 +26,33 @@ function drawWinnerScreen(winner: string) {
   modal.style.visibility = "visible";
 
   if (winner === "Gadget") {
-    document.getElementById("winner").style.display = "block";
-    document.getElementById("winner").load("https://assets6.lottiefiles.com/private_files/lf30_okvpyhqk.json");
+    winnerScreen.style.display = "block";
+    winnerScreen.load(
+      "https://assets6.lottiefiles.com/private_files/lf30_okvpyhqk.json"
+    );
     document.getElementById("winnerName").innerHTML = "GADGET WON!";
     addWinToBotStat(1);
   } else if (winner === "Clank") {
-    document.getElementById("winner").style.display = "block";
-    document.getElementById("winner").load("https://assets3.lottiefiles.com/private_files/lf30_mvcyn7ao.json");
+    winnerScreen.style.display = "block";
+    winnerScreen.load(
+      "https://assets3.lottiefiles.com/private_files/lf30_mvcyn7ao.json"
+    );
     document.getElementById("winnerName").innerHTML = "CLANK WON!";
     addWinToBotStat(0);
   } else if (winner === "Bolt") {
-    document.getElementById("winner").style.display = "block";
-    document.getElementById("winner").load("https://assets5.lottiefiles.com/private_files/lf30_skjhneze.json");
+    winnerScreen.style.display = "block";
+    winnerScreen.load(
+      "https://assets5.lottiefiles.com/private_files/lf30_skjhneze.json"
+    );
     document.getElementById("winnerName").innerHTML = "BOLT WON!";
     addWinToBotStat(2);
   } else if (winner === "Player") {
     updatePlayerStats();
     document.getElementById("playerWinner").style.display = "block";
-    document.getElementById("playerWinner").style.backgroundImage ='url("../assets/imgs/playerPlayer.png")';
-    document.getElementById("winnerName").innerHTML = localStorage.getItem("lastPlayer") + ", you won!";
+    document.getElementById("playerWinner").style.backgroundImage =
+      'url("../assets/imgs/playerPlayer.png")';
+    document.getElementById("winnerName").innerHTML =
+      localStorage.getItem("lastPlayer") + ", you won!";
   }
   setTimeout(restartGame, 3500);
   updatePlayerGamesPlayed();
@@ -79,22 +89,25 @@ function hideGamePlay() {
   updateGamesPlayed();
   removeBubbles();
   removeBubble(bubbleID[0], bubbleTextID[0]);
-  
+
   //Hides inputfield and button
   let inputAndButton = document.getElementById("inputField");
-  while (inputAndButton.firstChild){
-  inputAndButton.removeChild(inputAndButton.firstChild);}
-  
+  while (inputAndButton.firstChild) {
+    inputAndButton.removeChild(inputAndButton.firstChild);
+  }
+
   // hides the bots
   let bots = document.getElementById("botWrapper");
-  while (bots.firstChild){
-    bots.removeChild(bots.firstChild);}
+  while (bots.firstChild) {
+    bots.removeChild(bots.firstChild);
+  }
   chosenBots = [];
   //hides the answer-bubbles
   let answers = document.getElementById("answerWrapper");
 
-  while (answers.firstChild){
-     answers.removeChild(answers.firstChild);}
+  while (answers.firstChild) {
+    answers.removeChild(answers.firstChild);
+  }
 }
 
 function saveBotWinsToLS() {
@@ -135,7 +148,9 @@ function updateGamesPlayed() {
 }
 
 function updatePlayerGamesPlayed() {
-  const playersLS: Array<PlayerObjct> = JSON.parse(localStorage.getItem("players"));
+  const playersLS: Array<PlayerObjct> = JSON.parse(
+    localStorage.getItem("players")
+  );
   for (let i = 0; i < playersLS.length; i++) {
     if (playersLS[i].name === lastPlayer) {
       playersLS[i].gamesPlayed++;
@@ -145,10 +160,15 @@ function updatePlayerGamesPlayed() {
 }
 
 function updatePlayerStats() {
-  const playersLS: Array<PlayerObjct> = JSON.parse(localStorage.getItem("players"));
+  const playersLS: Array<PlayerObjct> = JSON.parse(
+    localStorage.getItem("players")
+  );
   for (let i = 0; i < playersLS.length; i++) {
     if (playersLS[i].name === lastPlayer) {
-      if (playersLS[i].amountOfGuesses > amountOfGuesses || playersLS[i].amountOfGuesses === 0) {
+      if (
+        playersLS[i].amountOfGuesses > amountOfGuesses ||
+        playersLS[i].amountOfGuesses === 0
+      ) {
         playersLS[i].amountOfGuesses = amountOfGuesses;
         localStorage.setItem("players", JSON.stringify(playersLS));
       }
