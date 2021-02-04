@@ -79,7 +79,7 @@
   }
 
   .botModal {
-    height: 55%;
+    height: 40rem;
     width: 30rem;
   }
 
@@ -133,25 +133,24 @@
   }
 
   #userInput,
-#inputField {
-  height: 2.8rem;
-}
+  #inputField {
+    height: 2.8rem;
+  }
 
-.botWrapper img {
-  width: 8rem;
-  height: 8rem;
-}
+  .botWrapper img {
+    width: 8rem;
+    height: 8rem;
+  }
 
-.botTextWrapper p {
-  font-size: 0.7rem;
-  letter-spacing: 1%;
-}
+  .botTextWrapper p {
+    font-size: 0.7rem;
+    letter-spacing: 1%;
+  }
 
-
-.highScores, .highScoresModal {
-  transition: all 0.35s;
-  width: 30rem;
-  height: 40rem;
-}
-
+  .highScores,
+  .highScoresModal {
+    transition: all 0.35s;
+    width: 30rem;
+    height: 40rem;
+  }
 }
